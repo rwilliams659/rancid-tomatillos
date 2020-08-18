@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './Header'
-import Movies from './Movies'
+import Header from '../Header/Header'
+import Movies from '../Movies/Movies'
 
 class App extends Component {
   constructor() {
