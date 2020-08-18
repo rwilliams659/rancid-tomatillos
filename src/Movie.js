@@ -1,7 +1,12 @@
 import React from 'react'
 
-const Movie = () => {
-  return <h1>Hello!!</h1>
+const Movie = ({movie}) => {
+  return (
+    <section className='Movie'>
+      <h3>{movie.title}</h3>
+      <p>{movie.average_rating}</p>
+    </section>
+  )
 }
 
 export default Movie
