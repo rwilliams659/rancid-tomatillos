@@ -1,10 +1,11 @@
 import React from 'react'
+import './Movie.css'
 
 const Movie = ({movie}) => {
   return (
-    <section className='Movie'>
-      <h3>{movie.title}</h3>
-      <p>{movie.average_rating}</p>
+    <section className='Movie' style={{ backgroundImage: `url(${movie.backdrop_path})`}}>
+      <p className="movie-rating">{movie.average_rating} / 10</p>
+      <h3 className='movie-title'>{movie.title}</h3>
     </section>
   )
 }
