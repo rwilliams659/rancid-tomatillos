@@ -3,24 +3,26 @@
   width: 70%; 
   border-radius: .5em; 
   background-size: cover; 
+  margin-bottom: 4em; 
+  border: .5px solid white; 
 }
 
 .movie-rating {
   margin-top: 0;
   float: right; 
   padding: .8em; 
-  font-size: 1.2em; 
+  font-size: 1.4em; 
   font-style: bolder; 
   background-color: white; 
   opacity: 0.9;
-  border-radius: 0em .4em 0em .5em; 
+  border-radius: 0em .3em 0em .5em; 
 }
 
 .movie-title {
-  font-size: 2.3em;
+  font-size: 2.5em;
   text-align: center; 
   margin: auto;
-  padding-top: 2.5em;
+  padding-top: 2.3em;
   color: white; 
   text-shadow: 2px 2px #960317;
 }
