@@ -1,11 +1,7 @@
-/* * {
-  border: 1px solid lightblue;
-} */
-
 .Header {
   display: flex;
   width: 100%;
-  height: 14vh;
+  height: 8em;
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid white;
@@ -22,6 +18,7 @@ h1 {
 button {
   align-self: flex-end;
   margin-right: 2em;
+  margin-top: 2.5em; 
   border-radius: 10%;
   border-width: thin;
 }
