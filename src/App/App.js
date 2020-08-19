@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       movies: [ ],
       error: '',
-      view: 'homepage'
+      view: 'homepage',
+      userId: null
     }
   }
 
@@ -40,7 +41,7 @@ class App extends Component {
         }
 
         {this.state.view === 'login' && 
-          <Login />
+          <Login updateUserId={this.updateUserId}/>
         }
       </div>
     )
@@ -49,6 +50,11 @@ class App extends Component {
   showLogin = () => {
     this.setState({view: 'login'})
   }
+
+  updateUserId = (id) => {
+    this.setState({userId: id})
+  }
+
 }
 
 export default App;

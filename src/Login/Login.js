@@ -25,7 +25,7 @@ class Login extends Component {
           name='password'
           value={this.state.password}
           onChange={this.updateUserLogin}/>
-        <button
+        <button className='login-form-btn'
           onClick={this.validateLogin}
           >Log in
         </button>
@@ -52,8 +52,9 @@ class Login extends Component {
       },
       body: JSON.stringify(loginInfo)
     })
-      .then(response => console.log(response.status))
-      .catch(error => console.log(error))
+    .then(response => response.json())
+    .then(response => this.props.updateUserId(response.user.id))
+    .catch(error => console.log(error))
   }
 
 }
