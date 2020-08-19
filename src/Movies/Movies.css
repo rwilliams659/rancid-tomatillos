@@ -1,0 +1,14 @@
+
+.Movies {
+  text-align: center;
+  background: white;
+  min-height: 300px;
+  padding: 25px;
+  display: grid;
+  flex-grow: 3;
+  font-size: 14px;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 70px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
