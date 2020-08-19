@@ -33,6 +33,29 @@ class Login extends Component {
     )
   }
 
+  updateUserLogin = event => {
+    const inputName = event.target.name;
+    const inputValue = event.target.value; 
+    this.setState({[inputName]: inputValue})
+  }
+
+  validateLogin = event => {
+    event.preventDefault();
+    const loginInfo = {
+      email: this.state.email,
+      password: this.state.password
+    }
+    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/login', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(loginInfo)
+    })
+      .then(response => console.log(response.status))
+      .catch(error => console.log(error))
+  }
+
 }
 
 
