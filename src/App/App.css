@@ -1,4 +1,8 @@
 .App {
-  background-color:#090a0a; 
   height: 100vh;
+}
+
+.error-msg {
+  color: white; 
+  text-align: center;
 }
