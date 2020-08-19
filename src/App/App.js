@@ -7,7 +7,8 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      movies: [ ]
+      movies: [ ],
+      error: ''
     }
   }
 
@@ -15,6 +16,10 @@ class App extends Component {
     fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
       .then(response => response.json())
       .then(movies => this.setState({movies: movies.movies}))
+      .catch(error => {
+        console.log(error);
+        this.setState({error: 'Oops! Something went wrong!'})
+      })
   }
 
   render() {
@@ -22,6 +27,9 @@ class App extends Component {
       <div className='App'>
         <Header />
         <main>
+          {this.state.error && 
+          <h3 className='error-msg'>{this.state.error}</h3>
+          }
           <Movies movies={this.state.movies} />
         </main>
       </div>

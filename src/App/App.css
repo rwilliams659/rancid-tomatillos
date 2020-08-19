@@ -1,3 +1,8 @@
 .App {
   height: 100vh;
 }
+
+.error-msg {
+  color: white; 
+  text-align: center;
+}
