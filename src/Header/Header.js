@@ -9,8 +9,8 @@ class Header extends Component {
   render() {
     return (
       <header className='Header'>
-        <h1>Rancid Tomatillos</h1>
         <button>Login</button>
+        <h1>Rancid Tomatillos</h1>
       </header>
     )
   }

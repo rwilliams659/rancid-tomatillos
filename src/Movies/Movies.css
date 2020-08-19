@@ -1,14 +1,23 @@
 
 .Movies {
   text-align: center;
-  background: white;
   min-height: 300px;
   padding: 25px;
-  display: grid;
-  flex-grow: 3;
+  display: grid; 
   font-size: 14px;
-  grid-template-columns: repeat(4, 1fr);
-  margin-top: 70px;
-  margin-left: 10%;
-  margin-right: 10%;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  margin-top: 5em;
+}
+
+@media screen and (max-width: 1050px) {
+  .Movies {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .Movies {
+    grid-template-columns: 1fr;
+  }
 }
