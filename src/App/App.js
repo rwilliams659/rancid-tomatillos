@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from '../Header/Header'
 import Movies from '../Movies/Movies'
+import Login from '../Login/Login'
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
       movies: [ ],
-      error: ''
+      error: '',
+      view: 'homepage',
+      userId: null
     }
   }
 
@@ -25,16 +28,33 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <Header />
-        <main>
-          {this.state.error && 
-          <h3 className='error-msg'>{this.state.error}</h3>
-          }
-          <Movies movies={this.state.movies} />
-        </main>
+        <Header showLogin={this.showLogin} />
+        {this.state.view === 'homepage' && 
+          <>
+            <main>
+              {this.state.error && 
+              <h3 className='error-msg'>{this.state.error}</h3>
+              }
+              <Movies movies={this.state.movies} />
+            </main>
+          </> 
+        }
+
+        {this.state.view === 'login' && 
+          <Login updateUserId={this.updateUserId}/>
+        }
       </div>
     )
   }
+
+  showLogin = () => {
+    this.setState({view: 'login'})
+  }
+
+  updateUserId = (id) => {
+    this.setState({userId: id})
+  }
+
 }
 
 export default App;

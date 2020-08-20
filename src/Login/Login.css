@@ -1,0 +1,10 @@
+.Login {
+  display: flex;
+  flex-direction: column;
+  padding: 10% 30%; 
+  width: 40%
+}
+
+.login-form-btn {
+  align-self: center;
+}
