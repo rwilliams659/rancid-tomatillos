@@ -67,6 +67,7 @@ class Login extends Component {
     .then(response => {
       this.props.updateUserId(response.user.id)
       this.props.updateLoginStatus(true)
+      this.props.changeView('homepage')
     })
     .catch(error => {
       console.log(error);

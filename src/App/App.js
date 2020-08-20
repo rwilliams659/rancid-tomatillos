@@ -29,7 +29,11 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <Header changeView={this.changeView} />
+        <Header 
+        changeView={this.changeView}
+        loggedIn={this.state.loggedIn} 
+        updateLoginStatus={this.updateLoginStatus} 
+        />
         {this.state.view === 'homepage' && 
           <>
             <main>
@@ -45,6 +49,7 @@ class App extends Component {
           <Login 
             updateUserId={this.updateUserId}
             updateLoginStatus={this.updateLoginStatus} 
+            changeView={this.changeView}
             error={this.state.error} 
             updateError={this.updateError}
           />

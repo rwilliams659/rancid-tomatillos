@@ -7,9 +7,17 @@ class Header extends Component {
   }
 
   render() {
+    const isLoggedIn = this.props.loggedIn
     return (
       <header className='Header'>
-        <button onClick={() => {this.props.changeView('login')}}>Login</button>
+        {isLoggedIn &&
+          <button onClick={() => {
+            this.props.updateLoginStatus(false)
+            this.props.changeView('homepage')}}>Log out</button>
+        }
+        {!isLoggedIn &&
+          <button onClick={() => { this.props.changeView('login') }}>Log in</button>
+        }
         <h1>Rancid Tomatillos</h1>
       </header>
     )
