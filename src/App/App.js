@@ -41,7 +41,11 @@ class App extends Component {
         }
 
         {this.state.view === 'login' && 
-          <Login updateUserId={this.updateUserId}/>
+          <Login 
+            updateUserId={this.updateUserId} 
+            error={this.state.error} 
+            updateError={this.updateError}
+          />
         }
       </div>
     )
@@ -53,6 +57,10 @@ class App extends Component {
 
   updateUserId = (id) => {
     this.setState({userId: id})
+  }
+
+  updateError = (errorMessage) => {
+    this.setState({error: errorMessage})
   }
 
 }

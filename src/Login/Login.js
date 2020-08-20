@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './Login.css'
+import PropTypes from 'prop-types'
 
 class Login extends Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <form className='Login'>
         <input 
@@ -29,6 +31,9 @@ class Login extends Component {
           onClick={this.validateLogin}
           >Log in
         </button>
+        {this.props.error &&
+          <h3 className='error-msg'>{this.props.error}</h3>
+        }
       </form>
     )
   }
@@ -54,9 +59,17 @@ class Login extends Component {
     })
     .then(response => response.json())
     .then(response => this.props.updateUserId(response.user.id))
-    .catch(error => console.log(error))
-  }
+    .catch(error => {
+      console.log(error);
+      this.props.updateError('Invalid username or password')
+    })
 
+  }
+}
+
+Login.propTypes = {
+  updateUserId: PropTypes.func,
+  error: PropTypes.string
 }
 
 
