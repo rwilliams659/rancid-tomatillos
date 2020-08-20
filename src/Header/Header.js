@@ -13,6 +13,7 @@ class Header extends Component {
         {isLoggedIn &&
           <button onClick={() => {
             this.props.updateLoginStatus(false)
+            this.props.updateUserId(null)
             this.props.changeView('homepage')}}>Log out</button>
         }
         {!isLoggedIn &&

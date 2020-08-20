@@ -33,6 +33,7 @@ class App extends Component {
         changeView={this.changeView}
         loggedIn={this.state.loggedIn} 
         updateLoginStatus={this.updateLoginStatus} 
+        updateUserId={this.updateUserId}
         />
         {this.state.view === 'homepage' && 
           <>
