@@ -28,7 +28,7 @@ class Login extends Component {
           value={this.state.password}
           onChange={this.updateUserLogin}/>
         <button className='login-form-btn'
-          onClick={this.validateLogin}
+          onClick={this.handleLogin}
           >Log in
         </button>
         {this.props.error &&
@@ -41,11 +41,17 @@ class Login extends Component {
   updateUserLogin = event => {
     const inputName = event.target.name;
     const inputValue = event.target.value; 
-    this.setState({[inputName]: inputValue})
+    this.setState({[inputName]: inputValue}) 
+  }
+
+  resetForm = () => {
+    this.setState({
+      email: '',
+      password: ''
+    })
   }
 
   validateLogin = event => {
-    event.preventDefault();
     const loginInfo = {
       email: this.state.email,
       password: this.state.password
@@ -63,7 +69,12 @@ class Login extends Component {
       console.log(error);
       this.props.updateError('Invalid username or password')
     })
+  }
 
+  handleLogin = event => {
+    event.preventDefault();
+    this.validateLogin(event);
+    this.resetForm()
   }
 }
 
