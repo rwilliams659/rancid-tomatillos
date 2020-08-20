@@ -11,7 +11,8 @@ class App extends Component {
       movies: [ ],
       error: '',
       view: 'homepage',
-      userId: null
+      userId: null,
+      loggedIn: false
     }
   }
 
@@ -28,7 +29,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <Header showLogin={this.showLogin} />
+        <Header changeView={this.changeView} />
         {this.state.view === 'homepage' && 
           <>
             <main>
@@ -42,7 +43,8 @@ class App extends Component {
 
         {this.state.view === 'login' && 
           <Login 
-            updateUserId={this.updateUserId} 
+            updateUserId={this.updateUserId}
+            updateLoginStatus={this.updateLoginStatus} 
             error={this.state.error} 
             updateError={this.updateError}
           />
@@ -51,12 +53,16 @@ class App extends Component {
     )
   }
 
-  showLogin = () => {
-    this.setState({view: 'login'})
+  changeView = (newView) => {
+    this.setState({view: newView})
   }
 
   updateUserId = (id) => {
     this.setState({userId: id})
+  }
+
+  updateLoginStatus = (status) => {
+    this.setState({loggedIn: status})
   }
 
   updateError = (errorMessage) => {

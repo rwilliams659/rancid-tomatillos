@@ -9,7 +9,7 @@ class Header extends Component {
   render() {
     return (
       <header className='Header'>
-        <button onClick={this.props.showLogin}>Login</button>
+        <button onClick={() => {this.props.changeView('login')}}>Login</button>
         <h1>Rancid Tomatillos</h1>
       </header>
     )
