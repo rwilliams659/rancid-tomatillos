@@ -64,7 +64,11 @@ class Login extends Component {
       body: JSON.stringify(loginInfo)
     })
     .then(response => response.json())
-    .then(response => this.props.updateUserId(response.user.id))
+    .then(response => {
+      this.props.updateUserId(response.user.id)
+      this.props.updateLoginStatus(true)
+      this.props.changeView('homepage')
+    })
     .catch(error => {
       console.log(error);
       this.props.updateError('Invalid username or password')
