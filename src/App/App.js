@@ -3,6 +3,7 @@ import './App.css';
 import Header from '../Header/Header'
 import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
+import MovieDetails from '../MovieDetails/MovieDetails'
 
 class App extends Component {
   constructor() {
@@ -12,7 +13,8 @@ class App extends Component {
       error: '',
       view: 'homepage',
       userId: null,
-      loggedIn: false
+      loggedIn: false, 
+      currentMovie: null 
     }
   }
 
@@ -53,6 +55,15 @@ class App extends Component {
             changeView={this.changeView}
             error={this.state.error} 
             updateError={this.updateError}
+          />
+        }
+
+        {this.state.view === 'movie-details' &&
+          <MovieDetails 
+            poster={this.state.currentMovie.poster}
+            title={this.state.currentMovie.title}
+            releaseDate={this.state.currentMovie.releaseDate}
+            averageRating={this.state.currentMovie.averageRating}
           />
         }
       </div>
