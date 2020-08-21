@@ -19,28 +19,28 @@ describe('Header Component', () => {
     expect(heading).toBeInTheDocument();
   })
 
-  // it('should fire a function when the log in button is clicked', () => {
+  it('should fire a function when the log in button is clicked', () => {
 
-  //   const mockChangeView = jest.fn()
-  //   const mockUpdateLoginStatus = jest.fn()
-  //   const mockUpdateUserId = jest.fn()
-  //   render(<Header
-  //     changeView={jest.fn()}
-  //     loggedIn= {true}
-  //     updateLoginStatus={jest.fn()}
-  //     updateUserId={jest.fn()}
-  //   />)
-  //   const button = screen.getByRole('button');
-  //   fireEvent.click(button); 
+    const mockChangeView = jest.fn()
+    const mockUpdateLoginStatus = jest.fn()
+    const mockUpdateUserId = jest.fn()
+    render(<Header
+      changeView={mockChangeView}
+      loggedIn= {true}
+      updateLoginStatus={mockUpdateLoginStatus}
+      updateUserId={mockUpdateUserId}
+    />)
+    const button = screen.getByRole('button');
+    fireEvent.click(button); 
 
-  //   expect(mockChangeView).toBeCalledTimes(1);
-  //   expect(mockChangeView).toBeCalledWith('homepage');
+    expect(mockChangeView).toBeCalledTimes(1);
+    expect(mockChangeView).toBeCalledWith('homepage');
 
-  //   expect(mockUpdateLoginStatus).toBeCalledTimes(1);
-  //   expect(mockUpdateLoginStatus).toBeCalledWith(false);
+    expect(mockUpdateLoginStatus).toBeCalledTimes(1);
+    expect(mockUpdateLoginStatus).toBeCalledWith(false);
 
-  //   expect(mockUpdateUserId ).toBeCalledTimes(1);
-  //   expect(mockUpdateUserId ).toBeCalledWith(null);
-  // })
+    expect(mockUpdateUserId ).toBeCalledTimes(1);
+    expect(mockUpdateUserId ).toBeCalledWith(null);
+  })
 
 })

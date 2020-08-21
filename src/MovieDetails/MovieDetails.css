@@ -1,0 +1,19 @@
+.MovieDetails {
+  color: white; 
+  display: flex; 
+  margin: 5em; 
+  padding-left: 4em; 
+  padding-right: 4em;
+}
+
+.movie-poster-section {
+  width: 50%; 
+}
+
+.movie-details-img {
+  width: 85%; 
+}
+
+h2 {
+  font-size: 3em; 
+}

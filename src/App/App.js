@@ -3,6 +3,7 @@ import './App.css';
 import Header from '../Header/Header'
 import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
+import MovieDetails from '../MovieDetails/MovieDetails'
 
 class App extends Component {
   constructor() {
@@ -12,7 +13,8 @@ class App extends Component {
       error: '',
       view: 'homepage',
       userId: null,
-      loggedIn: false
+      loggedIn: false, 
+      currentMovie: null 
     }
   }
 
@@ -41,7 +43,10 @@ class App extends Component {
               {this.state.error && 
               <h3 className='error-msg'>{this.state.error}</h3>
               }
-              <Movies movies={this.state.movies} />
+              <Movies 
+              movies={this.state.movies} 
+              updateCurrentMovie={this.updateCurrentMovie}
+              />
             </main>
           </> 
         }
@@ -53,6 +58,15 @@ class App extends Component {
             changeView={this.changeView}
             error={this.state.error} 
             updateError={this.updateError}
+          />
+        }
+
+        {this.state.view === 'movie-details' &&
+          <MovieDetails 
+            poster={this.state.currentMovie.poster_path}
+            title={this.state.currentMovie.title}
+            releaseDate={this.state.currentMovie.release_date}
+            averageRating={this.state.currentMovie.average_rating}
           />
         }
       </div>
@@ -73,6 +87,13 @@ class App extends Component {
 
   updateError = (errorMessage) => {
     this.setState({error: errorMessage})
+  }
+
+  updateCurrentMovie = (event) => {
+    const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 
+    const newMovie = this.state.movies.find(movie => movie.id === movieId);
+    this.setState({currentMovie: newMovie});
+    this.changeView('movie-details');
   }
 
 }
