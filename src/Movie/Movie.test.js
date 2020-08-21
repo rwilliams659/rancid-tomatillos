@@ -17,13 +17,10 @@ describe('Movie Component', () => {
     )
     const title = screen.getByText('Cats')
     const aveRating = screen.getByText('10 / 10')
+    const movieImage = screen.getByLabelText('movie')
 
     expect(title).toBeInTheDocument();
     expect(aveRating).toBeInTheDocument();
-
-    // Need to add tests for background image
-
-
-
-  })
+    expect(movieImage).toBeInTheDocument();
+  });
 })
