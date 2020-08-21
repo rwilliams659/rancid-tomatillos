@@ -1,11 +1,11 @@
 import React from 'react'
 import './Movie.css'
 
-const Movie = ({movie}) => {
+const Movie = ({id, title, releaseDate, averageRating, backdropPath, posterPath}) => {
   return (
-    <section className='Movie' style={{ backgroundImage: `url(${movie.backdrop_path})`}}>
-      <p className="movie-rating">{movie.average_rating} / 10</p>
-      <h3 className='movie-title'>{movie.title}</h3>
+    <section className='Movie' style={{ backgroundImage: `url(${backdropPath})`}}>
+      <p className="movie-rating">{averageRating} / 10</p>
+      <h3 className='movie-title'>{title}</h3>
     </section>
   )
 }
