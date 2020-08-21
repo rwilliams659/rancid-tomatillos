@@ -19,8 +19,7 @@ describe('Header Component', () => {
     expect(heading).toBeInTheDocument();
   })
 
-  it('should fire a function when the log in button is clicked', () => {
-
+  it('should fire functions when the log out button is clicked', () => {
     const mockChangeView = jest.fn()
     const mockUpdateLoginStatus = jest.fn()
     const mockUpdateUserId = jest.fn()
@@ -41,6 +40,23 @@ describe('Header Component', () => {
 
     expect(mockUpdateUserId ).toBeCalledTimes(1);
     expect(mockUpdateUserId ).toBeCalledWith(null);
-  })
+  });
+
+  it('should fire functions when the log in button is clicked', () => {
+    const mockChangeView = jest.fn()
+    const mockUpdateLoginStatus = jest.fn()
+    const mockUpdateUserId = jest.fn()
+    render(<Header
+      changeView={mockChangeView}
+      loggedIn= {false}
+      updateLoginStatus={mockUpdateLoginStatus}
+      updateUserId={mockUpdateUserId}
+    />)
+    const button = screen.getByRole('button');
+    fireEvent.click(button); 
+
+    expect(mockChangeView).toBeCalledTimes(1);
+    expect(mockChangeView).toBeCalledWith('login');
+  });
 
 })
