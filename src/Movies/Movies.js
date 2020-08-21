@@ -16,10 +16,12 @@ const Movies = ({movies, updateCurrentMovie}) => {
   })
 
   return (
-    //ADD H2 HERE 
-    <section aria-label='all-movies' className='Movies' onClick={(event) => {updateCurrentMovie(event)}}>
-      {movieList}
-    </section>
+    <div>
+      <h2 className='all-movies-title'>Browse All Movies</h2>
+      <section aria-label='all-movies' className='Movies' onClick={(event) => {updateCurrentMovie(event)}}>
+        {movieList}
+      </section>
+    </div>
   )
 }
 

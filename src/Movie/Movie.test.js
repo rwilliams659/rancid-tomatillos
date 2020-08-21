@@ -4,7 +4,6 @@ import { screen, render }
   from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-//CHANGE BELOW TEST TO TEST H2 THAT WILL BE ADDED ON LINE 19 INSTEAD 
 describe('Movie Component', () => {
   it('should have the correct content when rendered', () => {
     render(<Movie
