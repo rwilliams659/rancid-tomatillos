@@ -63,10 +63,10 @@ class App extends Component {
 
         {this.state.view === 'movie-details' &&
           <MovieDetails 
-            poster={this.state.currentMovie.poster}
+            poster={this.state.currentMovie.poster_path}
             title={this.state.currentMovie.title}
-            releaseDate={this.state.currentMovie.releaseDate}
-            averageRating={this.state.currentMovie.averageRating}
+            releaseDate={this.state.currentMovie.release_date}
+            averageRating={this.state.currentMovie.average_rating}
           />
         }
       </div>
@@ -90,7 +90,7 @@ class App extends Component {
   }
 
   updateCurrentMovie = (event) => {
-    const movieId = parseInt(event.target.parentNode.id); 
+    const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
     this.setState({currentMovie: newMovie});
     this.changeView('movie-details');
