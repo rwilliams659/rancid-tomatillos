@@ -2,7 +2,7 @@ import React from 'react'
 import Movie from '../Movie/Movie'
 import '../Movies/Movies.css'
 
-const Movies = ({movies}) => {
+const Movies = ({movies, updateCurrentMovie}) => {
   const movieList = movies.map(movie => {
     return <Movie 
     id={movie.id}
@@ -16,10 +16,11 @@ const Movies = ({movies}) => {
   })
 
   return (
-    <section aria-label='all-movies' className='Movies'>
+    //ADD H2 HERE 
+    <section aria-label='all-movies' className='Movies' onClick={(event) => {updateCurrentMovie(event)}}>
       {movieList}
     </section>
   )
 }
 
-export default Movies
+export default Movies 

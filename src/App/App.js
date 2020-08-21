@@ -45,7 +45,6 @@ class App extends Component {
               }
               <Movies 
               movies={this.state.movies} 
-              changeView={this.changeView}
               updateCurrentMovie={this.updateCurrentMovie}
               />
             </main>
@@ -90,8 +89,11 @@ class App extends Component {
     this.setState({error: errorMessage})
   }
 
-  updateCurrentMovie = (movie) => {
-    this.setState({currentMovie: movie})
+  updateCurrentMovie = (event) => {
+    const movieId = parseInt(event.target.parentNode.id); 
+    const newMovie = this.state.movies.find(movie => movie.id === movieId);
+    this.setState({currentMovie: newMovie});
+    this.changeView('movie-details');
   }
 
 }
