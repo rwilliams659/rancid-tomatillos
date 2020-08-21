@@ -43,7 +43,11 @@ class App extends Component {
               {this.state.error && 
               <h3 className='error-msg'>{this.state.error}</h3>
               }
-              <Movies movies={this.state.movies} />
+              <Movies 
+              movies={this.state.movies} 
+              changeView={this.changeView}
+              updateCurrentMovie={this.updateCurrentMovie}
+              />
             </main>
           </> 
         }
@@ -84,6 +88,10 @@ class App extends Component {
 
   updateError = (errorMessage) => {
     this.setState({error: errorMessage})
+  }
+
+  updateCurrentMovie = (movie) => {
+    this.setState({currentMovie: movie})
   }
 
 }
