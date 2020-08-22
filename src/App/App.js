@@ -15,6 +15,7 @@ class App extends Component {
       userId: null,
       loggedIn: false, 
       currentMovie: null,
+      currentMovieRating: null,
       userRatings: []
     }
   }
@@ -71,6 +72,10 @@ class App extends Component {
             title={this.state.currentMovie.title}
             releaseDate={this.state.currentMovie.release_date}
             averageRating={this.state.currentMovie.average_rating}
+            userRatings={this.state.userRatings}
+            currentMovie={this.state.currentMovie}
+            currentMovieRating={this.state.currentMovieRating}
+            loggedIn={this.state.loggedIn}
           />
         }
       </div>
@@ -96,8 +101,17 @@ class App extends Component {
   updateCurrentMovie = (event) => {
     const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
-    this.setState({currentMovie: newMovie});
+    this.setState({currentMovie: newMovie}, () => {
+      if (this.state.userRatings.length > 0) {
+        this.findCurrentMovieRating()
+      }
+    });
     this.changeView('movie-details');
+  }
+
+  findCurrentMovieRating = () => {
+    let currentRating = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id)
+    this.setState({ currentMovieRating: currentRating.rating})
   }
 
   getUserRatings = () => {
