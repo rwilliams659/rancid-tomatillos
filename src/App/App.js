@@ -14,7 +14,8 @@ class App extends Component {
       view: 'homepage',
       userId: null,
       loggedIn: false, 
-      currentMovie: null 
+      currentMovie: null,
+      userRatings: []
     }
   }
 
