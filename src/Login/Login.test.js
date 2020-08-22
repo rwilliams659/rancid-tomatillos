@@ -1,5 +1,4 @@
 import React from 'react';
-// import App from '../App/App.js'
 import Login from './Login.js';
 import { screen, fireEvent, render }
   from '@testing-library/react';
