@@ -12,7 +12,6 @@ class Login extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <form className='Login'>
         <input 

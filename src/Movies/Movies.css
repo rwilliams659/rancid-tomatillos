@@ -10,6 +10,10 @@
   margin-top: 5em;
 }
 
+.all-movies-title {
+  text-align: center;
+}
+
 @media screen and (max-width: 1050px) {
   .Movies {
     grid-template-columns: 1fr 1fr;

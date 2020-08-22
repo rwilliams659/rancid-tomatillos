@@ -4,7 +4,6 @@ import { screen, render }
   from '@testing-library/react';
 import '@testing-library/jest-dom';
 
-//CHANGE BELOW TEST TO TEST H2 THAT WILL BE ADDED ON LINE 19 INSTEAD 
 describe('Movie Component', () => {
   it('should have the correct content when rendered', () => {
     render(<Movie
@@ -18,13 +17,10 @@ describe('Movie Component', () => {
     )
     const title = screen.getByText('Cats')
     const aveRating = screen.getByText('10 / 10')
+    const movieImage = screen.getByLabelText('movie')
 
     expect(title).toBeInTheDocument();
     expect(aveRating).toBeInTheDocument();
-
-    // Need to add tests for background image
-
-
-
-  })
+    expect(movieImage).toBeInTheDocument();
+  });
 })
