@@ -59,6 +59,7 @@ class App extends Component {
             changeView={this.changeView}
             error={this.state.error} 
             updateError={this.updateError}
+            getUserRatings={this.getUserRatings}
           />
         }
 
@@ -95,6 +96,16 @@ class App extends Component {
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
     this.setState({currentMovie: newMovie});
     this.changeView('movie-details');
+  }
+
+  getUserRatings = () => {
+    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.state.userId}/ratings`)
+    .then(response => response.json())
+    .then(ratings => this.setState({ userRatings: ratings.ratings }) )
+
+    .catch(error => 
+      console.log(error));
+
   }
 
 }
