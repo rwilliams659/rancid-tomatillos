@@ -74,9 +74,9 @@ class Login extends Component {
 
   handleSuccessfulLogin = (id) => {
     this.props.updateUserId(id)
-    this.props.updateLoginStatus(true)
-    this.props.changeView('homepage')
     this.props.getUserRatings()
+    // this.props.updateLoginStatus(true)
+    // this.props.changeView('homepage')
   }
 
   handleLogin = event => {

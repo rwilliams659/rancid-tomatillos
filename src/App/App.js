@@ -46,6 +46,8 @@ class App extends Component {
               }
               <Movies 
               movies={this.state.movies} 
+              loggedIn={this.state.loggedIn}
+              userRatings={this.state.userRatings}
               updateCurrentMovie={this.updateCurrentMovie}
               />
             </main>
@@ -101,10 +103,12 @@ class App extends Component {
   getUserRatings = () => {
     fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.state.userId}/ratings`)
     .then(response => response.json())
-    .then(ratings => this.setState({ userRatings: ratings.ratings }) )
-
-    .catch(error => 
-      console.log(error));
+    .then(ratings => { 
+      this.setState({ userRatings: ratings.ratings }) 
+      this.updateLoginStatus(true)
+      this.changeView('homepage')
+    })
+    .catch(error => console.log(error));
 
   }
 

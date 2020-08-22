@@ -5,8 +5,15 @@ class MovieDetails extends Component {
   constructor(props) {
     super(props) 
     this.state = {
-    ratedByUser:false
+    ratedByUser: true
+    //  userRating 
     }
+  }
+
+  addRating = (event) => {
+    event.preventDefault();
+    // POST movie rating
+    // add rating to sate
   }
 
   render() {
@@ -15,7 +22,6 @@ class MovieDetails extends Component {
         <section className='movie-poster-section'>
           <img src={this.props.poster} alt={this.props.title} className='movie-details-img'/>
         </section>
-
         <section className='movie-info'>
           <h2>{this.props.title}</h2>
           <h3>Release date: {this.props.releaseDate}</h3>
@@ -42,7 +48,7 @@ class MovieDetails extends Component {
                 <option value='9'>9</option>
                 <option value='10'>10</option>
               </select>
-              <input type='submit' value='Submit'/> 
+              <input type='submit' value='Submit' onClick={this.addRating}/> 
             </form>
           )}
           </section>
