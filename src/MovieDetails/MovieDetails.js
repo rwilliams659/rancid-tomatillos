@@ -3,14 +3,32 @@ import './MovieDetails.css'
 
 class MovieDetails extends Component {
   constructor(props) {
-    super(props) 
+    super(props)
+    this.state = {
+      formValue: null,
+    }
   }
 
+  handleFormSelection = (event) => {
+    this.setState({formValue: event.target.value})
+  }
 
   addRating = (event) => {
     event.preventDefault();
-    // POST movie rating
-    // add rating to sate
+    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.props.userId}/ratings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(
+        {
+          movie_id: this.props.currentMovie.id, 
+          rating: parseInt(this.state.formValue) 
+        }
+      )
+    })
+    .then(response => console.log(response.status))
+    .catch(error => console.log(error))
   }
 
   render() {
@@ -34,7 +52,7 @@ class MovieDetails extends Component {
           
             {this.props.loggedIn && !this.props.currentMovieRating && (
               <form>
-                <select name='rateMovieDropdown'>
+                <select name='rateMovieDropdown' onChange={this.handleFormSelection}>
                   <option value=''>--Choose a rating--</option>
                   <option value='1'>1</option>
                   <option value='2'>2</option>

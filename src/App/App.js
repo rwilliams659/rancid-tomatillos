@@ -76,6 +76,7 @@ class App extends Component {
             currentMovie={this.state.currentMovie}
             currentMovieRating={this.state.currentMovieRating}
             loggedIn={this.state.loggedIn}
+            userId={this.state.userId}
           />
         }
       </div>
