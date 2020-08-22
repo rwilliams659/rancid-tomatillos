@@ -111,7 +111,9 @@ class App extends Component {
 
   findCurrentMovieRating = () => {
     let currentRating = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id)
+    if (currentRating) {
     this.setState({ currentMovieRating: currentRating.rating})
+    }
   }
 
   getUserRatings = () => {
