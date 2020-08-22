@@ -77,6 +77,7 @@ class App extends Component {
             currentMovieRating={this.state.currentMovieRating}
             loggedIn={this.state.loggedIn}
             userId={this.state.userId}
+            updateUserRatings={this.updateUserRatings}
           />
         }
       </div>
@@ -117,6 +118,16 @@ class App extends Component {
     }
   }
 
+  // THESE TWO FETCH METHODS WILL BE REFACTORED WHEN WE HAVE A SEPARATE API FETCH FILE:
+  updateUserRatings = () => {
+    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.state.userId}/ratings`)
+      .then(response => response.json())
+      .then(ratings => {
+        this.setState({ userRatings: ratings.ratings })
+      })
+      .catch(error => console.log(error));
+  }
+
   getUserRatings = () => {
     fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.state.userId}/ratings`)
     .then(response => response.json())
@@ -126,7 +137,6 @@ class App extends Component {
       this.changeView('homepage')
     })
     .catch(error => console.log(error));
-
   }
 
 }

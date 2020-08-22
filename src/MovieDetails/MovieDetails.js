@@ -27,7 +27,10 @@ class MovieDetails extends Component {
         }
       )
     })
-    .then(response => console.log(response.status))
+    .then(response => {
+      console.log(response.status)
+      this.props.updateUserRatings()
+    })
     .catch(error => console.log(error))
   }
 
