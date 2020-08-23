@@ -64,14 +64,19 @@ class Login extends Component {
     })
     .then(response => response.json())
     .then(response => {
-      this.props.updateUserId(response.user.id)
-      this.props.updateLoginStatus(true)
-      this.props.changeView('homepage')
+      this.handleSuccessfulLogin(response.user.id) 
     })
     .catch(error => {
       console.log(error);
       this.props.updateError('Invalid username or password')
     })
+  }
+
+  handleSuccessfulLogin = (id) => {
+    this.props.updateUserId(id)
+    this.props.getUserRatings()
+    // this.props.updateLoginStatus(true)
+    // this.props.changeView('homepage')
   }
 
   handleLogin = event => {

@@ -26,3 +26,14 @@
   color: white; 
   text-shadow: 2px 2px #960317;
 }
+
+.user-rating {
+  color: white; 
+  font-size: 1.5em;
+  text-align: center; 
+  margin-left: 2em;
+  margin-right: 2em;
+  background-color: black;
+  opacity: 0.8;
+
+}
