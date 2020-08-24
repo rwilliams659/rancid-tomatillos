@@ -34,10 +34,16 @@ class MovieDetails extends Component {
     .catch(error => console.log(error))
   }
 
-  deleteRating(event) {
+  deleteRating = event => {
     event.preventDefault();
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/users/:user_id/ratings/:rating_id')
-    //delete fetch request 
+    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.props.userId}/ratings/${this.props.currentMovieRatingId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then(response => console.log(response.status))
+      .catch(error => console.log(error))
   }
 
   render() {
