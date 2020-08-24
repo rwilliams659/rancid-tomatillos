@@ -16,7 +16,8 @@ class App extends Component {
       loggedIn: false, 
       currentMovie: null,
       currentMovieRating: null,
-      userRatings: []
+      userRatings: [],
+      currentMovieRatingId: null
     }
   }
 
@@ -106,9 +107,15 @@ class App extends Component {
     this.setState({currentMovie: newMovie}, () => {
       if (this.state.userRatings.length > 0) {
         this.findCurrentMovieRating()
+        this.getCurrentMovieRatingId(movieId) 
       }
     });
     this.changeView('movie-details');
+  }
+
+  getCurrentMovieRatingId(movieId) {
+    const currentRatingId = this.state.userRatings.find(rating => rating.movie_id === movieId).id
+    this.setState({currentMovieRatingId: currentRatingId})
   }
 
   findCurrentMovieRating = () => {

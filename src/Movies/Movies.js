@@ -25,6 +25,7 @@ const Movies = ({movies, loggedIn, userRatings, updateCurrentMovie}) => {
         backdropPath={movie.backdrop_path}
         rating={matchingRating}
         key={movie.id}
+        //matchingRating.id is rating id
       />
     })
   }

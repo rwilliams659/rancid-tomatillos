@@ -34,6 +34,12 @@ class MovieDetails extends Component {
     .catch(error => console.log(error))
   }
 
+  deleteRating(event) {
+    event.preventDefault();
+    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/users/:user_id/ratings/:rating_id')
+    //delete fetch request 
+  }
+
   render() {
     return (
       <section className='MovieDetails'>
@@ -49,7 +55,7 @@ class MovieDetails extends Component {
             {this.props.loggedIn && this.props.currentMovieRating && (
               <>
                 <h3>Your rating: {this.props.currentMovieRating}</h3>
-                <button>Delete rating</button>
+                <button onClick={this.deleteRating}>Delete rating</button>
                </>
             )} 
           
