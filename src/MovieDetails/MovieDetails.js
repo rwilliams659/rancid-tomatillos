@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import './MovieDetails.css'
+import { deleteRating } from '../apiCalls'
 
 class MovieDetails extends Component {
   constructor(props) {
     super(props)
+    console.log('currentMovieRating', this.props.currentMovieRating)
     this.state = {
       formValue: null,
     }
@@ -34,19 +36,16 @@ class MovieDetails extends Component {
     .catch(error => console.log(error))
   }
 
-  deleteRating = event => {
+  handingRatingDeletion = event => {
     event.preventDefault();
-    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.props.userId}/ratings/${this.props.currentMovieRatingId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
+    deleteRating(this.props.userId, this.props.currentMovieRatingId)
       .then(response => console.log(response.status))
       .catch(error => console.log(error))
   }
 
   render() {
+    // console.log('current rating', this.props.currentMovieRating);
+    // console.log('current movie rating id', this.props.currentMovieRatingId);
     return (
       <section className='MovieDetails'>
         <section className='movie-poster-section'>
@@ -61,7 +60,7 @@ class MovieDetails extends Component {
             {this.props.loggedIn && this.props.currentMovieRating && (
               <>
                 <h3>Your rating: {this.props.currentMovieRating}</h3>
-                <button onClick={this.deleteRating}>Delete rating</button>
+                <button onClick={this.handingRatingDeletion}>Delete rating</button>
                </>
             )} 
           

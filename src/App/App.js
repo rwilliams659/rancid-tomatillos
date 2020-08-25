@@ -4,6 +4,7 @@ import Header from '../Header/Header'
 import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
 import MovieDetails from '../MovieDetails/MovieDetails'
+import { fetchUserRatings } from '../apiCalls'
 
 class App extends Component {
   constructor() {
@@ -17,7 +18,7 @@ class App extends Component {
       currentMovie: null,
       currentMovieRating: null,
       userRatings: [],
-      currentMovieRatingId: null
+      // currentMovieRatingId: null
     }
   }
 
@@ -79,7 +80,7 @@ class App extends Component {
             loggedIn={this.state.loggedIn}
             userId={this.state.userId}
             updateUserRatings={this.updateUserRatings}
-            currentMovieRatingId={this.currentMovieRatingId}
+            // currentMovieRatingId={this.currentMovieRatingId}
           />
         }
       </div>
@@ -108,21 +109,18 @@ class App extends Component {
     this.setState({currentMovie: newMovie}, () => {
       if (this.state.userRatings.length > 0) {
         this.findCurrentMovieRating()
-        this.getCurrentMovieRatingId(movieId) 
       }
     });
     this.changeView('movie-details');
   }
 
-  getCurrentMovieRatingId(movieId) {
-    const currentRatingId = this.state.userRatings.find(rating => rating.movie_id === movieId).id
-    this.setState({currentMovieRatingId: currentRatingId})
-  }
-
   findCurrentMovieRating = () => {
-    let currentRating = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id)
+    let currentRating = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
+    const currentRatingId = currentRating.id
     if (currentRating) {
-    this.setState({ currentMovieRating: currentRating.rating})
+      this.setState({currentMovieRating: currentRating.rating})
+      // this.setState({ currentMovieRating: currentRating.rating, currentMovieRatingId: currentRatingId})
+    //THEORY: re-render is happening before setState has completed so we are passing in null 
     }
   }
 
@@ -137,14 +135,13 @@ class App extends Component {
   }
 
   getUserRatings = () => {
-    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.state.userId}/ratings`)
-    .then(response => response.json())
-    .then(ratings => { 
-      this.setState({ userRatings: ratings.ratings }) 
-      this.updateLoginStatus(true)
-      this.changeView('homepage')
-    })
-    .catch(error => console.log(error));
+    fetchUserRatings(this.state.userId) 
+      .then(ratings => { 
+        this.setState({ userRatings: ratings.ratings }) 
+        this.updateLoginStatus(true)
+        this.changeView('homepage')
+      })
+      .catch(error => console.log(error));
   }
 
 }
