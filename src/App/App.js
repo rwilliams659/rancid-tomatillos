@@ -57,23 +57,24 @@ class App extends Component {
             updateError={this.updateError}
             getUserRatings={this.getUserRatings}
         />} />
-        
-
-        {this.state.view === 'movie-details' &&
-          <MovieDetails 
-            poster={this.state.currentMovie.poster_path}
-            title={this.state.currentMovie.title}
-            releaseDate={this.state.currentMovie.release_date}
-            averageRating={this.state.currentMovie.average_rating}
-            userRatings={this.state.userRatings}
-            currentMovie={this.state.currentMovie}
-            currentMovieRatingInfo={this.state.currentMovieRatingInfo}
-            loggedIn={this.state.loggedIn}
-            userId={this.state.userId}
-            updateUserRatings={this.updateUserRatings}
-            findCurrentMovieRating={this.findCurrentMovieRating}
-          />
-        }
+        <Route 
+          path='/movies/:id'
+          exact
+          render={({ match }) => {
+            const movieToRender = this.state.movies.find(movie => movie.id === +match.params.id)
+            return (
+              <MovieDetails 
+                {...movieToRender}
+                userRatings={this.state.userRatings}
+                currentMovie={this.state.currentMovie}
+                currentMovieRatingInfo={this.state.currentMovieRatingInfo}
+                loggedIn={this.state.loggedIn}
+                userId={this.state.userId}
+                updateUserRatings={this.updateUserRatings}
+                findCurrentMovieRating={this.findCurrentMovieRating}
+              />)
+          }}
+        />
       </div>
     )
   }

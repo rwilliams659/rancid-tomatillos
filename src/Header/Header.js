@@ -16,11 +16,11 @@ class Header extends Component {
           <Link to='/'><button onClick={() => {
             this.props.updateLoginStatus(false)
             this.props.updateUserId(null)
-          this.props.changeView('homepage')
+         
         }}>Log out</button></Link>
         }
         {!isLoggedIn &&
-          <Link to='/login'><button onClick={() => { this.props.changeView('login') }}>Log in</button></Link>
+          <Link to='/login'><button>Log in</button></Link>
         }
         <h1>Rancid Tomatillos</h1>
       </header>
