@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './Login.css'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 class Login extends Component {
   constructor(props) {
@@ -26,10 +27,9 @@ class Login extends Component {
           name='password'
           value={this.state.password}
           onChange={this.updateUserLogin}/>
-        <button className='login-form-btn'
-          onClick={this.handleLogin}
-          >Log in
-        </button>
+        <Link to='/'><button className='login-form-btn'
+          onClick={this.handleLogin}>Log in</button>
+        </Link>
         {this.props.error &&
           <h3 className='error-msg'>{this.props.error}</h3>
         }
@@ -75,12 +75,9 @@ class Login extends Component {
   handleSuccessfulLogin = (id) => {
     this.props.updateUserId(id)
     this.props.getUserRatings()
-    // this.props.updateLoginStatus(true)
-    // this.props.changeView('homepage')
   }
 
   handleLogin = event => {
-    event.preventDefault();
     this.validateLogin(event);
     this.resetForm()
   }
