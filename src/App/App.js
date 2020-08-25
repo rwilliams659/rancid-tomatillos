@@ -5,6 +5,7 @@ import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
 import MovieDetails from '../MovieDetails/MovieDetails'
 import { fetchUserRatings, getMovies } from '../apiCalls'
+import { Route } from 'react-router-dom';
 
 class App extends Component {
   constructor() {
@@ -39,23 +40,15 @@ class App extends Component {
         updateLoginStatus={this.updateLoginStatus} 
         updateUserId={this.updateUserId}
         />
-        {this.state.view === 'homepage' && 
-          <>
-            <main>
-              {this.state.error && 
-              <h3 className='error-msg'>{this.state.error}</h3>
-              }
-              <Movies 
-              movies={this.state.movies} 
-              loggedIn={this.state.loggedIn}
-              userRatings={this.state.userRatings}
-              updateCurrentMovie={this.updateCurrentMovie}
-              />
-            </main>
-          </> 
-        }
-
-        {this.state.view === 'login' && 
+        <Route exact path='/' render={() => 
+          <Movies 
+            error={this.state.error}
+            movies={this.state.movies} 
+            loggedIn={this.state.loggedIn}
+            userRatings={this.state.userRatings}
+            updateCurrentMovie={this.updateCurrentMovie}
+          />} />
+        <Route exact path='/login' render={() => 
           <Login 
             updateUserId={this.updateUserId}
             updateLoginStatus={this.updateLoginStatus} 
@@ -63,8 +56,8 @@ class App extends Component {
             error={this.state.error} 
             updateError={this.updateError}
             getUserRatings={this.getUserRatings}
-          />
-        }
+        />} />
+        
 
         {this.state.view === 'movie-details' &&
           <MovieDetails 

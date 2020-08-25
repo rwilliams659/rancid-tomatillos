@@ -2,7 +2,7 @@ import React from 'react'
 import Movie from '../Movie/Movie'
 import '../Movies/Movies.css'
 
-const Movies = ({movies, loggedIn, userRatings, updateCurrentMovie}) => {
+const Movies = ({error, movies, loggedIn, userRatings, updateCurrentMovie}) => {
   let movieList;
 
   if (!loggedIn) {
@@ -30,12 +30,16 @@ const Movies = ({movies, loggedIn, userRatings, updateCurrentMovie}) => {
   }
  
   return (
-    <div>
+    <main>
+      {error &&
+        <h3 className='error-msg'>{error}</h3>
+      }
+    
       <h2 className='all-movies-title'>Browse All Movies</h2>
       <section aria-label='all-movies' className='Movies' onClick={(event) => {updateCurrentMovie(event)}}>
         {movieList}
       </section>
-    </div>
+    </main>
   )
 }
 
