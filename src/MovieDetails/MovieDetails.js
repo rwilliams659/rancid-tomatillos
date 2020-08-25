@@ -5,7 +5,7 @@ import { deleteRating, postNewRating } from '../apiCalls'
 class MovieDetails extends Component {
   constructor(props) {
     super(props)
-    console.log('currentMovieRating', this.props.currentMovieRating)
+    console.log('currentMovieRating', this.props.currentMovieRatingInfo)
     this.state = {
       formValue: null,
     }
@@ -25,16 +25,18 @@ class MovieDetails extends Component {
     .catch(error => console.log(error))
   }
 
-  handingRatingDeletion = event => {
+  handlingRatingDeletion = event => {
     event.preventDefault();
-    deleteRating(this.props.userId, this.props.currentMovieRatingId)
-      .then(response => console.log(response.status))
-      .catch(error => console.log(error))
+    deleteRating(this.props.userId, this.props.currentMovieRatingInfo.id)
+      .then(response => {
+        console.log(response.status);
+        this.props.updateUserRatings();
+      })
+      .catch(error => console.log(error));
   }
 
   render() {
-    // console.log('current rating', this.props.currentMovieRating);
-    // console.log('current movie rating id', this.props.currentMovieRatingId);
+    // console.log('current rating', this.props.currentMovieRatingInfo);
     return (
       <section className='MovieDetails'>
         <section className='movie-poster-section'>
@@ -46,14 +48,14 @@ class MovieDetails extends Component {
           <h3>Release date: {this.props.releaseDate}</h3>
           <h3>Average rating: {this.props.averageRating}</h3>
 
-            {this.props.loggedIn && this.props.currentMovieRating && (
+            {this.props.loggedIn && this.props.currentMovieRatingInfo && (
               <>
-                <h3>Your rating: {this.props.currentMovieRating}</h3>
-                <button onClick={this.handingRatingDeletion}>Delete rating</button>
+                <h3>Your rating: {this.props.currentMovieRatingInfo.rating}</h3>
+                <button id={this.props.currentMovieRatingInfo.id} onClick={this.handlingRatingDeletion}>Delete rating</button>
                </>
             )} 
           
-            {this.props.loggedIn && !this.props.currentMovieRating && (
+            {this.props.loggedIn && !this.props.currentMovieRatingInfo && (
               <form>
                 <select name='rateMovieDropdown' onChange={this.handleFormSelection}>
                   <option value=''>--Choose a rating--</option>

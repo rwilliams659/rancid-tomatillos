@@ -16,7 +16,7 @@ class App extends Component {
       userId: null,
       loggedIn: false, 
       currentMovie: null,
-      currentMovieRating: null,
+      currentMovieRatingInfo: null,
       userRatings: [],
       // currentMovieRatingId: null
     }
@@ -75,7 +75,7 @@ class App extends Component {
             averageRating={this.state.currentMovie.average_rating}
             userRatings={this.state.userRatings}
             currentMovie={this.state.currentMovie}
-            currentMovieRating={this.state.currentMovieRating}
+            currentMovieRatingInfo={this.state.currentMovieRatingInfo}
             loggedIn={this.state.loggedIn}
             userId={this.state.userId}
             updateUserRatings={this.updateUserRatings}
@@ -105,7 +105,9 @@ class App extends Component {
   updateCurrentMovie = (event) => {
     const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
+    console.log('newMovie', newMovie)
     this.setState({currentMovie: newMovie}, () => {
+      console.log('current movie', this.state.currentMovie)
       if (this.state.userRatings.length > 0) {
         this.findCurrentMovieRating()
       }
@@ -114,12 +116,12 @@ class App extends Component {
   }
 
   findCurrentMovieRating = () => {
-    let currentRating = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
-    // const currentRatingId = currentRating.id
-    if (currentRating) {
-      this.setState({currentMovieRating: currentRating.rating})
-      // this.setState({ currentMovieRating: currentRating.rating, currentMovieRatingId: currentRatingId})
-    //THEORY: re-render is happening before setState has completed so we are passing in null 
+    let currentRatingInfo = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
+    if (currentRatingInfo) {
+      console.log('currentRating object', currentRatingInfo)
+      this.setState({currentMovieRatingInfo: currentRatingInfo});
+      //currentMovieRatingId is getting logged as undefined in MovieDetails component
+    //Also THEORY: re-render is happening before setState has completed so we are passing in null 
     }
   }
 
