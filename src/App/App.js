@@ -4,7 +4,7 @@ import Header from '../Header/Header'
 import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
 import MovieDetails from '../MovieDetails/MovieDetails'
-import { fetchUserRatings } from '../apiCalls'
+import { fetchUserRatings, getMovies } from '../apiCalls'
 
 class App extends Component {
   constructor() {
@@ -23,8 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-      .then(response => response.json())
+    getMovies()
       .then(movies => this.setState({movies: movies.movies}))
       .catch(error => {
         console.log(error);
@@ -116,7 +115,7 @@ class App extends Component {
 
   findCurrentMovieRating = () => {
     let currentRating = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
-    const currentRatingId = currentRating.id
+    // const currentRatingId = currentRating.id
     if (currentRating) {
       this.setState({currentMovieRating: currentRating.rating})
       // this.setState({ currentMovieRating: currentRating.rating, currentMovieRatingId: currentRatingId})
@@ -124,10 +123,9 @@ class App extends Component {
     }
   }
 
-  // THESE TWO FETCH METHODS WILL BE REFACTORED WHEN WE HAVE A SEPARATE API FETCH FILE:
+  // REFACTOR THE 2 BELOW WHEN TIME TO AVOID DUPLICATION
   updateUserRatings = () => {
-    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.state.userId}/ratings`)
-      .then(response => response.json())
+    fetchUserRatings(this.state.userId) 
       .then(ratings => {
         this.setState({ userRatings: ratings.ratings })
       })

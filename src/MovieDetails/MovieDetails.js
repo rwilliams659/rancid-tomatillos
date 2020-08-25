@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './MovieDetails.css'
-import { deleteRating } from '../apiCalls'
+import { deleteRating, postNewRating } from '../apiCalls'
 
 class MovieDetails extends Component {
   constructor(props) {
@@ -17,18 +17,7 @@ class MovieDetails extends Component {
 
   addRating = (event) => {
     event.preventDefault();
-    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.props.userId}/ratings`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(
-        {
-          movie_id: this.props.currentMovie.id, 
-          rating: parseInt(this.state.formValue) 
-        }
-      )
-    })
+    postNewRating(this.props.userId, this.props.currentMovie.id, this.state.formValue)
     .then(response => {
       console.log(response.status)
       this.props.updateUserRatings()
