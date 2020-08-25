@@ -19,8 +19,8 @@ class MovieDetails extends Component {
     event.preventDefault();
     postNewRating(this.props.userId, this.props.currentMovie.id, this.state.formValue)
     .then(response => {
-      console.log(response.status)
-      this.props.updateUserRatings()
+      console.log(response.status);
+      this.props.updateUserRatings();
     })
     .catch(error => console.log(error))
   }
@@ -36,7 +36,7 @@ class MovieDetails extends Component {
   }
 
   render() {
-    // console.log('current rating', this.props.currentMovieRatingInfo);
+    console.log('currentMovieRatingInfo', this.props.currentMovieRatingInfo)
     return (
       <section className='MovieDetails'>
         <section className='movie-poster-section'>

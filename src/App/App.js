@@ -18,7 +18,6 @@ class App extends Component {
       currentMovie: null,
       currentMovieRatingInfo: null,
       userRatings: [],
-      // currentMovieRatingId: null
     }
   }
 
@@ -79,7 +78,7 @@ class App extends Component {
             loggedIn={this.state.loggedIn}
             userId={this.state.userId}
             updateUserRatings={this.updateUserRatings}
-            // currentMovieRatingId={this.currentMovieRatingId}
+            findCurrentMovieRating={this.findCurrentMovieRating}
           />
         }
       </div>
@@ -105,7 +104,6 @@ class App extends Component {
   updateCurrentMovie = (event) => {
     const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
-    console.log('newMovie', newMovie)
     this.setState({currentMovie: newMovie}, () => {
       console.log('current movie', this.state.currentMovie)
       if (this.state.userRatings.length > 0) {
@@ -116,20 +114,22 @@ class App extends Component {
   }
 
   findCurrentMovieRating = () => {
+    console.log(this.state.userRatings)
     let currentRatingInfo = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
     if (currentRatingInfo) {
-      console.log('currentRating object', currentRatingInfo)
       this.setState({currentMovieRatingInfo: currentRatingInfo});
-      //currentMovieRatingId is getting logged as undefined in MovieDetails component
-    //Also THEORY: re-render is happening before setState has completed so we are passing in null 
+    } else {
+      this.setState({currentMovieRatingInfo: null}); 
     }
-  }
+  } 
 
   // REFACTOR THE 2 BELOW WHEN TIME TO AVOID DUPLICATION
   updateUserRatings = () => {
     fetchUserRatings(this.state.userId) 
       .then(ratings => {
-        this.setState({ userRatings: ratings.ratings })
+        this.setState({ userRatings: ratings.ratings }, () => {
+          this.findCurrentMovieRating()
+        })
       })
       .catch(error => console.log(error));
   }
