@@ -4,6 +4,7 @@ import Header from '../Header/Header'
 import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
 import MovieDetails from '../MovieDetails/MovieDetails'
+import { fetchUserRatings, getMovies } from '../apiCalls'
 
 class App extends Component {
   constructor() {
@@ -15,14 +16,13 @@ class App extends Component {
       userId: null,
       loggedIn: false, 
       currentMovie: null,
-      currentMovieRating: null,
-      userRatings: []
+      currentMovieRatingInfo: null,
+      userRatings: [],
     }
   }
 
   componentDidMount() {
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-      .then(response => response.json())
+    getMovies()
       .then(movies => this.setState({movies: movies.movies}))
       .catch(error => {
         console.log(error);
@@ -74,10 +74,11 @@ class App extends Component {
             averageRating={this.state.currentMovie.average_rating}
             userRatings={this.state.userRatings}
             currentMovie={this.state.currentMovie}
-            currentMovieRating={this.state.currentMovieRating}
+            currentMovieRatingInfo={this.state.currentMovieRatingInfo}
             loggedIn={this.state.loggedIn}
             userId={this.state.userId}
             updateUserRatings={this.updateUserRatings}
+            findCurrentMovieRating={this.findCurrentMovieRating}
           />
         }
       </div>
@@ -104,6 +105,7 @@ class App extends Component {
     const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
     this.setState({currentMovie: newMovie}, () => {
+      console.log('current movie', this.state.currentMovie)
       if (this.state.userRatings.length > 0) {
         this.findCurrentMovieRating()
       }
@@ -112,31 +114,34 @@ class App extends Component {
   }
 
   findCurrentMovieRating = () => {
-    let currentRating = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id)
-    if (currentRating) {
-    this.setState({ currentMovieRating: currentRating.rating})
+    console.log(this.state.userRatings)
+    let currentRatingInfo = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
+    if (currentRatingInfo) {
+      this.setState({currentMovieRatingInfo: currentRatingInfo});
+    } else {
+      this.setState({currentMovieRatingInfo: null}); 
     }
-  }
+  } 
 
-  // THESE TWO FETCH METHODS WILL BE REFACTORED WHEN WE HAVE A SEPARATE API FETCH FILE:
+  // REFACTOR THE 2 BELOW WHEN TIME TO AVOID DUPLICATION
   updateUserRatings = () => {
-    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.state.userId}/ratings`)
-      .then(response => response.json())
+    fetchUserRatings(this.state.userId) 
       .then(ratings => {
-        this.setState({ userRatings: ratings.ratings })
+        this.setState({ userRatings: ratings.ratings }, () => {
+          this.findCurrentMovieRating()
+        })
       })
       .catch(error => console.log(error));
   }
 
   getUserRatings = () => {
-    fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${this.state.userId}/ratings`)
-    .then(response => response.json())
-    .then(ratings => { 
-      this.setState({ userRatings: ratings.ratings }) 
-      this.updateLoginStatus(true)
-      this.changeView('homepage')
-    })
-    .catch(error => console.log(error));
+    fetchUserRatings(this.state.userId) 
+      .then(ratings => { 
+        this.setState({ userRatings: ratings.ratings }) 
+        this.updateLoginStatus(true)
+        this.changeView('homepage')
+      })
+      .catch(error => console.log(error));
   }
 
 }
