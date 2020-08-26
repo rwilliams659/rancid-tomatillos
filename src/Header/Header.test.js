@@ -1,62 +1,53 @@
 import React from 'react';
 import App from '../App/App.js'
 import Header from './Header.js';
-import { screen, fireEvent, render, getByLabelText }
+import { screen, fireEvent, render }
   from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { BrowserRouter } from "react-router-dom";
 
 describe('Header Component', () => {
   it('should have the correct content when rendered', () => {
-    render(<Header
-      changeView={jest.fn()} 
-      loggedIn={false}
-      updateLoginStatus={jest.fn()} 
-      updateUserId={jest.fn()} 
-    />)
-    const button = screen.getByRole('button');
+    render(
+      <BrowserRouter>
+        <Header
+          loggedIn={false}
+          updateLoginStatus={jest.fn()} 
+          updateUserId={jest.fn()} 
+        />
+      </BrowserRouter>
+    )
+    
+    const loginBtn = screen.getByRole('button');
     const heading = screen.getByRole('heading');
-    expect(button).toBeInTheDocument();
+    const homeLink = screen.getByLabelText('Go home');
+    
+    expect(loginBtn).toBeInTheDocument();
     expect(heading).toBeInTheDocument();
+    expect(homeLink).toBeInTheDocument(); 
   })
 
   it('should fire functions when the log out button is clicked', () => {
-    const mockChangeView = jest.fn()
     const mockUpdateLoginStatus = jest.fn()
     const mockUpdateUserId = jest.fn()
-    render(<Header
-      changeView={mockChangeView}
-      loggedIn= {true}
-      updateLoginStatus={mockUpdateLoginStatus}
-      updateUserId={mockUpdateUserId}
-    />)
+    
+    render(
+      <BrowserRouter>
+        <Header
+          loggedIn= {true}
+          updateLoginStatus={mockUpdateLoginStatus}
+          updateUserId={mockUpdateUserId}
+        />
+      </BrowserRouter>
+    )
+    
     const button = screen.getByRole('button');
     fireEvent.click(button); 
-
-    expect(mockChangeView).toBeCalledTimes(1);
-    expect(mockChangeView).toBeCalledWith('homepage');
 
     expect(mockUpdateLoginStatus).toBeCalledTimes(1);
     expect(mockUpdateLoginStatus).toBeCalledWith(false);
 
-    expect(mockUpdateUserId ).toBeCalledTimes(1);
-    expect(mockUpdateUserId ).toBeCalledWith(null);
+    expect(mockUpdateUserId).toBeCalledTimes(1);
+    expect(mockUpdateUserId).toBeCalledWith(null);
   });
-
-  it('should fire functions when the log in button is clicked', () => {
-    const mockChangeView = jest.fn()
-    const mockUpdateLoginStatus = jest.fn()
-    const mockUpdateUserId = jest.fn()
-    render(<Header
-      changeView={mockChangeView}
-      loggedIn= {false}
-      updateLoginStatus={mockUpdateLoginStatus}
-      updateUserId={mockUpdateUserId}
-    />)
-    const button = screen.getByRole('button');
-    fireEvent.click(button); 
-
-    expect(mockChangeView).toBeCalledTimes(1);
-    expect(mockChangeView).toBeCalledWith('login');
-  });
-
 })
