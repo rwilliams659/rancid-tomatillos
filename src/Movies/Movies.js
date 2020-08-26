@@ -8,7 +8,7 @@ const Movies = ({error, movies, loggedIn, userRatings, updateCurrentMovie}) => {
 
   if (!loggedIn) {
     movieList = movies.map(movie => {
-        return <Link to={`/movies/${movie.id}`}>
+      return <Link to={`/movies/${movie.id}`} style={{ textDecoration: 'none'}}>
           <Movie 
             id={movie.id}
             title={movie.title}
@@ -21,7 +21,7 @@ const Movies = ({error, movies, loggedIn, userRatings, updateCurrentMovie}) => {
   } else {
     movieList = movies.map(movie => {
       const matchingRating = userRatings.find(rating => rating.movie_id === movie.id)
-      return <Link to={`/movies/${movie.id}`}>
+      return <Link to={`/movies/${movie.id}`} style={{ textDecoration: 'none'}}>
         <Movie  
           id={movie.id}
           title={movie.title}
