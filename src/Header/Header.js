@@ -33,7 +33,9 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  loggedIn: PropTypes.bool
+  loggedIn: PropTypes.bool,
+  updateLoginStatus: PropTypes.func,
+  updateUserId: PropTypes.func
 }
 
 export default Header
