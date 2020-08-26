@@ -13,7 +13,6 @@ class App extends Component {
     this.state = {
       movies: [ ],
       error: '',
-      view: 'homepage',
       userId: null,
       loggedIn: false, 
       currentMovie: null,
@@ -35,7 +34,6 @@ class App extends Component {
     return (
       <div className='App'>
         <Header 
-        changeView={this.changeView}
         loggedIn={this.state.loggedIn} 
         updateLoginStatus={this.updateLoginStatus} 
         updateUserId={this.updateUserId}
@@ -52,7 +50,6 @@ class App extends Component {
           <Login 
             updateUserId={this.updateUserId}
             updateLoginStatus={this.updateLoginStatus} 
-            changeView={this.changeView}
             error={this.state.error} 
             updateError={this.updateError}
             getUserRatings={this.getUserRatings}
@@ -79,10 +76,6 @@ class App extends Component {
     )
   }
 
-  changeView = (newView) => {
-    this.setState({view: newView})
-  }
-
   updateUserId = (id) => {
     this.setState({userId: id})
   }
@@ -99,7 +92,6 @@ class App extends Component {
     const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
     this.setState({currentMovie: newMovie}, () => {
-      console.log('current movie', this.state.currentMovie)
       if (this.state.userRatings.length > 0) {
         this.findCurrentMovieRating()
       }
@@ -108,7 +100,6 @@ class App extends Component {
   }
 
   findCurrentMovieRating = () => {
-    console.log(this.state.userRatings)
     let currentRatingInfo = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
     if (currentRatingInfo) {
       this.setState({currentMovieRatingInfo: currentRatingInfo});
@@ -133,7 +124,6 @@ class App extends Component {
       .then(ratings => { 
         this.setState({ userRatings: ratings.ratings }) 
         this.updateLoginStatus(true)
-        this.changeView('homepage')
       })
       .catch(error => console.log(error));
   }

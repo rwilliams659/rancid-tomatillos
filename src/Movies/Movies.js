@@ -21,14 +21,16 @@ const Movies = ({error, movies, loggedIn, userRatings, updateCurrentMovie}) => {
   } else {
     movieList = movies.map(movie => {
       const matchingRating = userRatings.find(rating => rating.movie_id === movie.id)
-      return <Movie
-        id={movie.id}
-        title={movie.title}
-        averageRating={movie.average_rating}
-        backdropPath={movie.backdrop_path}
-        rating={matchingRating}
-        key={movie.id}
-      />
+      return <Link to={`/movies/${movie.id}`}>
+        <Movie  
+          id={movie.id}
+          title={movie.title}
+          averageRating={movie.average_rating}
+          backdropPath={movie.backdrop_path}
+          rating={matchingRating}
+          key={movie.id}
+        />
+      </Link>
     })
   }
  
@@ -37,10 +39,8 @@ const Movies = ({error, movies, loggedIn, userRatings, updateCurrentMovie}) => {
       {error &&
         <h3 className='error-msg'>{error}</h3>
       }
-    
       <h2 className='all-movies-title'>Browse All Movies</h2>
       <section aria-label='all-movies' className='Movies'>
-      {/* onClick={(event) => {updateCurrentMovie(event)}}> */}
         {movieList}
       </section>
     </main>
