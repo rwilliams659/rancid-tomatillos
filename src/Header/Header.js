@@ -11,18 +11,21 @@ class Header extends Component {
     const isLoggedIn = this.props.loggedIn
     return (
       <header className='Header'>
-        <NavLink to='/' className='nav'>Home</NavLink>
-        {isLoggedIn &&
-          <Link to='/'><button onClick={() => {
-            this.props.updateLoginStatus(false)
-            this.props.updateUserId(null)
-         
-        }}>Log out</button></Link>
-        }
-        {!isLoggedIn &&
-          <Link to='/login'><button>Log in</button></Link>
-        }
-        <h1>Rancid Tomatillos</h1>
+        <nav>
+          <NavLink to='/' className='home-link'>Home</NavLink>
+          {isLoggedIn &&
+            <Link to='/'><button onClick={() => {
+              this.props.updateLoginStatus(false)
+              this.props.updateUserId(null)
+            }}>Log out</button></Link>
+          }
+          {!isLoggedIn &&
+            <Link to='/login'><button>Log in</button></Link>
+          }
+        </nav>
+        <section className="title">
+          <h1>Rancid Tomatillos</h1>
+        </section>
       </header>
     )
   }
