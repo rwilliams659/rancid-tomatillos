@@ -4,7 +4,7 @@ import './Movie.css'
 
 const Movie = ({id, title, averageRating, backdropPath, rating}) => {
   return (
-    <section className='Movie' aria-label='movie' style={{ backgroundImage: `url(${backdropPath})`}} id={id}>
+    <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})`}} id={id}>
       <p className="movie-rating">{Math.round(averageRating * 10) / 10} / 10</p>
       <h3 className='movie-title'>{title}</h3>
       {rating &&
