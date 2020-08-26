@@ -21,7 +21,10 @@ class MovieDetails extends Component {
       console.log(response.status);
       this.props.updateUserRatings();
     })
-    .catch(error => console.log(error))
+    .catch(error => {
+      console.log(error);
+      this.props.updateError('Sorry, your rating could not be added.')
+    })
   }
 
   handlingRatingDeletion = event => {
@@ -31,7 +34,10 @@ class MovieDetails extends Component {
         console.log(response.status);
         this.props.updateUserRatings();
       })
-      .catch(error => console.log(error));
+      .catch(error => { 
+        console.log(error);
+        this.props.updateError('Sorry, your rating could not be deleted.')
+      });
   }
 
   render() {
@@ -46,8 +52,7 @@ class MovieDetails extends Component {
           <h2>{this.props.title}</h2>
           <h3>Release date: {this.props.
             release_date}</h3>
-          <h3>Average rating: {this.props.
-            average_rating}</h3>
+          <h3>Average rating: {Math.round(this.props.average_rating * 10) / 10}</h3>
 
             {this.props.loggedIn && this.props.currentMovieRatingInfo && (
               <>
@@ -74,6 +79,9 @@ class MovieDetails extends Component {
                 <input type='submit' value='Submit' onClick={this.addRating}/> 
               </form>
             )}
+          {this.props.error &&
+            <h3 className='error-msg'>{this.props.error}</h3>
+          }
         </section>
       </section>
     )

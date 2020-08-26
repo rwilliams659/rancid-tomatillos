@@ -70,6 +70,8 @@ class App extends Component {
                 userId={this.state.userId}
                 updateUserRatings={this.updateUserRatings}
                 findCurrentMovieRating={this.findCurrentMovieRating}
+                error={this.state.error}
+                updateError={this.updateError}
               />)
           }}
         />
@@ -97,7 +99,6 @@ class App extends Component {
         this.findCurrentMovieRating()
       }
     });
-    this.changeView('movie-details');
   }
 
   findCurrentMovieRating = () => {

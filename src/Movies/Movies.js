@@ -40,7 +40,7 @@ const Movies = ({error, movies, loggedIn, userRatings, updateCurrentMovie}) => {
         <h3 className='error-msg'>{error}</h3>
       }
       <h2 className='all-movies-title'>Browse All Movies</h2>
-      <section aria-label='all-movies' className='Movies'>
+      <section aria-label='all-movies' className='Movies' onClick={(event) => { updateCurrentMovie(event)}}> 
         {movieList}
       </section>
     </main>
