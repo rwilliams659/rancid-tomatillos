@@ -9,7 +9,8 @@ class Login extends Component {
     super(props) 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      loginError: ''
     }
   }
 
@@ -37,8 +38,8 @@ class Login extends Component {
         <button className='login-form-btn'
           onClick={this.handleLogin}>Log in</button>
 
-        {this.props.error &&
-          <h3 className='error-msg'>{this.props.error}</h3>
+        {this.state.loginError &&
+          <h3 className='error-msg'>{this.state.loginError}</h3>
         }
       </form>
     )
@@ -68,13 +69,14 @@ class Login extends Component {
     })
     .catch(error => {
       console.log(error);
-      this.props.updateError('Invalid username or password')
+      this.setState({ loginError: 'Invalid username or password'})
     })
   }
 
   handleSuccessfulLogin = (id) => {
     this.props.updateUserId(id)
-    this.props.getUserRatings()   
+    this.props.getUserRatings() ;
+    this.setState({ loginError: '' }) 
   }
 
   handleLogin = event => {

@@ -50,9 +50,7 @@ class App extends Component {
           <Login 
             updateUserId={this.updateUserId}
             updateLoginStatus={this.updateLoginStatus} 
-            error={this.state.error} 
             loggedIn={this.state.loggedIn}
-            updateError={this.updateError}
             getUserRatings={this.getUserRatings}
         />} />
         <Route 
@@ -85,10 +83,6 @@ class App extends Component {
     this.setState({loggedIn: status})
   }
 
-  updateError = (errorMessage) => {
-    this.setState({error: errorMessage})
-  }
-
   updateCurrentMovie = (event) => {
     const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
@@ -97,7 +91,6 @@ class App extends Component {
         this.findCurrentMovieRating()
       }
     });
-    this.changeView('movie-details');
   }
 
   findCurrentMovieRating = () => {
