@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import './Login.css'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import { checkLoginCredentials } from '../apiCalls'
+import { Link, Redirect } from 'react-router-dom'
 
 class Login extends Component {
   constructor(props) {
@@ -27,9 +28,14 @@ class Login extends Component {
           name='password'
           value={this.state.password}
           onChange={this.updateUserLogin}/>
-        <Link to='/'><button className='login-form-btn'
+
+        <button className='login-form-btn'
           onClick={this.handleLogin}>Log in</button>
-        </Link>
+       
+        {/* <Link to='/'><button className='login-form-btn'
+          onClick={this.handleLogin}>Log in</button>
+        </Link> */}
+
         {this.props.error &&
           <h3 className='error-msg'>{this.props.error}</h3>
         }
@@ -50,19 +56,12 @@ class Login extends Component {
     })
   }
 
-  validateLogin = event => {
+  validateLogin = () => {
     const loginInfo = {
       email: this.state.email,
       password: this.state.password
     }
-    fetch('https://rancid-tomatillos.herokuapp.com/api/v2/login', {
-      method: 'POST', 
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(loginInfo)
-    })
-    .then(response => response.json())
+    checkLoginCredentials(loginInfo)
     .then(response => {
       this.handleSuccessfulLogin(response.user.id) 
     })
@@ -75,9 +74,11 @@ class Login extends Component {
   handleSuccessfulLogin = (id) => {
     this.props.updateUserId(id)
     this.props.getUserRatings()
+    
   }
 
   handleLogin = event => {
+    event.preventDefault()
     this.validateLogin(event);
     this.resetForm()
   }
