@@ -4,6 +4,18 @@ export const getMovies = async () => {
   return movies;
 }
 
+export const checkLoginCredentials = async (loginInfo) => {
+  const response = await fetch('https://rancid-tomatillos.herokuapp.com/api/v2/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(loginInfo)
+  })
+    const validation = await response.json()
+    return validation;
+}
+
 export const fetchUserRatings = async (userId) => {
   const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings`)
    const userRatings = await response.json(); 

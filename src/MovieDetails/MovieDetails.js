@@ -5,7 +5,6 @@ import { deleteRating, postNewRating } from '../apiCalls'
 class MovieDetails extends Component {
   constructor(props) {
     super(props)
-    console.log('currentMovieRating', this.props.currentMovieRatingInfo)
     this.state = {
       formValue: null,
     }
@@ -36,17 +35,19 @@ class MovieDetails extends Component {
   }
 
   render() {
-    console.log('currentMovieRatingInfo', this.props.currentMovieRatingInfo)
+
     return (
       <section className='MovieDetails'>
         <section className='movie-poster-section'>
-          <img src={this.props.poster} alt={this.props.title} className='movie-details-img'/>
+          <img src={this.props.poster_path} alt={this.props.title} className='movie-details-img'/>
         </section>
 
         <section className='movie-info'>
           <h2>{this.props.title}</h2>
-          <h3>Release date: {this.props.releaseDate}</h3>
-          <h3>Average rating: {this.props.averageRating}</h3>
+          <h3>Release date: {this.props.
+            release_date}</h3>
+          <h3>Average rating: {this.props.
+            average_rating}</h3>
 
             {this.props.loggedIn && this.props.currentMovieRatingInfo && (
               <>

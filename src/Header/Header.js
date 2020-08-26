@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import '../Header/Header.css'
+import { NavLink, Link } from 'react-router-dom'
 
 class Header extends Component {
   constructor(props) {
@@ -10,14 +11,16 @@ class Header extends Component {
     const isLoggedIn = this.props.loggedIn
     return (
       <header className='Header'>
+        <NavLink to='/' className='nav'>Home</NavLink>
         {isLoggedIn &&
-          <button onClick={() => {
+          <Link to='/'><button onClick={() => {
             this.props.updateLoginStatus(false)
             this.props.updateUserId(null)
-            this.props.changeView('homepage')}}>Log out</button>
+         
+        }}>Log out</button></Link>
         }
         {!isLoggedIn &&
-          <button onClick={() => { this.props.changeView('login') }}>Log in</button>
+          <Link to='/login'><button>Log in</button></Link>
         }
         <h1>Rancid Tomatillos</h1>
       </header>
