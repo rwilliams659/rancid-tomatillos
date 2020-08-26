@@ -51,6 +51,7 @@ class App extends Component {
             updateUserId={this.updateUserId}
             updateLoginStatus={this.updateLoginStatus} 
             error={this.state.error} 
+            loggedIn={this.state.loggedIn}
             updateError={this.updateError}
             getUserRatings={this.getUserRatings}
         />} />

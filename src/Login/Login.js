@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './Login.css'
 import PropTypes from 'prop-types'
 import { checkLoginCredentials } from '../apiCalls'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
   constructor(props) {
@@ -14,6 +14,11 @@ class Login extends Component {
   }
 
   render() {
+
+      if (this.props.loggedIn === true ) {
+        return <Redirect to='/' />
+      }
+
     return (
       <form className='Login'>
         <input 
@@ -31,10 +36,6 @@ class Login extends Component {
 
         <button className='login-form-btn'
           onClick={this.handleLogin}>Log in</button>
-       
-        {/* <Link to='/'><button className='login-form-btn'
-          onClick={this.handleLogin}>Log in</button>
-        </Link> */}
 
         {this.props.error &&
           <h3 className='error-msg'>{this.props.error}</h3>
@@ -73,8 +74,7 @@ class Login extends Component {
 
   handleSuccessfulLogin = (id) => {
     this.props.updateUserId(id)
-    this.props.getUserRatings()
-    
+    this.props.getUserRatings()   
   }
 
   handleLogin = event => {
