@@ -7,6 +7,7 @@ class MovieDetails extends Component {
     super(props)
     this.state = {
       formValue: null,
+      error: ''
     }
   }
 
@@ -23,7 +24,7 @@ class MovieDetails extends Component {
     })
     .catch(error => {
       console.log(error);
-      this.props.updateError('Sorry, your rating could not be added.')
+      this.setState({error:'Sorry, your rating could not be added.'})
     })
   }
 
@@ -36,12 +37,11 @@ class MovieDetails extends Component {
       })
       .catch(error => { 
         console.log(error);
-        this.props.updateError('Sorry, your rating could not be deleted.')
+        this.setState({ error:'Sorry, your rating could not be deleted.'})
       });
   }
 
   render() {
-
     return (
       <section className='MovieDetails'>
         <section className='movie-poster-section'>
@@ -79,8 +79,8 @@ class MovieDetails extends Component {
                 <input type='submit' value='Submit' onClick={this.addRating}/> 
               </form>
             )}
-          {this.props.error &&
-            <h3 className='error-msg'>{this.props.error}</h3>
+          {this.state.error &&
+            <h3 className='error-msg'>{this.state.error}</h3>
           }
         </section>
       </section>

@@ -50,9 +50,7 @@ class App extends Component {
           <Login 
             updateUserId={this.updateUserId}
             updateLoginStatus={this.updateLoginStatus} 
-            error={this.state.error} 
             loggedIn={this.state.loggedIn}
-            updateError={this.updateError}
             getUserRatings={this.getUserRatings}
         />} />
         <Route 
@@ -70,8 +68,6 @@ class App extends Component {
                 userId={this.state.userId}
                 updateUserRatings={this.updateUserRatings}
                 findCurrentMovieRating={this.findCurrentMovieRating}
-                error={this.state.error}
-                updateError={this.updateError}
               />)
           }}
         />
@@ -85,10 +81,6 @@ class App extends Component {
 
   updateLoginStatus = (status) => {
     this.setState({loggedIn: status})
-  }
-
-  updateError = (errorMessage) => {
-    this.setState({error: errorMessage})
   }
 
   updateCurrentMovie = (event) => {
