@@ -88,8 +88,9 @@ class Login extends Component {
 
 Login.propTypes = {
   updateUserId: PropTypes.func,
-  error: PropTypes.string
+  loggedIn: PropTypes.bool,
+  updateLoginStatus: PropTypes.func,
+  getUserRatings: PropTypes.func
 }
-
 
 export default Login

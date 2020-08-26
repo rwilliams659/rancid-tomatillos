@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './MovieDetails.css'
 import { deleteRating, postNewRating } from '../apiCalls'
 
@@ -86,6 +87,20 @@ class MovieDetails extends Component {
       </section>
     )
   }
+}
+
+MovieDetails.propTypes = {
+  poster_path: PropTypes.string,
+  title: PropTypes.string,
+  average_rating: PropTypes.number,
+  release_date: PropTypes.string,
+  userRatings: PropTypes.array,
+  currentMovie: PropTypes.object,
+  currentMovieRatingInfo: PropTypes.object,
+  loggedIn: PropTypes.bool,
+  userId: PropTypes.number,
+  updateUserRatings: PropTypes.func,
+  findCurrentMovieRatings: PropTypes.func
 }
 
 export default MovieDetails 

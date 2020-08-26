@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Movie.css'
 
 const Movie = ({id, title, averageRating, backdropPath, rating}) => {
@@ -11,6 +12,14 @@ const Movie = ({id, title, averageRating, backdropPath, rating}) => {
       }     
     </section>
   )
+}
+
+Movie.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  averageRating: PropTypes.number,
+  backdropPath: PropTypes.string,
+  rating: PropTypes.object
 }
 
 export default Movie

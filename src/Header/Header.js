@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import '../Header/Header.css'
 import { NavLink, Link } from 'react-router-dom'
 
@@ -29,6 +30,10 @@ class Header extends Component {
       </header>
     )
   }
+}
+
+Header.propTypes = {
+  loggedIn: PropTypes.bool
 }
 
 export default Header

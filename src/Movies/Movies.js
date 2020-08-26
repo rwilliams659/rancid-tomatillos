@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Movie from '../Movie/Movie'
 import '../Movies/Movies.css'
 import { Link } from 'react-router-dom'
@@ -47,6 +48,14 @@ const Movies = ({error, movies, loggedIn, userRatings, updateCurrentMovie}) => {
         </section>
   </main>
   )
+}
+
+Movies.propType = {
+  error: PropTypes.bool,
+  movies: PropTypes.array,
+  loggedIn: PropTypes.bool,
+  userRatings: PropTypes.array,
+  updateCurrentMovie: PropTypes.func
 }
 
 export default Movies 
