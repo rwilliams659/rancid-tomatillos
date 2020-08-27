@@ -29,38 +29,38 @@ describe('Login component', () => {
     expect(submitBtn).toBeInTheDocument(); 
   });
 
-  it.skip('on successful log in user should be redirected to home page', async () => {
+  // it.skip('on successful log in user should be redirected to home page', async () => {
     
-    checkLoginCredentials.mockResolvedValue({
-      user: {
-        email: "diana@turing.io",
-        id: 100,
-        name: "Di"
-      }
-    })
+  //   checkLoginCredentials.mockResolvedValue({
+  //     user: {
+  //       email: "diana@turing.io",
+  //       id: 100,
+  //       name: "Di"
+  //     }
+  //   })
     
-    render(
-      <BrowserRouter>
-        <Login
-          updateUserId={jest.fn()}
-          updateLoginStatus={jest.fn()}
-          loggedIn={false}
-          getUserRatings={jest.fn()}
-        />
-      </BrowserRouter>
-    )
+  //   render(
+  //     <BrowserRouter>
+  //       <Login
+  //         updateUserId={jest.fn()}
+  //         updateLoginStatus={jest.fn()}
+  //         loggedIn={false}
+  //         getUserRatings={jest.fn()}
+  //       />
+  //     </BrowserRouter>
+  //   )
 
-    const emailInput = screen.getByPlaceholderText('Email address');
-    const passwordInput = screen.getByPlaceholderText('Password');
-    const submitBtn = screen.getByText('Submit');
+  //   const emailInput = screen.getByPlaceholderText('Email address');
+  //   const passwordInput = screen.getByPlaceholderText('Password');
+  //   const submitBtn = screen.getByText('Submit');
 
-    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }})
-    fireEvent.change(passwordInput, { target: { value: '111111' }})
-    fireEvent.click(submitBtn) 
+  //   fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }})
+  //   fireEvent.change(passwordInput, { target: { value: '111111' }})
+  //   fireEvent.click(submitBtn) 
 
-    const logoutBtn = await waitFor(() => screen.getByText('Log out'))
-    expect(logoutBtn).toBeInTheDocument()
-  });
+  //   const logoutBtn = await waitFor(() => screen.getByText('Log out'))
+  //   expect(logoutBtn).toBeInTheDocument()
+  // });
 
 
   it('should display an error when login credentials are invalid', async () => {
