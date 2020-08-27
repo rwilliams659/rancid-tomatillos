@@ -4,8 +4,9 @@ import { screen, render, waitFor, fireEvent }
   from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { BrowserRouter } from 'react-router-dom';
+import { postNewRating, deleteRating, fetchUserRatings } from '../apiCalls'; 
 jest.mock('../apiCalls'); 
-import { postNewRating, deleteNewRating } from '../apiCalls'; 
+
 
 
 describe('MovieDetails component', () => {
@@ -159,7 +160,6 @@ describe('MovieDetails component', () => {
       poster_path: 'http//coolcats-on-beach.com'
     }
 
-
     //need to mock addRating
     // MovieDetails.addRating=jest.fn(); 
 
@@ -169,6 +169,16 @@ describe('MovieDetails component', () => {
         rating: 10,
         user_id: 1
       }
+    })
+
+    fetchUserRatings.mockResolvedValue({
+      ratings: [{
+        movie_id: 17,
+        rating: 10,
+        user_id: 1,
+        created_at: "2020-08-17T23:48:55.695Z",
+        updated_at: "2020-08-17T23:48:55.695Z"
+      }]
     })
 
     render(
@@ -188,8 +198,13 @@ describe('MovieDetails component', () => {
       </BrowserRouter>
     )
 
+    const input = screen.getByText('10');
+    const submitBtn = screen.getByText('Submit')
+    fireEvent.change(input, {target: {value: '10'}})
+    fireEvent.click(submitBtn)
+
     const userRating = await waitFor(() => screen.getByText('Your rating: 10'));
-    const deleteBtn = await waitFor(() => screen.getByRole('button'));
+    const deleteBtn = await waitFor(() => screen.getByText('Delete rating'));
 
     expect(userRating).toBeInTheDocument();
     expect(deleteBtn).toBeInTheDocument();
@@ -197,4 +212,59 @@ describe('MovieDetails component', () => {
     //mock out both addRating & postNewRating
     //check that each was called once
   })
+
+  it.skip('should delete rating and display add rating form', async () => {
+
+    const movie1 = {
+      id: 17,
+      title: 'Cats',
+      release_date: '2020-01-20',
+      average_rating: 10,
+      backdrop_path: 'http//coolcats.com',
+      poster_path: 'http//coolcats-on-beach.com'
+    }
+
+    const rating1 = {
+      id: 15,
+      user_id: 1,
+      movie_id: 17,
+      rating: 10,
+      created_at: "2020-08-17T23:48:55.695Z",
+      updated_at: "2020-08-17T23:48:55.695Z"
+    }
+
+    deleteRating.mockResolvedValue('Success')
+
+    render(
+      <BrowserRouter>
+        <MovieDetails
+          poster_path='http//coolcats-on-beach.com'
+          title='Cats'
+          release_date='2020-01-20'
+          average_rating={10}
+          userRatings={[rating1]}
+          currentMovie={movie1}
+          currentMovieRatingInfo={rating1}
+          loggedIn={true}
+          userId={1}
+          updateUserRatings={jest.fn()}
+        />
+      </BrowserRouter>
+    )
+    
+    const deleteBtn = screen.getByText('Delete rating');
+    fireEvent.click(deleteBtn)
+
+    const form = await waitFor (() => screen.getByLabelText('select movie rating'));
+   
+    expect(deleteBtn).not.toBeInTheDocument();
+    expect(form).toBeInTheDocument();
+  
+
+    //mock out both addRating & postNewRating
+    //check that each was called once
+  })
+
+
+
 })
