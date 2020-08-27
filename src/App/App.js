@@ -71,7 +71,7 @@ class App extends Component {
               />)
           }}
         />
-        <Route path='*' component={PageNotFound} />
+        {/* <Route path='*' component={PageNotFound} /> */}
       </div>
     )
   }
