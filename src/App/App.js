@@ -3,6 +3,7 @@ import './App.css';
 import Header from '../Header/Header'
 import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
+import PageNotFound from '../PageNotFound/PageNotFound'
 import MovieDetails from '../MovieDetails/MovieDetails'
 import { fetchUserRatings, getMovies } from '../apiCalls'
 import { Route } from 'react-router-dom';
@@ -70,6 +71,7 @@ class App extends Component {
               />)
           }}
         />
+        <Route path="*" component={PageNotFound} />
       </div>
     )
   }
