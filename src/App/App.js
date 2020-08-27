@@ -25,7 +25,7 @@ class App extends Component {
     getMovies()
       .then(movies => this.setState({movies: movies.movies}))
       .catch(error => {
-        console.log(error);
+        console.warn('Error loading movies');
         this.setState({error: 'Oops! Something went wrong!'})
       })
   }
