@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom';
-import { getMovies } from '../apiCalls';
+import { getMovies, checkLoginCredentials } from '../apiCalls';
 import { BrowserRouter } from 'react-router-dom';
 jest.mock('../apiCalls')
 
@@ -58,14 +58,49 @@ describe('App Component', () => {
   })
 
 
-})
+  // THIS TEST ISN'T WORKING 
+it('should be able to successfully log in a user', async () => {
+
+  checkLoginCredentials.mockResolvedValue({
+    user: {
+      email: "diana@turing.io",
+      id: 100,
+      name: "Di"
+    }
+  })
+
+  render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  )
+
+  const loginBtn = screen.getByText('Log in')
+  fireEvent.click(loginBtn)
+
+  const emailInput = screen.getByPlaceholderText('Email address');
+  const passwordInput = screen.getByPlaceholderText('Password');
+
+  const submitBtn = screen.getByText('Submit');
+
+  expect(emailInput).toBeInTheDocument();
+  expect(passwordInput).toBeInTheDocument();
+  expect(submitBtn).toBeInTheDocument(); 
+
+  fireEvent.change(emailInput, {target: { value: 'diana@turing.io' }})
+  fireEvent.change(passwordInput, { target: { value: '111111' }})
 
 
+
+  fireEvent.click(submitBtn) 
+
+  // Can't get back to home view:
+  // when log in is successful user should be redirected home
+
+  const logoutBtn = await waitFor(() => screen.getByText('Log out'))
+  expect(logoutBtn).toBeInTheDocument()
 
 // it should be able to log in a user(test that they can click on the login button, fill out the login form and get redirected back home with some indication that they're logged in)
 
-// log in button clicked
-// login component rendered
-// fill out form
-// submit log in clicked
-// redirected home
+  })
+})
