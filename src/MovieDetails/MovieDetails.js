@@ -20,7 +20,7 @@ class MovieDetails extends Component {
     event.preventDefault();
     postNewRating(this.props.userId, this.props.currentMovie.id, this.state.formValue)
     .then(response => {
-      console.log(response.status);
+      console.log(response)
       this.props.updateUserRatings();
     })
     .catch(error => {
@@ -29,11 +29,11 @@ class MovieDetails extends Component {
     })
   }
 
-  handlingRatingDeletion = event => {
+  handlingRatingDeletion = async event => {
     event.preventDefault();
-    deleteRating(this.props.userId, this.props.currentMovieRatingInfo.id)
+    await deleteRating(this.props.userId, this.props.currentMovieRatingInfo.id)
       .then(response => {
-        console.log(response.status);
+        console.log(response)
         this.props.updateUserRatings();
       })
       .catch(error => { 
@@ -63,7 +63,7 @@ class MovieDetails extends Component {
             )} 
           
             {this.props.loggedIn && !this.props.currentMovieRatingInfo && (
-              <form>
+              <form aria-label="select movie rating">
                 <select name='rateMovieDropdown' onChange={this.handleFormSelection}>
                   <option value=''>--Choose a rating--</option>
                   <option value='1'>1</option>
@@ -100,7 +100,6 @@ MovieDetails.propTypes = {
   loggedIn: PropTypes.bool,
   userId: PropTypes.number,
   updateUserRatings: PropTypes.func,
-  findCurrentMovieRatings: PropTypes.func
 }
 
 export default MovieDetails 

@@ -1,6 +1,6 @@
 export const getMovies = async () => {
   const response = await fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
-  const movies = await response.json()
+  const movies = await checkResponse(response); 
   return movies;
 }
 
@@ -12,14 +12,14 @@ export const checkLoginCredentials = async (loginInfo) => {
     },
     body: JSON.stringify(loginInfo)
   })
-    const validation = await response.json()
-    return validation;
+  const validation = await checkResponse(response);
+  return validation;
 }
 
 export const fetchUserRatings = async (userId) => {
   const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings`)
-   const userRatings = await response.json(); 
-   return userRatings; 
+  const userRatings = await checkResponse(response);
+  return userRatings; 
 }
 
 export const postNewRating = async (userId, movieId, userRating) => {
@@ -35,7 +35,8 @@ export const postNewRating = async (userId, movieId, userRating) => {
       }
     )
   });
-  return postResponse; 
+  const response = await checkResponse(postResponse)
+  return response; 
 }
 
 export const deleteRating = async (userId, ratingId) => {
@@ -45,5 +46,18 @@ export const deleteRating = async (userId, ratingId) => {
       'Content-Type': 'application/json',
     }
   })
-  return deleteResponse;
+  if (!deleteResponse.ok) {
+    throw new Error(deleteResponse.statusText)
+  } else {
+    return 'Success';
+  }
 }
+
+const checkResponse = async (response) => {
+  if (!response.ok) {
+    const errorResponse = await response.json();
+    throw new Error(errorResponse.error);
+  } else {
+    return response.json()
+  }
+};

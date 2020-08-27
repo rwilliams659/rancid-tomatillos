@@ -50,4 +50,4 @@ describe('Header Component', () => {
     expect(mockUpdateUserId).toBeCalledTimes(1);
     expect(mockUpdateUserId).toBeCalledWith(null);
   });
-})
+});
