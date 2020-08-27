@@ -12,7 +12,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      movies: [ ],
+      movies: [],
       error: '',
       userId: null,
       loggedIn: false, 
@@ -71,7 +71,7 @@ class App extends Component {
               />)
           }}
         />
-        <Route path="*" component={PageNotFound} />
+        <Route path='*' component={PageNotFound} />
       </div>
     )
   }
@@ -95,7 +95,7 @@ class App extends Component {
   }
 
   findCurrentMovieRating = () => {
-    let currentRatingInfo = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
+     let currentRatingInfo = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
     if (currentRatingInfo) {
       this.setState({currentMovieRatingInfo: currentRatingInfo});
     } else {
