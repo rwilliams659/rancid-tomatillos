@@ -36,7 +36,7 @@ class Login extends Component {
           onChange={this.updateUserLogin}/>
 
         <button className='login-form-btn'
-          onClick={this.handleLogin}>Log in</button>
+          onClick={this.handleLogin}>Submit</button>
 
         {this.state.loginError &&
           <h3 className='error-msg'>{this.state.loginError}</h3>
@@ -65,6 +65,7 @@ class Login extends Component {
     }
     checkLoginCredentials(loginInfo)
     .then(response => {
+      console.log(response)
       this.handleSuccessfulLogin(response.user.id) 
     })
     .catch(error => {

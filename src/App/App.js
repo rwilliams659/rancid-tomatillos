@@ -3,6 +3,7 @@ import './App.css';
 import Header from '../Header/Header'
 import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
+import PageNotFound from '../PageNotFound/PageNotFound'
 import MovieDetails from '../MovieDetails/MovieDetails'
 import { fetchUserRatings, getMovies } from '../apiCalls'
 import { Route } from 'react-router-dom';
@@ -11,7 +12,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      movies: [ ],
+      movies: [],
       error: '',
       userId: null,
       loggedIn: false, 
@@ -25,7 +26,7 @@ class App extends Component {
     getMovies()
       .then(movies => this.setState({movies: movies.movies}))
       .catch(error => {
-        console.log(error);
+        console.warn('Error loading movies');
         this.setState({error: 'Oops! Something went wrong!'})
       })
   }
@@ -70,6 +71,7 @@ class App extends Component {
               />)
           }}
         />
+        {/* <Route path='*' component={PageNotFound} /> */}
       </div>
     )
   }
@@ -93,7 +95,7 @@ class App extends Component {
   }
 
   findCurrentMovieRating = () => {
-    let currentRatingInfo = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
+     let currentRatingInfo = this.state.userRatings.find(rating => rating.movie_id === this.state.currentMovie.id);
     if (currentRatingInfo) {
       this.setState({currentMovieRatingInfo: currentRatingInfo});
     } else {

@@ -1,18 +1,24 @@
 import React from 'react';
 import Login from './Login.js';
-import { screen, fireEvent, render }
+import { screen, fireEvent, render, waitFor }
   from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { checkLoginCredentials } from '../apiCalls';
+jest.mock('../apiCalls')
 
 describe('Login component', () => {
   it('should have the correct content when rendered', () => {
-    render(<Login 
-      updateUserId={jest.fn()}
-      updateLoginStatus={jest.fn()}
-      changeView={jest.fn()}
-      error=''
-      updateError={jest.fn()}
-    />)
+    render(
+      <BrowserRouter>
+        <Login 
+          updateUserId={jest.fn()}
+          updateLoginStatus={jest.fn()}
+          loggedIn={false}
+          getUserRatings={jest.fn()}
+        />
+      </BrowserRouter>
+    )
 
     const emailInput = screen.getByPlaceholderText('Email address');
     const passwordInput = screen.getByPlaceholderText('Password');
@@ -23,38 +29,69 @@ describe('Login component', () => {
     expect(submitBtn).toBeInTheDocument(); 
   });
 
-  //test methods are fired when submit btn is clicked: this.handleLogin
-  //NOTE: THE METHOD WE WANT TO TEST IS FIRED IS NOT PASSED DOWN IN PROPS 
-  //IF WE FIGURE THIS OUT, ALSO TEST RESULTS WHEN CREDENTIALS ARE INVALID (IE ERROR MSG DISPLAYS)
-// it('should fire login handler function when the submit button is clicked', () => {
-//   render(<Login
-//     updateUserId={jest.fn()}
-//     updateLoginStatus={jest.fn()}
-//     changeView={jest.fn()}
-//     error=''
-//     updateError={jest.fn()}
-//   />)
+  // it.skip('on successful log in user should be redirected to home page', async () => {
+    
+  //   checkLoginCredentials.mockResolvedValue({
+  //     user: {
+  //       email: "diana@turing.io",
+  //       id: 100,
+  //       name: "Di"
+  //     }
+  //   })
+    
+  //   render(
+  //     <BrowserRouter>
+  //       <Login
+  //         updateUserId={jest.fn()}
+  //         updateLoginStatus={jest.fn()}
+  //         loggedIn={false}
+  //         getUserRatings={jest.fn()}
+  //       />
+  //     </BrowserRouter>
+  //   )
 
-//   const submitBtn = screen.getByRole('button');
-//   fireEvent.click(submitBtn)
+  //   const emailInput = screen.getByPlaceholderText('Email address');
+  //   const passwordInput = screen.getByPlaceholderText('Password');
+  //   const submitBtn = screen.getByText('Submit');
 
-//   expect()
-// })
+  //   fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }})
+  //   fireEvent.change(passwordInput, { target: { value: '111111' }})
+  //   fireEvent.click(submitBtn) 
 
-  it('should display an error when login credentials are invalid', () => {
-    render(<Login
-      updateUserId={jest.fn()}
-      updateLoginStatus={jest.fn()}
-      changeView={jest.fn()}
-      error='Invalid username or password'
-      updateError={jest.fn()}
-    />)
+  //   const logoutBtn = await waitFor(() => screen.getByText('Log out'))
+  //   expect(logoutBtn).toBeInTheDocument()
+  // });
 
-    const errorMsg = screen.getByText('Invalid username or password');
+
+  it('should display an error when login credentials are invalid', async () => {
+
+    checkLoginCredentials.mockRejectedValue('Login error')
+
+    render(
+      <BrowserRouter>
+        <Login
+        updateUserId={jest.fn()}
+        updateLoginStatus={jest.fn()}
+        loggedIn={false}
+        getUserRatings={jest.fn()}
+      />
+      </BrowserRouter>
+    )
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+    const submitBtn = screen.getByText('Submit');
+
+    fireEvent.change(emailInput, { target: { value: 'd@turing.io' } })
+    fireEvent.change(passwordInput, { target: { value: '188' } })
+    fireEvent.click(submitBtn) 
+
+    const errorMsg = await waitFor(() => screen.getByText('Invalid username or password'))
 
     expect(errorMsg).toBeInTheDocument(); 
   });
+});
 
-})
+
 
 
