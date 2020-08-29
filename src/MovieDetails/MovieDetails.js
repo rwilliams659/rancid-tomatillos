@@ -8,7 +8,8 @@ class MovieDetails extends Component {
     super(props)
     this.state = {
       formValue: null,
-      error: ''
+      error: '',
+      comments: []
     }
   }
 
