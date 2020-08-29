@@ -19,6 +19,7 @@ class App extends Component {
       currentMovie: null,
       currentMovieRatingInfo: null,
       userRatings: [],
+      favorites: []
     }
   }
 
@@ -45,7 +46,8 @@ class App extends Component {
             movies={this.state.movies} 
             loggedIn={this.state.loggedIn}
             userRatings={this.state.userRatings}
-            updateCurrentMovie={this.updateCurrentMovie}
+            // updateCurrentMovie={this.updateCurrentMovie}
+            analyzeMovieClick={this.analyzeMovieClick}
           />} />
         <Route exact path='/login' render={() => 
           <Login 
@@ -83,6 +85,24 @@ class App extends Component {
   updateLoginStatus = (status) => {
     this.setState({loggedIn: status})
   }
+
+  // //NEW
+  analyzeMovieClick = (event) => {
+    if (event.target.classList.contains('heart')) {
+      console.log('heart clicked!');
+      this.toggleFavorite();
+    } else {
+      this.updateCurrentMovie(event); 
+    }
+  }
+
+  toggleFavorite() {
+    //post request to add favorite to server 
+    //body includes id property that corresponds to the movie id 
+    //should be followed by get request for favorites that then sets state for favorites in App 
+  }
+
+  // 
 
   updateCurrentMovie = (event) => {
     const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 

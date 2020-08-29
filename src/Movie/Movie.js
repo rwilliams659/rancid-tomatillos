@@ -5,6 +5,7 @@ import heartFavoriteFalse from '../images/heart-outline.png'
 import heartFavoriteTrue from '../images/heart.png'
 
 const Movie = ({id, title, averageRating, backdropPath, rating}) => {
+  
   return (
     <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})`}} id={id}>
       <img className = "heart" src={heartFavoriteFalse}></img>

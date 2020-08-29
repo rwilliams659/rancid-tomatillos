@@ -1,10 +1,11 @@
+/* eslint-disable react/jsx-key */
 import React from 'react'
 import PropTypes from 'prop-types'
 import Movie from '../Movie/Movie'
 import '../Movies/Movies.css'
 import { Link } from 'react-router-dom'
 
-const Movies = ({error, movies, loggedIn, userRatings, updateCurrentMovie}) => {
+const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick}) => {
   let movieList;
 
   if (!loggedIn) {
@@ -43,19 +44,20 @@ const Movies = ({error, movies, loggedIn, userRatings, updateCurrentMovie}) => {
       { movies.length > 0 &&
         <h2 className='all-movies-title'>Browse All Movies</h2>
       }
-        <section aria-label='all-movies' className='Movies' onClick={(event) => { updateCurrentMovie(event)}}> 
+        <section aria-label='all-movies' className='Movies' onClick={(event) => { analyzeMovieClick(event)}}> 
           {movieList}
         </section>
   </main>
   )
 }
 
-Movies.propType = {
-  error: PropTypes.bool,
+Movies.propTypes = {
+  error: PropTypes.string,
   movies: PropTypes.array,
   loggedIn: PropTypes.bool,
   userRatings: PropTypes.array,
-  updateCurrentMovie: PropTypes.func
+  // updateCurrentMovie: PropTypes.func
+  analyzeMovieClick: PropTypes.func
 }
 
 export default Movies 
