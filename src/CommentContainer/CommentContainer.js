@@ -47,13 +47,18 @@ class CommentContainer extends Component {
   render() {
     return (
       <section className='CommentContainer'>
+        {(this.state.allComments.length < 1) &&
         <p className='no-comments'>No comments to display</p>
+        }
+        <Comments allComments={this.allComments} />
+        {this.props.loggedIn &&
         <form className='CommentForm' onChange={this.handleCommentSubmission}>
           <h3> Add comment to movie: </h3>
           <input name='author' type='text' placeholder='Your name' />
           <input name='comment' type='text' placeholder='Comments..' />
           <input type='submit' value='Post' onClick={this.addComment} />
         </form>
+        }
       </section >
     );
   }
