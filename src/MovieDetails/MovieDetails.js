@@ -10,7 +10,7 @@ class MovieDetails extends Component {
     this.state = {
       formValue: null,
       error: '',
-      comments: []
+      comments: [],
     }
   }
 
@@ -85,13 +85,14 @@ class MovieDetails extends Component {
           {this.state.error &&
             <h3 className='error-msg'>{this.state.error}</h3>
           }
-          <CommentContainer loggedIn={this.props.loggedIn}/>
+          <CommentContainer loggedIn={this.props.loggedIn} movieId={this.props.id} />
         </section>
         
       </section>
     )
   }
 }
+// loggedIn = { this.props.loggedIn }
 
 MovieDetails.propTypes = {
   poster_path: PropTypes.string,
