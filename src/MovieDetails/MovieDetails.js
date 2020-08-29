@@ -50,15 +50,15 @@ class MovieDetails extends Component {
       <section className='MovieDetails'>
         <section className='movie-poster-section'>
           <img src={this.props.poster_path} alt={this.props.title} className='movie-details-img'/>
-          {this.props.loggedIn && inFavorites &&
-            <img className="heart" src={heartFavoriteTrue} id={`heart-details${this.props.currentMovie.id}`}/>
-          }
-          {this.props.loggedIn && !inFavorites &&
-            <img className="heart" src={heartFavoriteFalse} id={`heart-details${this.props.currentMovie.id}`} />
-          }
         </section>
 
         <section className='movie-info'>
+          {this.props.loggedIn && inFavorites &&
+            <img className="details-heart" src={heartFavoriteTrue} id={`heart-details${this.props.currentMovie.id}`} />
+          }
+          {this.props.loggedIn && !inFavorites &&
+            <img className="details-heart" src={heartFavoriteFalse} id={`heart-details${this.props.currentMovie.id}`} />
+          }
           <h2>{this.props.title}</h2>
           <h3>Release date: {this.props.
             release_date}</h3>
