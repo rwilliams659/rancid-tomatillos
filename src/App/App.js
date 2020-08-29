@@ -5,7 +5,7 @@ import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import MovieDetails from '../MovieDetails/MovieDetails'
-import { fetchUserRatings, getMovies, postFavoriteMovie } from '../apiCalls'
+import { fetchUserRatings, getMovies, postFavoriteMovie, getFavoriteMovies } from '../apiCalls'
 import { Route } from 'react-router-dom';
 
 class App extends Component {
@@ -96,19 +96,27 @@ class App extends Component {
   }
 
   toggleFavorite = event => {
-    //parent element will have id 
     const movieId = event.target.parentNode.id; 
     console.log(movieId);
     postFavoriteMovie(movieId)
       .then(response => {
-        console.log(response)
+        console.log(response);
+        this.setFavoriteMovies();
       })
       .catch(error => {
         console.log(error);
+        //set state with error if time/somewhere to display
       })
-    //post request to add favorite to server 
-    //body includes id property that corresponds to the movie id 
     //should be followed by get request for favorites that then sets state for favorites in App 
+  }
+
+  setFavoriteMovies() {
+    getFavoriteMovies()
+      .then(movies => this.setState({favorites: movies})) 
+      .catch(error => {
+        console.log(error);
+        //set state with error if time/somewhere to display
+      })
   }
 
   // 

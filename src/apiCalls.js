@@ -40,6 +40,12 @@ export const postNewRating = async (userId, movieId, userRating) => {
 }
 
 //NEW
+export const getFavoriteMovies = async () => {
+  const response = await fetch('http://localhost:3001/api/v1/favorites');
+  const favoriteMovies = await checkResponse(response); 
+  return favoriteMovies; 
+}
+
 export const postFavoriteMovie = async (id) => {
   const response = await fetch('http://localhost:3001/api/v1/favorites', {
     method: 'POST',
