@@ -85,7 +85,7 @@ class MovieDetails extends Component {
           {this.state.error &&
             <h3 className='error-msg'>{this.state.error}</h3>
           }
-          <CommentContainer appState={this.state} loggedIn={this.props.loggedIn} />
+          <CommentContainer loggedIn={this.props.loggedIn}/>
         </section>
         
       </section>

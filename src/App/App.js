@@ -118,7 +118,7 @@ class App extends Component {
     fetchUserRatings(this.state.userId) 
       .then(ratings => { 
         this.setState({ userRatings: ratings.ratings }) 
-        this.updateLoginStatus(true)
+        this.updateLoginStatus(true) // need to move this to login
       })
       .catch(error => console.log(error));
   }
