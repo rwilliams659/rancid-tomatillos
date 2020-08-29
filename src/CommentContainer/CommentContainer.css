@@ -1,0 +1,10 @@
+.CommentContainer {
+  margin-top: 5em;
+}
+
+.no-comments {
+  color: white;
+  font: 28px;
+  font-style: italic;
+}
+
