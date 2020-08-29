@@ -76,7 +76,8 @@ class Login extends Component {
 
   handleSuccessfulLogin = (id) => {
     this.props.updateUserId(id)
-    this.props.getUserRatings() ;
+    this.props.getUserRatings();
+    this.props.setFavoriteMovies(); 
     this.setState({ loginError: '' }) 
   }
 
@@ -91,7 +92,8 @@ Login.propTypes = {
   updateUserId: PropTypes.func,
   loggedIn: PropTypes.bool,
   updateLoginStatus: PropTypes.func,
-  getUserRatings: PropTypes.func
+  getUserRatings: PropTypes.func,
+  setFavoriteMovies: PropTypes.func
 }
 
 export default Login

@@ -55,6 +55,7 @@ class App extends Component {
             updateLoginStatus={this.updateLoginStatus} 
             loggedIn={this.state.loggedIn}
             getUserRatings={this.getUserRatings}
+            setFavoriteMovies={this.setFavoriteMovies}
         />} />
         <Route 
           path='/movies/:id'
@@ -107,12 +108,14 @@ class App extends Component {
         console.log(error);
         //set state with error if time/somewhere to display
       })
-    //should be followed by get request for favorites that then sets state for favorites in App 
   }
 
-  setFavoriteMovies() {
+  setFavoriteMovies = () => {
     getFavoriteMovies()
-      .then(movies => this.setState({favorites: movies})) 
+      .then(movies => {
+        console.log(movies);
+        this.setState({favorites: movies})
+      }) 
       .catch(error => {
         console.log(error);
         //set state with error if time/somewhere to display
