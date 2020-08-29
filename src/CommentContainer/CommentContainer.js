@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import './CommentContainer.css'
 import { postComment, getComments } from '../apiCalls'
 import Comments from '../Comments/Comments'
@@ -27,7 +28,7 @@ class CommentContainer extends Component {
     this.loadCommentsFromServer(this.props.movieId)
   }
 
-  resetForm() {
+  resetForm = () => {
     this.setState({
       author: '',
       comment: ''
@@ -35,11 +36,10 @@ class CommentContainer extends Component {
   } 
 
   validateComment = (event) => {
+    event.preventDefault()
     if (!this.state.author || !this.state.comment) {
-      event.preventDefault()
       this.setState({ error: 'Please add required field' })
     } else {
-      event.preventDefault()
       this.addComment()
     }
   }
@@ -72,7 +72,7 @@ class CommentContainer extends Component {
         <form className='CommentForm' onChange={this.handleCommentSubmission}>
           <h4> Add comment: </h4>
           <input className='nameInputArea'name='author' type='text' maxLength='50' placeholder='Your name/alias'/>
-          <input className='commentInputArea' name='comment' type='text' maxLength='300' placeholder='Write your comment here.. (300 max characters)'/>
+          <textarea rows='5' name='comment' type='text' maxLength='300' placeholder='Write your comment here.. (300 max characters)'/>
           <input className='postBtn' type='submit' value='Post' onClick={this.validateComment} />
         </form>
         }
@@ -90,6 +90,11 @@ class CommentContainer extends Component {
       </section >
     );
   }
+}
+
+CommentContainer.propTypes = {
+  loggedIn: PropTypes.bool,
+  movieId: PropTypes.number
 }
 
 export default CommentContainer

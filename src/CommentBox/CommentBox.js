@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './CommentBox.css'
 
 const CommentBox = ({ comment, author }) => {
@@ -11,6 +12,11 @@ const CommentBox = ({ comment, author }) => {
     </section>
 
   )
+}
+
+CommentBox.propTypes = {
+  comment: PropTypes.string,
+  author: PropTypes.string
 }
 
 export default CommentBox

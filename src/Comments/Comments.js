@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CommentBox from '../CommentBox/CommentBox'
+import PropTypes from 'prop-types'
 import './Comments.css'
 
 class Comments extends Component {
@@ -25,6 +26,10 @@ class Comments extends Component {
       </section>
     )
   }
+}
+
+Comments.propTypes = {
+  comments: PropTypes.array
 }
 
 export default Comments
