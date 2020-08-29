@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './CommentBox.css'
+import './CommentCard.css'
 
-const CommentBox = ({ comment, author }) => {
+const CommentCard = ({ comment, author }) => {
   return (
-    <section className='CommentBox' aria-label='user comment'>
+    <section className='CommentCard' aria-label='user comment'>
       <ul>
         <li>{comment}</li>
         <li>- {author}</li>
@@ -14,9 +14,9 @@ const CommentBox = ({ comment, author }) => {
   )
 }
 
-CommentBox.propTypes = {
+CommentCard.propTypes = {
   comment: PropTypes.string,
   author: PropTypes.string
 }
 
-export default CommentBox
+export default CommentCard

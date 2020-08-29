@@ -1,5 +1,5 @@
 import React from 'react'
-import CommentBox from '../CommentCard/CommentCard'
+import CommentCard from '../CommentCard/CommentCard'
 import PropTypes from 'prop-types'
 import './Comments.css'
 
@@ -7,7 +7,7 @@ const Comments = ({ comments }) => {
   let commentsList;
   commentsList = comments.map(comment => {
     return (
-      <CommentBox
+      <CommentCard
         comment={comment.comment}
         author={comment.author}
         key={comment.id}
