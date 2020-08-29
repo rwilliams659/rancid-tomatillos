@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import './CommentContainer.css'
 import { postComment, getComments } from '../apiCalls'
 import Comments from '../Comments/Comments'
-import { Link } from 'react-router-dom'
-
 
 class CommentContainer extends Component {
   constructor({loggedIn, movieId}) {
@@ -19,9 +17,9 @@ class CommentContainer extends Component {
   loadCommentsFromServer = (id) => {
     getComments(id)
    .then(comments => this.setState({ allComments: comments.comments }))
-    .catch(error => {
+    .catch(error=> {
       console.warn('Error loading comments');
-      this.setState({ error: 'Oops! Something went wrong!' })
+      this.setState({ error: 'Oops! Something went wrong loading the comments!' })
     })
 }
 
@@ -78,6 +76,9 @@ class CommentContainer extends Component {
         }
         {(this.state.allComments.length > 0) &&
           <Comments comments={this.state.allComments} />
+        }
+        {this.state.error &&
+          <h3 className='errorMsg'>{this.state.error}</h3>
         }
       </section >
     );

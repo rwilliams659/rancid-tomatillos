@@ -6,6 +6,11 @@
   box-shadow: inset 0 0 10px;
 }
 
+.errorMsg {
+  color: white; 
+  text-align: center;
+}
+
 .noComments {
   color: white;
   font: 28px;
