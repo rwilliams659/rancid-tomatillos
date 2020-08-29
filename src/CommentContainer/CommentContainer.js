@@ -21,7 +21,7 @@ class CommentContainer extends Component {
       console.warn('Error loading comments');
       this.setState({ error: 'Oops! Something went wrong loading the comments!' })
     })
-}
+  }
 
   componentDidMount() {
     this.loadCommentsFromServer(this.props.movieId)
@@ -34,10 +34,18 @@ class CommentContainer extends Component {
     })
   } 
 
-  addComment = (event) => {
-    event.preventDefault()
-    console.log('add comment')
-    this.resetForm()
+  validateComment = (event) => {
+    if (!this.state.author || !this.state.comment) {
+      event.preventDefault()
+      this.setState({ error: 'Please add required field' })
+    } else {
+      event.preventDefault()
+      this.addComment()
+      this.resetForm()
+    }
+  }
+
+  addComment = () => {
     postComment(this.props.movieId, this.state.author, this.state.comment)
       .then(response => {
         console.log(response)
@@ -51,7 +59,6 @@ class CommentContainer extends Component {
   }
 
   handleCommentSubmission = (event) => {
-    console.log('movieID:', this.props.movieId)
     const nameOfInput = event.target.name
     const valueOfInput = event.target.value
     this.setState({ [nameOfInput]: valueOfInput })
@@ -64,9 +71,9 @@ class CommentContainer extends Component {
         {this.props.loggedIn &&
         <form className='CommentForm' onChange={this.handleCommentSubmission}>
           <h4> Add comment: </h4>
-          <input className='nameInputArea'name='author' type='text' maxlength='50' placeholder='Your name/alias' />
-          <input className='commentInputArea' name='comment' type='text' maxlength='300' placeholder='Write your comment here.. (300 max characters)' />
-          <input type='submit' value='Post' onClick={this.addComment} />
+          <input className='nameInputArea'name='author' type='text' maxLength='50' placeholder='Your name/alias'/>
+          <input className='commentInputArea' name='comment' type='text' maxLength='300' placeholder='Write your comment here.. (300 max characters)'/>
+          <input className='postBtn' type='submit' value='Post' onClick={this.validateComment} />
         </form>
         }
         {!this.state.allComments.length &&
