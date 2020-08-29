@@ -10,7 +10,6 @@ class MovieDetails extends Component {
     this.state = {
       formValue: null,
       error: '',
-      comments: [],
     }
   }
 
