@@ -5,7 +5,7 @@ import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import MovieDetails from '../MovieDetails/MovieDetails'
-import { fetchUserRatings, getMovies } from '../apiCalls'
+import { fetchUserRatings, getMovies, postFavoriteMovie } from '../apiCalls'
 import { Route } from 'react-router-dom';
 
 class App extends Component {
@@ -86,17 +86,26 @@ class App extends Component {
     this.setState({loggedIn: status})
   }
 
-  // //NEW
+  //NEW
   analyzeMovieClick = (event) => {
     if (event.target.classList.contains('heart')) {
-      console.log('heart clicked!');
-      this.toggleFavorite();
+      this.toggleFavorite(event);
     } else {
       this.updateCurrentMovie(event); 
     }
   }
 
-  toggleFavorite() {
+  toggleFavorite = event => {
+    //parent element will have id 
+    const movieId = event.target.parentNode.id; 
+    console.log(movieId);
+    postFavoriteMovie(movieId)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error);
+      })
     //post request to add favorite to server 
     //body includes id property that corresponds to the movie id 
     //should be followed by get request for favorites that then sets state for favorites in App 

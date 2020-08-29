@@ -8,7 +8,7 @@ const Movie = ({id, title, averageRating, backdropPath, rating}) => {
   
   return (
     <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})`}} id={id}>
-      <img className = "heart" src={heartFavoriteFalse}></img>
+      <img className="heart" src={heartFavoriteFalse}></img>
       <p className="movie-rating">{Math.round(averageRating * 10) / 10} / 10</p>
       <h3 className='movie-title'>{title}</h3>
       {rating &&
