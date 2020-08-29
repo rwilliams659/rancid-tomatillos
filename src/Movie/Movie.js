@@ -11,12 +11,12 @@ const Movie = ({id, title, averageRating, backdropPath, rating, favorites, logge
     <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})`}} id={id}>
       { inFavorites && loggedIn && 
         <Link to='/'>
-        <img className="heart" src={heartFavoriteTrue} id={`heart${id}`}></img>
+        <img className="heart" src={heartFavoriteTrue} id={`heart${id}`}/>
         </Link>
       }
       {!inFavorites && loggedIn && 
         <Link to='/'>
-        <img className="heart" src={heartFavoriteFalse} id={`heart${id}`}></img>
+        <img className="heart" src={heartFavoriteFalse} id={`heart${id}`}/>
         </Link>
       }
       <p className="movie-rating">{Math.round(averageRating * 10) / 10} / 10</p>

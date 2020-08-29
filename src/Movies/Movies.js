@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 
 const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick, favorites}) => {
   let movieList;
-
   if (!loggedIn) {
     movieList = movies.map(movie => {
       return <Link to={`/movies/${movie.id}`} style={{ textDecoration: 'none'}}>

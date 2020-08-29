@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './MovieDetails.css'
 import { deleteRating, postNewRating } from '../apiCalls'
+import heartFavoriteFalse from '../images/heart-outline.png'
+import heartFavoriteTrue from '../images/heart.png'
 
 class MovieDetails extends Component {
   constructor(props) {
@@ -43,10 +45,17 @@ class MovieDetails extends Component {
   }
 
   render() {
+    const inFavorites = this.props.favorites.find(movieId => movieId === this.props.currentMovie.id); 
     return (
       <section className='MovieDetails'>
         <section className='movie-poster-section'>
           <img src={this.props.poster_path} alt={this.props.title} className='movie-details-img'/>
+          {this.props.loggedIn && inFavorites &&
+            <img className="heart" src={heartFavoriteTrue} id={`heart-details${this.props.currentMovie.id}`}/>
+          }
+          {this.props.loggedIn && !inFavorites &&
+            <img className="heart" src={heartFavoriteFalse} id={`heart-details${this.props.currentMovie.id}`} />
+          }
         </section>
 
         <section className='movie-info'>
@@ -100,6 +109,7 @@ MovieDetails.propTypes = {
   loggedIn: PropTypes.bool,
   userId: PropTypes.number,
   updateUserRatings: PropTypes.func,
+  favorites: PropTypes.array
 }
 
 export default MovieDetails 

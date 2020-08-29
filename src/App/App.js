@@ -72,10 +72,11 @@ class App extends Component {
                 loggedIn={this.state.loggedIn}
                 userId={this.state.userId}
                 updateUserRatings={this.updateUserRatings}
+                favorites={this.state.favorites}
               />)
           }}
         />
-        <Route path='*' component={PageNotFound} />
+        {/* <Route path='*' component={PageNotFound} /> */}
       </div>
     )
   }
