@@ -1,5 +1,5 @@
 import React from 'react'
-import CommentBox from '../CommentBox/CommentBox'
+import CommentBox from '../CommentCard/CommentCard'
 import PropTypes from 'prop-types'
 import './Comments.css'
 
@@ -15,11 +15,11 @@ const Comments = ({ comments }) => {
     )
   })
     
-    return (
-      <section className='Comments'>
-        {commentsList}
-      </section>
-    )
+  return (
+    <section className='Comments'>
+      {commentsList}
+    </section>
+  )
 }
 
 Comments.propTypes = {
