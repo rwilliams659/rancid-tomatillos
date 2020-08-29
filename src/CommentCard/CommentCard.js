@@ -7,7 +7,7 @@ const CommentBox = ({ comment, author }) => {
     <section className='CommentBox' aria-label='user comment'>
       <ul>
         <li>{comment}</li>
-        <li>- - {author}</li>
+        <li>- {author}</li>
       </ul>
     </section>
 
