@@ -5,7 +5,7 @@ import Movie from '../Movie/Movie'
 import '../Movies/Movies.css'
 import { Link } from 'react-router-dom'
 
-const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick}) => {
+const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick, favorites}) => {
   let movieList;
 
   if (!loggedIn) {
@@ -16,6 +16,7 @@ const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick}) => {
             title={movie.title}
             averageRating={movie.average_rating}
             backdropPath={movie.backdrop_path}
+            favorites={favorites}
             key={movie.id}
             />
         </Link>
@@ -29,6 +30,7 @@ const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick}) => {
           title={movie.title}
           averageRating={movie.average_rating}
           backdropPath={movie.backdrop_path}
+          favorites={favorites}
           rating={matchingRating}
           key={movie.id}
         />
@@ -57,7 +59,8 @@ Movies.propTypes = {
   loggedIn: PropTypes.bool,
   userRatings: PropTypes.array,
   // updateCurrentMovie: PropTypes.func
-  analyzeMovieClick: PropTypes.func
+  analyzeMovieClick: PropTypes.func,
+  favorites: PropTypes.array
 }
 
 export default Movies 

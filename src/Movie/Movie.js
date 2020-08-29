@@ -4,11 +4,16 @@ import './Movie.css'
 import heartFavoriteFalse from '../images/heart-outline.png'
 import heartFavoriteTrue from '../images/heart.png'
 
-const Movie = ({id, title, averageRating, backdropPath, rating}) => {
-  
+const Movie = ({id, title, averageRating, backdropPath, rating, favorites}) => {
+  const inFavorites = favorites.find(movieId => movieId === id)
   return (
     <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})`}} id={id}>
-      <img className="heart" src={heartFavoriteFalse}></img>
+      { inFavorites &&
+        <img className="heart" src={heartFavoriteTrue}></img>
+      }
+      {!inFavorites &&
+        <img className="heart" src={heartFavoriteFalse}></img>
+      }
       <p className="movie-rating">{Math.round(averageRating * 10) / 10} / 10</p>
       <h3 className='movie-title'>{title}</h3>
       {rating &&
@@ -23,7 +28,8 @@ Movie.propTypes = {
   title: PropTypes.string,
   averageRating: PropTypes.number,
   backdropPath: PropTypes.string,
-  rating: PropTypes.object
+  rating: PropTypes.object,
+  favorites: PropTypes.array
 }
 
 export default Movie

@@ -48,6 +48,7 @@ class App extends Component {
             userRatings={this.state.userRatings}
             // updateCurrentMovie={this.updateCurrentMovie}
             analyzeMovieClick={this.analyzeMovieClick}
+            favorites={this.state.favorites}
           />} />
         <Route exact path='/login' render={() => 
           <Login 
