@@ -1,4 +1,4 @@
-import { React, Component } from 'react'
+import React, { Component } from 'react'
 
 
 class CommentForm extends Component {
@@ -10,13 +10,19 @@ class CommentForm extends Component {
     }
   }
 
+  handleCommentSubmission = (event) => {
+    const nameOfInput = event.target.name
+    const valueOfInput = event.target.value
+    this.setState({ [nameOfInput]: valueOfInput })
+  }
+
   render() {
     return (
-      <form className='CommentForm'>
+      <form className='CommentForm' onChange={this.handleCommentSubmission}>
         <h3> Add comment: </h3>
-        <input type='text' placeholder='Your name' />
-        <input type='text' placeholder='Comments..' />
-        <input type='submit' value='Post' onSubmit={this.handleSubmit}/>
+        <input name='author' type='text' placeholder='Your name' />
+        <input name='comment' type='text' placeholder='Comments..' />
+        <input type='submit' value='Post' />
       </form>
     );
   }
