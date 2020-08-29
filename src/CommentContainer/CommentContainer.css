@@ -1,14 +1,37 @@
 .CommentContainer {
   margin-top: 5em;
+  min-width: 35em;
+  max-width: 35em;
+  padding: 2em;
+  box-shadow: inset 0 0 10px;
 }
 
-.no-comments {
+.noComments {
   color: white;
   font: 28px;
   font-style: italic;
 }
 
-h3 {
-  color: white;
+.commentsHeader {
+  color: tomato;
+  font-weight: 400;
+  margin-top: 0;
+}
 
+h2, h3, h4 {
+  color: white;
+  font-weight: 600;
+}
+
+.CommentForm {
+  margin-bottom: 2em;
+}
+
+.commentInputArea {
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+.nameInputArea {
+   margin-bottom: 0.5em;
 }
