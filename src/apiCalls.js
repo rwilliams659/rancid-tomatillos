@@ -53,6 +53,23 @@ export const deleteRating = async (userId, ratingId) => {
   }
 }
 
+const postComment = async (movieId, author, comment) => {
+const response = await fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(
+      {
+        author: author,
+        comment: comment
+      }
+    )
+  });
+  const commentResponse = await checkResponse(response)
+  return commentResponse; 
+}
+
 const checkResponse = async (response) => {
   if (!response.ok) {
     const errorResponse = await response.json();
