@@ -41,11 +41,11 @@ class CommentContainer extends Component {
     } else {
       event.preventDefault()
       this.addComment()
-      this.resetForm()
     }
   }
 
   addComment = () => {
+    this.resetForm()
     postComment(this.props.movieId, this.state.author, this.state.comment)
       .then(response => {
         console.log(response)
