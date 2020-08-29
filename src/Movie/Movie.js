@@ -3,16 +3,21 @@ import PropTypes from 'prop-types'
 import './Movie.css'
 import heartFavoriteFalse from '../images/heart-outline.png'
 import heartFavoriteTrue from '../images/heart.png'
+import { Link } from 'react-router-dom'
 
-const Movie = ({id, title, averageRating, backdropPath, rating, favorites}) => {
+const Movie = ({id, title, averageRating, backdropPath, rating, favorites, loggedIn}) => {
   const inFavorites = favorites.find(movieId => movieId === id)
   return (
     <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})`}} id={id}>
-      { inFavorites &&
-        <img className="heart" src={heartFavoriteTrue}></img>
+      { inFavorites && loggedIn && 
+        <Link to='/'>
+        <img className="heart" src={heartFavoriteTrue} id={`heart${id}`}></img>
+        </Link>
       }
-      {!inFavorites &&
-        <img className="heart" src={heartFavoriteFalse}></img>
+      {!inFavorites && loggedIn && 
+        <Link to='/'>
+        <img className="heart" src={heartFavoriteFalse} id={`heart${id}`}></img>
+        </Link>
       }
       <p className="movie-rating">{Math.round(averageRating * 10) / 10} / 10</p>
       <h3 className='movie-title'>{title}</h3>
@@ -29,7 +34,8 @@ Movie.propTypes = {
   averageRating: PropTypes.number,
   backdropPath: PropTypes.string,
   rating: PropTypes.object,
-  favorites: PropTypes.array
+  favorites: PropTypes.array,
+  loggedIn: PropTypes.bool
 }
 
 export default Movie

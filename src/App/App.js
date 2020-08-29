@@ -88,7 +88,6 @@ class App extends Component {
     this.setState({loggedIn: status})
   }
 
-  //NEW
   analyzeMovieClick = (event) => {
     if (event.target.classList.contains('heart')) {
       this.toggleFavorite(event);
@@ -98,8 +97,7 @@ class App extends Component {
   }
 
   toggleFavorite = event => {
-    const movieId = event.target.parentNode.id; 
-    console.log(movieId);
+    const movieId = event.target.id.slice(5) 
     postFavoriteMovie(movieId)
       .then(response => {
         console.log(response);
@@ -122,8 +120,6 @@ class App extends Component {
         //set state with error if time/somewhere to display
       })
   }
-
-  // 
 
   updateCurrentMovie = (event) => {
     const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 

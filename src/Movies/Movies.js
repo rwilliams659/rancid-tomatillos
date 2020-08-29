@@ -17,6 +17,7 @@ const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick, favor
             averageRating={movie.average_rating}
             backdropPath={movie.backdrop_path}
             favorites={favorites}
+            loggedIn={loggedIn}
             key={movie.id}
             />
         </Link>
@@ -31,6 +32,7 @@ const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick, favor
           averageRating={movie.average_rating}
           backdropPath={movie.backdrop_path}
           favorites={favorites}
+          loggedIn={loggedIn}
           rating={matchingRating}
           key={movie.id}
         />
