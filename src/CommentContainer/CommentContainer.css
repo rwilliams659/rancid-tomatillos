@@ -7,7 +7,7 @@
 }
 
 .errorMsg {
-  color: white; 
+  color: red;
   text-align: center;
 }
 
@@ -35,8 +35,20 @@ h2, h3, h4 {
 .commentInputArea {
   width: 100%;
   margin-bottom: 0.5em;
+  height: 4em;
 }
 
 .nameInputArea {
    margin-bottom: 0.5em;
+   height: 1.5em;
+   width: 15em;
+}
+
+.postBtn {
+    width: 4em;
+    background-color: lightgrey;
+    border-color: white;
+    border-width: thin;
+    padding: 4px;
+    border-radius: 5px;
 }
