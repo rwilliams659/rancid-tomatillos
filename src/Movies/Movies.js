@@ -45,7 +45,7 @@ const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick, favor
           <h3 className='error-msg'>You have not added any movies to your favorites yet. Please visit the home page to add some favorites!</h3>
         }
         {movies.length > 0 &&
-          <h2 className='all-movies-title'>Your Favorite Movies</h2>
+          <h2 className='all-movies-title'>Your  Favorite Movies</h2>
         }
         <section aria-label='all-movies' className='Movies' onClick={(event) => { analyzeMovieClick(event) }}>
           {movieList}

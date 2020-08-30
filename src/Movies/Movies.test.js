@@ -1,5 +1,4 @@
 import React from 'react';
-import App from '../App/App.js'
 import Movies from './Movies.js';
 import { screen, fireEvent, render, }
   from '@testing-library/react';
@@ -50,7 +49,8 @@ describe('Movies Component', () => {
           movies={[movie1, movie2]}
           loggedIn={false}
           userRatings={[rating1, rating2]}
-          updateCurrentMovie={jest.fn()}
+          analyzeMovieClick={jest.fn()}
+          favorites={[]}
         />
       </BrowserRouter>
     );
@@ -58,7 +58,7 @@ describe('Movies Component', () => {
     expect(moviesSection).toBeInTheDocument()
   })
 
-  it('should render an h2 with the text Browse All Movies', () => {
+  it('should render an h2 with the text Browse All Movies when on the homepage', () => {
     const movie1 = {
       id: 1,
       title: 'Cats',
@@ -101,7 +101,8 @@ describe('Movies Component', () => {
           movies={[movie1, movie2]}
           loggedIn={false}
           userRatings={[rating1, rating2]}
-          updateCurrentMovie={jest.fn()}
+          analyzeMovieClick={jest.fn()}
+          favorites={[]}
         />
       </BrowserRouter>
     );
@@ -111,7 +112,7 @@ describe('Movies Component', () => {
     expect(allMoviesTitle).toBeInTheDocument();
   })
 
-  it('should render the correct number of movie cards', () => {
+  it('should render the correct number of movie cards when on the homepage', () => {
     const movie1 = {
       id: 1,
       title: 'Cats',
@@ -154,7 +155,8 @@ describe('Movies Component', () => {
           movies={[movie1, movie2]}
           loggedIn={false}
           userRatings={[rating1, rating2]}
-          updateCurrentMovie={jest.fn()}
+          analyzeMovieClick={jest.fn()}
+          favorites={[]}
         />
       </BrowserRouter>
     );
@@ -166,7 +168,7 @@ describe('Movies Component', () => {
     expect(movieTitle2).toBeInTheDocument(); 
   });
 
-  it('should call updateCurrentMovie when movie card is clicked', () => {
+  it('should call analyzeMovieClick when movie card is clicked', () => {
     const movie1 = {
       id: 1,
       title: 'Cats',
@@ -202,7 +204,7 @@ describe('Movies Component', () => {
       updated_at: "2020-08-10T23:48:55.695Z"
     }
 
-    const mockUpdateCurrentMovie = jest.fn(); 
+    const mockAnalyzeMovieClick = jest.fn(); 
     render(
       <BrowserRouter>
         <Movies
@@ -210,7 +212,8 @@ describe('Movies Component', () => {
           movies={[movie1, movie2]}
           loggedIn={false}
           userRatings={[rating1, rating2]}
-          updateCurrentMovie={mockUpdateCurrentMovie}
+          analyzeMovieClick={mockAnalyzeMovieClick}
+          favorites={[]}
         />
       </BrowserRouter>
     );
@@ -219,6 +222,6 @@ describe('Movies Component', () => {
 
    fireEvent.click(moviesSection);
    
-   expect(mockUpdateCurrentMovie).toBeCalledTimes(1);
+    expect(mockAnalyzeMovieClick).toBeCalledTimes(1);
   });
 })
