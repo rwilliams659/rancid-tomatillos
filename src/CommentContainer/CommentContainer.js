@@ -28,7 +28,7 @@ class CommentContainer extends Component {
     this.loadCommentsFromServer(this.props.movieId)
   }
 
-  resetForm = () => {
+  resetFormValues = () => {
     this.setState({
       author: '',
       comment: ''
@@ -45,23 +45,23 @@ class CommentContainer extends Component {
   }
 
   addComment = () => {
-    this.resetForm()
     postComment(this.props.movieId, this.state.author, this.state.comment)
       .then(response => {
         console.log(response)
         this.loadCommentsFromServer(this.props.movieId)
-        console.log('updated comments:', this.state.comments)
       })
       .catch(error => {
         console.log(error);
         this.setState({ error: 'Sorry, your comment could not be added.' })
       })
+    this.resetFormValues()
   }
 
+ 
   handleCommentSubmission = (event) => {
-    const nameOfInput = event.target.name
-    const valueOfInput = event.target.value
-    this.setState({ [nameOfInput]: valueOfInput })
+    let nameOfInput = event.target.name
+    let valueOfInput = event.target.value
+    this.setState({ [nameOfInput]: valueOfInput }) 
   }
 
   render() {
@@ -71,8 +71,8 @@ class CommentContainer extends Component {
         {this.props.loggedIn &&
         <form className='CommentForm' onChange={this.handleCommentSubmission}>
           <h4> Add comment: </h4>
-          <input className='nameInputArea'name='author' type='text' maxLength='50' placeholder='Your name/alias'/>
-          <textarea rows='5' name='comment' type='text' maxLength='300' placeholder='Write your comment here.. (300 max characters)'/>
+          <input className='nameInputArea'name='author' type='text' maxLength='50' placeholder='Your name/alias' value={this.state.author}/>
+          <textarea rows='5' name='comment' type='text' maxLength='300' placeholder='Write your comment here.. (300 max characters)' value={this.state.comment}/>
           <input className='postBtn' type='submit' value='Post' onClick={this.validateComment} />
         </form>
         }
