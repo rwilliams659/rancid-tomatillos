@@ -19,7 +19,7 @@ class App extends Component {
       currentMovie: null,
       currentMovieRatingInfo: null,
       userRatings: [],
-      favorites: []
+      favorites: [],
     }
   }
 
@@ -46,10 +46,20 @@ class App extends Component {
             movies={this.state.movies} 
             loggedIn={this.state.loggedIn}
             userRatings={this.state.userRatings}
-            // updateCurrentMovie={this.updateCurrentMovie}
             analyzeMovieClick={this.analyzeMovieClick}
             favorites={this.state.favorites}
-          />} />
+          /> 
+        }/>
+        <Route exact path='/favorites' render={() =>
+          <Movies
+            error={this.state.error}
+            movies={this.state.movies.filter(movie => this.state.favorites.includes(movie.id))}
+            loggedIn={this.state.loggedIn}
+            userRatings={this.state.userRatings}
+            analyzeMovieClick={this.analyzeMovieClick}
+            favorites={this.state.favorites}
+          />
+        }/>
         <Route exact path='/login' render={() => 
           <Login 
             updateUserId={this.updateUserId}
@@ -57,7 +67,8 @@ class App extends Component {
             loggedIn={this.state.loggedIn}
             getUserRatings={this.getUserRatings}
             setFavoriteMovies={this.setFavoriteMovies}
-        />} />
+          />
+        }/>
         <Route 
           path='/movies/:id'
           exact
