@@ -91,7 +91,6 @@ class MovieDetails extends Component {
     )
   }
 }
-// loggedIn = { this.props.loggedIn }
 
 MovieDetails.propTypes = {
   poster_path: PropTypes.string,
