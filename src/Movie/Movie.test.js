@@ -3,17 +3,22 @@ import Movie from './Movie.js';
 import { screen, render }
   from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 describe('Movie Component', () => {
   it('when a user is not yet logged in, it should have the correct content when rendered', () => {
-    render(<Movie
-        id={1}
-        title='Cats'
-        releaseDate='2020-01-20'
-        averageRating={10}
-        backdropPath='http//coolcats.com'
-        posterPath='http//coolcats-on-beach.com'
-      />
+    render(
+      <BrowserRouter>
+        <Movie
+            id={1}
+            title='Cats'
+            averageRating={10}
+            backdropPath='http//coolcats.com'
+            favorites={[]}
+            loggedIn={false}
+            rating={null}
+          />
+        </BrowserRouter>
     )
     const title = screen.getByText('Cats')
     const aveRating = screen.getByText('10 / 10')
@@ -34,15 +39,18 @@ describe('Movie Component', () => {
       updated_at: "2020-08-17T23:48:55.695Z"
     }
 
-    render(<Movie
-      id={1}
-      title='Cats'
-      releaseDate='2020-01-20'
-      averageRating={10}
-      backdropPath='http//coolcats.com'
-      posterPath='http//coolcats-on-beach.com'
-      rating={rating1}
-    />
+    render(
+      <BrowserRouter>
+        <Movie
+          id={1}
+          title='Cats'
+          averageRating={10}
+          backdropPath='http//coolcats.com'
+          favorites={[]}
+          loggedIn={true}
+          rating={rating1}
+        />
+      </BrowserRouter>
     )
     const title = screen.getByText('Cats')
     const aveRating = screen.getByText('10 / 10')
