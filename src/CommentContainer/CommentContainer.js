@@ -28,22 +28,6 @@ class CommentContainer extends Component {
     this.loadCommentsFromServer(this.props.movieId)
   }
 
-  resetFormValues = () => {
-    this.setState({
-      author: '',
-      comment: ''
-    })
-  } 
-
-  validateComment = (event) => {
-    event.preventDefault()
-    if (!this.state.author || !this.state.comment) {
-      this.setState({ error: 'Please add required field' })
-    } else {
-      this.addComment()
-    }
-  }
-
   addComment = () => {
     postComment(this.props.movieId, this.state.author, this.state.comment)
       .then(response => {
@@ -57,11 +41,26 @@ class CommentContainer extends Component {
     this.resetFormValues()
   }
 
- 
-  handleCommentSubmission = (event) => {
+  validateComment = (event) => {
+    event.preventDefault()
+    if (!this.state.author || !this.state.comment) {
+      this.setState({ error: 'Please add required field' })
+    } else {
+      this.addComment()
+    }
+  }
+
+  handleChange = (event) => {
     let nameOfInput = event.target.name
     let valueOfInput = event.target.value
     this.setState({ [nameOfInput]: valueOfInput }) 
+  }
+
+  resetFormValues = () => {
+    this.setState({
+      author: '',
+      comment: ''
+    })
   }
 
   render() {
@@ -69,11 +68,28 @@ class CommentContainer extends Component {
       <section className='CommentContainer'>
         <h3 className='commentsHeader'> Comments </h3>
         {this.props.loggedIn &&
-        <form className='CommentForm' onChange={this.handleCommentSubmission}>
+        <form className='CommentForm'>
           <h4> Add comment: </h4>
-          <input className='nameInputArea'name='author' type='text' maxLength='50' placeholder='Your name/alias' value={this.state.author}/>
-          <textarea rows='5' name='comment' type='text' maxLength='300' placeholder='Write your comment here.. (300 max characters)' value={this.state.comment}/>
-          <input className='postBtn' type='submit' value='Post' onClick={this.validateComment} />
+          <input 
+          className='nameInputArea' 
+          name='author' type='text' 
+          maxLength='50' placeholder='Your name/alias' 
+          value={this.state.author} 
+          onChange={this.handleChange}
+          />
+          <textarea 
+          rows='5' 
+          name='comment' 
+          type='text' 
+          maxLength='300' 
+          placeholder='Write your comment here.. (300 max characters)' 
+          value={this.state.comment} 
+          onChange={this.handleChange}/>
+          <input className='postBtn' 
+          type='submit' 
+          value='Post' 
+          onClick={this.validateComment} 
+          />
         </form>
         }
         {!this.state.allComments.length &&
