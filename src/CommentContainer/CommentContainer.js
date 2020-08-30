@@ -67,42 +67,47 @@ class CommentContainer extends Component {
     return (
       <section className='CommentContainer'>
         <h3 className='commentsHeader'> Comments </h3>
+
         {this.props.loggedIn &&
-        <form className='CommentForm'>
-          <h4> Add comment: </h4>
-          <input 
-          className='nameInputArea' 
-          name='author' type='text' 
-          maxLength='50' placeholder='Your name/alias' 
-          value={this.state.author} 
-          onChange={this.handleChange}
-          />
-          <textarea 
-          rows='5' 
-          name='comment' 
-          type='text' 
-          maxLength='300' 
-          placeholder='Write your comment here.. (300 max characters)' 
-          value={this.state.comment} 
-          onChange={this.handleChange}/>
-          <input className='postBtn' 
-          type='submit' 
-          value='Post' 
-          onClick={this.validateComment} 
-          />
-        </form>
+          <form className='CommentForm'>
+            <h4> Add comment: </h4>
+            <input 
+            className='nameInputArea' 
+            name='author' type='text' 
+            maxLength='50' placeholder='Your name/alias' 
+            value={this.state.author} 
+            onChange={this.handleChange}
+            />
+            <textarea 
+            rows='5' 
+            name='comment' 
+            type='text' 
+            maxLength='300' 
+            placeholder='Write your comment here.. (300 max characters)' 
+            value={this.state.comment} 
+            onChange={this.handleChange}/>
+            <input className='postBtn' 
+            type='submit' 
+            value='Post' 
+            onClick={this.validateComment} 
+            />
+          </form> 
         }
+
         {!this.state.allComments.length &&
           <div>
             <p className='noComments'>No comments to display</p>
           </div>
         }
+
         {(this.state.allComments.length > 0) &&
           <Comments comments={this.state.allComments} />
         }
+
         {this.state.error &&
           <h3 className='errorMsg'>{this.state.error}</h3>
         }
+        
       </section >
     );
   }
