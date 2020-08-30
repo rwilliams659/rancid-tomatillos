@@ -54,10 +54,10 @@ class MovieDetails extends Component {
 
         <section className='movie-info'>
           {this.props.loggedIn && inFavorites &&
-            <img className="details-heart" src={heartFavoriteTrue} id={`heart-details${this.props.currentMovie.id}`} />
+            <img className="details-heart" src={heartFavoriteTrue} id={`heart${this.props.currentMovie.id}`} onClick={(event) => { this.props.toggleFavorite(event)}}/>
           }
           {this.props.loggedIn && !inFavorites &&
-            <img className="details-heart" src={heartFavoriteFalse} id={`heart-details${this.props.currentMovie.id}`} />
+            <img className="details-heart" src={heartFavoriteFalse} id={`heart${this.props.currentMovie.id}`} onClick={(event) => { this.props.toggleFavorite(event)}}/>
           }
           <h2>{this.props.title}</h2>
           <h3>Release date: {this.props.
@@ -109,7 +109,8 @@ MovieDetails.propTypes = {
   loggedIn: PropTypes.bool,
   userId: PropTypes.number,
   updateUserRatings: PropTypes.func,
-  favorites: PropTypes.array
+  favorites: PropTypes.array,
+  toggleFavorite: PropTypes.func
 }
 
 export default MovieDetails 

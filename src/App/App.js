@@ -73,6 +73,7 @@ class App extends Component {
                 userId={this.state.userId}
                 updateUserRatings={this.updateUserRatings}
                 favorites={this.state.favorites}
+                toggleFavorite={this.toggleFavorite}
               />)
           }}
         />
@@ -123,13 +124,15 @@ class App extends Component {
   }
 
   updateCurrentMovie = (event) => {
-    const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 
+    const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id)
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
-    this.setState({currentMovie: newMovie}, () => {
-      if (this.state.userRatings.length > 0) {
-        this.findCurrentMovieRating()
-      }
-    });
+    if (newMovie) {
+      this.setState({ currentMovie: newMovie }, () => {
+        if (this.state.userRatings.length > 0) {
+          this.findCurrentMovieRating()
+        }
+      });
+    }  
   }
 
   findCurrentMovieRating = () => {
