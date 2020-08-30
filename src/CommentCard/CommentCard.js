@@ -10,7 +10,6 @@ const CommentCard = ({ comment, author }) => {
         <li>- {author}</li>
       </ul>
     </section>
-
   )
 }
 
