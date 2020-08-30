@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Movie from '../Movie/Movie'
 import '../Movies/Movies.css'
-import { Link, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick, favorites, home}) => {
     const movieList = movies.map(movie => {

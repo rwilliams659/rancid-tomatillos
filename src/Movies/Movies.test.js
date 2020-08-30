@@ -51,6 +51,7 @@ describe('Movies Component', () => {
           userRatings={[rating1, rating2]}
           analyzeMovieClick={jest.fn()}
           favorites={[]}
+          home={true}
         />
       </BrowserRouter>
     );
@@ -103,6 +104,7 @@ describe('Movies Component', () => {
           userRatings={[rating1, rating2]}
           analyzeMovieClick={jest.fn()}
           favorites={[]}
+          home={true}
         />
       </BrowserRouter>
     );
@@ -112,7 +114,62 @@ describe('Movies Component', () => {
     expect(allMoviesTitle).toBeInTheDocument();
   })
 
-  it('should render the correct number of movie cards when on the homepage', () => {
+  it('should render an h2 with the text Your Favorite Movies when on the favorites page', () => {
+    const movie1 = {
+      id: 1,
+      title: 'Cats',
+      release_date: '2020-01-20',
+      average_rating: 10,
+      backdrop_path: 'http//coolcats.com',
+      poster_path: 'http//coolcats-on-beach.com'
+    }
+    const movie2 = {
+      id: 2,
+      title: 'Dogs',
+      release_date: '2020-02-20',
+      average_rating: 10,
+      backdrop_path: 'http//coolDogs.com',
+      poster_path: 'http//coolDog-on-beach.com'
+    }
+
+    const rating1 = {
+      id: 15,
+      user_id: 1,
+      movie_id: 413,
+      rating: 10,
+      created_at: "2020-08-17T23:48:55.695Z",
+      updated_at: "2020-08-17T23:48:55.695Z"
+    }
+
+    const rating2 = {
+      id: 20,
+      user_id: 2,
+      movie_id: 750,
+      rating: 1,
+      created_at: "2020-08-10T23:48:55.695Z",
+      updated_at: "2020-08-10T23:48:55.695Z"
+    }
+
+    render(
+      <BrowserRouter>
+        <Movies
+          error=''
+          movies={[movie1, movie2]}
+          loggedIn={true}
+          userRatings={[rating1, rating2]}
+          analyzeMovieClick={jest.fn()}
+          favorites={[]}
+          home={false}
+        />
+      </BrowserRouter>
+    );
+
+    const favoritesTitle = screen.getByRole('heading', { name: 'Your Favorite Movies' })
+
+    expect(favoritesTitle).toBeInTheDocument();
+  })
+
+  it('should render the correct number of movie cards based on how many movies are passed in', () => {
     const movie1 = {
       id: 1,
       title: 'Cats',
@@ -157,6 +214,7 @@ describe('Movies Component', () => {
           userRatings={[rating1, rating2]}
           analyzeMovieClick={jest.fn()}
           favorites={[]}
+          home={true}
         />
       </BrowserRouter>
     );
@@ -214,6 +272,7 @@ describe('Movies Component', () => {
           userRatings={[rating1, rating2]}
           analyzeMovieClick={mockAnalyzeMovieClick}
           favorites={[]}
+          home={false}
         />
       </BrowserRouter>
     );
