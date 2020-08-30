@@ -5,8 +5,8 @@ import { postComment, getComments } from '../apiCalls'
 import Comments from '../Comments/Comments'
 
 class CommentContainer extends Component {
-  constructor({loggedIn, movieId}) {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       author: '',
       comment: '',
