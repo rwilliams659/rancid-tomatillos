@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './Movie.css'
 import heartFavoriteFalse from '../images/heart-outline.png'
 import heartFavoriteTrue from '../images/heart.png'
-import { Link, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 const Movie = ({id, title, averageRating, backdropPath, rating, favorites, loggedIn}) => {
   const inFavorites = favorites.find(movieId => movieId === id)
