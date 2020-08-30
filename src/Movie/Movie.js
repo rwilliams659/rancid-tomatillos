@@ -12,27 +12,21 @@ const Movie = ({id, title, averageRating, backdropPath, rating, favorites, logge
       <Route exact path='/' render={() => 
         <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})` }} id={id} alt={title}>
           {inFavorites && loggedIn &&
-            <Link to='/'>
-            <img className='heart' src={heartFavoriteTrue} id={`heart${id}`} alt='favorited'/>
-            </Link>
+            <img className='heart' src={heartFavoriteTrue} id={`heart${id}`} alt='favorited' onClick={(event) => {event.preventDefault()}}/>
           }
           {!inFavorites && loggedIn &&
-            <Link to='/'>
-              <img className='heart' src={heartFavoriteFalse} id={`heart${id}`} alt='not favorited'/>
-            </Link>
+              <img className='heart' src={heartFavoriteFalse} id={`heart${id}`} alt='not favorited' onClick={(event) => {event.preventDefault()}}/>
           }
           <p className='movie-rating'>{Math.round(averageRating * 10) / 10} / 10</p>
           <h3 className='movie-title'>{title}</h3>
-          {rating &&
+          {rating && 
             <p className='user-rating'>Your rating: {rating.rating} / 10</p>
           }
         </section>
       }/>
       <Route exact path='/favorites' render={() =>
         <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})` }} id={id}>
-          <Link to='/favorites'>
-            <img className='heart' src={heartFavoriteTrue} id={`heart${id}`} alt='favorited'/>
-          </Link>
+          <img className='heart' src={heartFavoriteTrue} id={`heart${id}`} alt='favorited' onClick={(event) => {event.preventDefault()}}/>
           <p className='movie-rating'>{Math.round(averageRating * 10) / 10} / 10</p>
           <h3 className='movie-title'>{title}</h3>
           {rating &&
