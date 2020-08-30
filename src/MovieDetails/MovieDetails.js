@@ -54,14 +54,13 @@ class MovieDetails extends Component {
 
         <section className='movie-info'>
           {this.props.loggedIn && inFavorites &&
-            <img className="details-heart" src={heartFavoriteTrue} id={`heart${this.props.currentMovie.id}`} onClick={(event) => { this.props.toggleFavorite(event)}}/>
+            <img className="details-heart" src={heartFavoriteTrue} alt='favorited' id={`heart${this.props.currentMovie.id}`} onClick={(event) => { this.props.toggleFavorite(event)}}/>
           }
           {this.props.loggedIn && !inFavorites &&
-            <img className="details-heart" src={heartFavoriteFalse} id={`heart${this.props.currentMovie.id}`} onClick={(event) => { this.props.toggleFavorite(event)}}/>
+            <img className="details-heart" src={heartFavoriteFalse} alt='not favorited' id={`heart${this.props.currentMovie.id}`} onClick={(event) => { this.props.toggleFavorite(event)}}/>
           }
           <h2>{this.props.title}</h2>
-          <h3>Release date: {this.props.
-            release_date}</h3>
+          <h3>Release date: {this.props.release_date}</h3>
           <h3>Average rating: {Math.round(this.props.average_rating * 10) / 10}</h3>
 
             {this.props.loggedIn && this.props.currentMovieRatingInfo && (

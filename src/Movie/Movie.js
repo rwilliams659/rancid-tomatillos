@@ -10,33 +10,33 @@ const Movie = ({id, title, averageRating, backdropPath, rating, favorites, logge
   return (
     <>
       <Route exact path='/' render={() => 
-        <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})` }} id={id}>
+        <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})` }} id={id} alt={title}>
           {inFavorites && loggedIn &&
             <Link to='/'>
-              <img className="heart" src={heartFavoriteTrue} id={`heart${id}`} />
+            <img className='heart' src={heartFavoriteTrue} id={`heart${id}`} alt='favorited'/>
             </Link>
           }
           {!inFavorites && loggedIn &&
             <Link to='/'>
-              <img className="heart" src={heartFavoriteFalse} id={`heart${id}`} />
+              <img className='heart' src={heartFavoriteFalse} id={`heart${id}`} alt='not favorited'/>
             </Link>
           }
-          <p className="movie-rating">{Math.round(averageRating * 10) / 10} / 10</p>
+          <p className='movie-rating'>{Math.round(averageRating * 10) / 10} / 10</p>
           <h3 className='movie-title'>{title}</h3>
           {rating &&
-            <p className="user-rating">Your rating: {rating.rating} / 10</p>
+            <p className='user-rating'>Your rating: {rating.rating} / 10</p>
           }
         </section>
       }/>
       <Route exact path='/favorites' render={() =>
         <section className='Movie' aria-label='movie-overview' style={{ backgroundImage: `url(${backdropPath})` }} id={id}>
           <Link to='/favorites'>
-            <img className="heart" src={heartFavoriteTrue} id={`heart${id}`} />
+            <img className='heart' src={heartFavoriteTrue} id={`heart${id}`} alt='favorited'/>
           </Link>
-          <p className="movie-rating">{Math.round(averageRating * 10) / 10} / 10</p>
+          <p className='movie-rating'>{Math.round(averageRating * 10) / 10} / 10</p>
           <h3 className='movie-title'>{title}</h3>
           {rating &&
-            <p className="user-rating">Your rating: {rating.rating} / 10</p>
+            <p className='user-rating'>Your rating: {rating.rating} / 10</p>
           }
         </section>
       } />
