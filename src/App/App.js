@@ -48,6 +48,7 @@ class App extends Component {
             userRatings={this.state.userRatings}
             analyzeMovieClick={this.analyzeMovieClick}
             favorites={this.state.favorites}
+            home={true}
           /> 
         }/>
         <Route exact path='/favorites' render={() =>
@@ -58,6 +59,7 @@ class App extends Component {
             userRatings={this.state.userRatings}
             analyzeMovieClick={this.analyzeMovieClick}
             favorites={this.state.favorites}
+            home={false}
           />
         }/>
         <Route exact path='/login' render={() => 
