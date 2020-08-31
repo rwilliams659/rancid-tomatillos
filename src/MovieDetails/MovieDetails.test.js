@@ -5,6 +5,7 @@ import { screen, render, waitFor, fireEvent }
 import '@testing-library/jest-dom'
 import { BrowserRouter } from 'react-router-dom';
 import { postNewRating, deleteRating, fetchUserRatings } from '../apiCalls'; 
+import userEvent from '@testing-library/user-event'
 jest.mock('../apiCalls'); 
 
 describe('MovieDetails component', () => {
@@ -212,9 +213,6 @@ describe('MovieDetails component', () => {
       poster_path: 'http//coolcats-on-beach.com'
     }
 
-    //need to mock addRating
-    // MovieDetails.addRating=jest.fn(); 
-
     postNewRating.mockResolvedValue({
       rating: {
         movie_id: 17,
@@ -223,15 +221,17 @@ describe('MovieDetails component', () => {
       }
     })
 
-    fetchUserRatings.mockResolvedValue({
-      ratings: [{
-        movie_id: 17,
-        rating: 10,
-        user_id: 1,
-        created_at: "2020-08-17T23:48:55.695Z",
-        updated_at: "2020-08-17T23:48:55.695Z"
-      }]
-    })
+    // fetchUserRatings.mockResolvedValue({
+    //   ratings: [{
+    //     movie_id: 17,
+    //     rating: 10,
+    //     user_id: 1,
+    //     created_at: "2020-08-17T23:48:55.695Z",
+    //     updated_at: "2020-08-17T23:48:55.695Z"
+    //   }]
+    // })
+
+    const mockUpdateUserRatings = jest.fn(); 
 
     render(
       <BrowserRouter>
@@ -245,26 +245,24 @@ describe('MovieDetails component', () => {
           currentMovieRatingInfo={null}
           loggedIn={true}
           userId={1}
-          updateUserRatings={jest.fn()}
+          updateUserRatings={mockUpdateUserRatings}
           favorites={[]}
           toggleFavorite={jest.fn()}
         />
       </BrowserRouter>
     )
 
-    const input = screen.getByText('10');
+    const form = screen.getByTestId('select-one')
+    const input10 = screen.getByTestId('val10')
     const submitBtn = screen.getByText('Submit')
-    fireEvent.change(input, {target: {value: '10'}})
+
+    userEvent.selectOptions(form, ['10'])
+
+    expect(input10.selected).toBe(true)
+
     fireEvent.click(submitBtn)
 
-    const userRating = await waitFor(() => screen.getByText('Your rating: 10'));
-    const deleteBtn = await waitFor(() => screen.getByText('Delete rating'));
-
-    expect(userRating).toBeInTheDocument();
-    expect(deleteBtn).toBeInTheDocument();
-
-    //mock out both addRating & postNewRating
-    //check that each was called once
+    expect(mockUpdateUserRatings).toBeCalledTimes(1); 
   })
 
   it.skip('should delete rating and display add rating form', async () => {
