@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom';
-import { getMovies, checkLoginCredentials, fetchUserRatings, getFavoriteMovies, postFavoriteMovie, getComments, postNewRating } from '../apiCalls';
+import { getMovies, checkLoginCredentials, fetchUserRatings, getFavoriteMovies, postFavoriteMovie, getComments, postNewRating, deleteRating } from '../apiCalls';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event'
 jest.mock('../apiCalls')
@@ -230,6 +230,81 @@ describe('App Component', () => {
     const deleteRatingBtn = await waitFor( () => screen.getByText('Delete rating'))
 
     expect(deleteRatingBtn).toBeInTheDocument()
+  });
+
+  it('should be able to delete a rating', async () => {
+
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
+
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
+      }
+    })
+
+    fetchUserRatings.mockResolvedValueOnce({
+      ratings: [{
+        movie_id: 1,
+        rating: 10,
+        user_id: 1,
+        created_at: "2020-08-17T23:48:55.695Z",
+        updated_at: "2020-08-17T23:48:55.695Z"
+      }]
+    })
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+
+    deleteRating.mockResolvedValue('Success')
+
+    fetchUserRatings.mockResolvedValueOnce({
+      ratings: []
+    });
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    )
+
+    const loginBtn = screen.getByText('Log in')
+    fireEvent.click(loginBtn)
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+    const submitBtn = screen.getByText('Submit');
+
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
+    fireEvent.change(passwordInput, { target: { value: '111111' } })
+    fireEvent.click(submitBtn)
+
+    const movieCardBtn = await waitFor(() => screen.getByText('Cats'))
+
+    fireEvent.click(movieCardBtn)
+
+    const deleteRatingBtn = screen.getByText('Delete rating')
+
+    fireEvent.click(deleteRatingBtn)
+    
+    const form = await waitFor(() => screen.getByTestId('select-one'))
+    
+    expect(form).toBeInTheDocument()
   });
 
 
