@@ -201,7 +201,7 @@ describe('MovieDetails component', () => {
     expect(heartIcon).toBeInTheDocument();
   });
 
-  //DOESN'T WORK YET!!! 
+  //DOESN'T WORK YET (MOCKED FUNCTION NOT BEING CALLED EVEN THOUGH LOOKS LIKE IT SHOULD)
   it.skip('should add and display new rating when a rating is submitted', async () => {
 
     const movie1 = {
@@ -263,8 +263,9 @@ describe('MovieDetails component', () => {
     fireEvent.click(submitBtn)
 
     expect(mockUpdateUserRatings).toBeCalledTimes(1); 
-  })
+  });
 
+   //DOESN'T WORK YET (MOCKED FUNCTION NOT BEING CALLED EVEN THOUGH LOOKS LIKE IT SHOULD)
   it.skip('should delete rating and display add rating form', async () => {
 
     const movie1 = {
@@ -287,6 +288,8 @@ describe('MovieDetails component', () => {
 
     deleteRating.mockResolvedValue('Success')
 
+    const mockUpdateUserRatings = jest.fn(); 
+
     render(
       <BrowserRouter>
         <MovieDetails
@@ -299,7 +302,7 @@ describe('MovieDetails component', () => {
           currentMovieRatingInfo={rating1}
           loggedIn={true}
           userId={1}
-          updateUserRatings={jest.fn()}
+          updateUserRatings={mockUpdateUserRatings}
           favorites={[]}
           toggleFavorite={jest.fn()}
         />
@@ -307,18 +310,9 @@ describe('MovieDetails component', () => {
     )
     
     const deleteBtn = screen.getByText('Delete rating');
+    
     fireEvent.click(deleteBtn)
 
-    const form = await waitFor (() => screen.getByLabelText('select movie rating'));
-   
-    expect(deleteBtn).not.toBeInTheDocument();
-    expect(form).toBeInTheDocument();
-  
-
-    //mock out both addRating & postNewRating
-    //check that each was called once
-  })
-
-
-
+    expect(mockUpdateUserRatings).toBeCalledTimes(1);
+  });
 })
