@@ -63,7 +63,7 @@ Movies.propTypes = {
   userRatings: PropTypes.array,
   analyzeMovieClick: PropTypes.func,
   favorites: PropTypes.array,
-  home: PropTypes.string
+  home: PropTypes.bool
 }
 
 export default Movies 
