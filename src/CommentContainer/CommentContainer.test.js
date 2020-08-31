@@ -1,9 +1,9 @@
 import React from 'react'
 import CommentContainer from './CommentContainer'
-import { screen, render, waitFor } from '@testing-library/react'
+import { screen, render, waitFor, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { BrowserRouter } from 'react-router-dom';
-import { getComments } from '../apiCalls';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { getComments, postComment } from '../apiCalls';
 jest.mock('../apiCalls')
 
 describe('CommentsContainer component', () => {
@@ -52,6 +52,23 @@ describe('CommentsContainer component', () => {
     expect(formButton).toBeInTheDocument()
   })
 
+  it('should display error message if comments couldn\'t be fetched', async () => {
+
+    getComments.mockRejectedValue('Error loading comments')
+
+    render(
+      <BrowserRouter>
+        <CommentContainer
+          loggedIn={true}
+          movieId={17}
+        />
+      </BrowserRouter>
+    )
+
+    const errorMsg = await waitFor(() => screen.getByText('Oops! Something went wrong loading the comments!'))
+    expect(errorMsg).toBeInTheDocument()
+  })
+
   it('it should display a message if there are no comments to display', () => {
 
     getComments.mockResolvedValue({
@@ -71,21 +88,50 @@ describe('CommentsContainer component', () => {
     expect(message).toBeInTheDocument()
   })
 
-  it('should display error message if comments couldn\'t be fetched', async () => {
-    
-    getComments.mockRejectedValue('Error loading comments')
+  it('if logged in, should be able to add a new comment', async () => {
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+
+    postComment.mockResolvedValueOnce({
+        author: 'Diana',
+        comment: 'Great movie!'
+      })
     
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <CommentContainer
           loggedIn={true}
           movieId={17}
         />
-      </BrowserRouter>
+      </MemoryRouter>
     )
 
-    const errorMsg = await waitFor(() => screen.getByText('Oops! Something went wrong loading the comments!'))
-    expect(errorMsg).toBeInTheDocument()
+    getComments.mockResolvedValueOnce({
+      comments: [
+        {
+        author: 'Diana',
+        comment: 'Great movie!',
+        
+        }
+      ]
+    })
+
+    const authorInput = screen.getByPlaceholderText('Your name/alias')
+    const commentInput = screen.getByPlaceholderText('Write your comment here.. (300 max characters)')
+    const addCommentButton = screen.getByText('Post')
+
+    fireEvent.change(authorInput, { target: { value: 'Diana' }})
+    fireEvent.change(commentInput, { target: { value: 'Great movie!' }})
+    
+    fireEvent.click(addCommentButton)
+
+    const newCommentAuthor = await waitFor(() => screen.getByText('- Diana'))
+    const newComment = await waitFor(() => screen.getByText('Great movie!'))
+    expect(newCommentAuthor).toBeInTheDocument()
+    expect(newComment).toBeInTheDocument()
+  
   })
   
 })
