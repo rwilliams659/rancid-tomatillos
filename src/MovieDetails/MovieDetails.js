@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import CommentContainer from '../CommentContainer/CommentContainer'
 import './MovieDetails.css'
 import { deleteRating, postNewRating } from '../apiCalls'
 
@@ -8,7 +9,7 @@ class MovieDetails extends Component {
     super(props)
     this.state = {
       formValue: null,
-      error: ''
+      error: '',
     }
   }
 
@@ -83,7 +84,9 @@ class MovieDetails extends Component {
           {this.state.error &&
             <h3 className='error-msg'>{this.state.error}</h3>
           }
+          <CommentContainer loggedIn={this.props.loggedIn} movieId={this.props.id} />
         </section>
+        
       </section>
     )
   }
