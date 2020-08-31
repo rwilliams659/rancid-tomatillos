@@ -18,6 +18,7 @@ const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick, favor
             favorites={favorites}
             loggedIn={loggedIn}
             rating={matchingRating || null}
+            home={home}
           />
         </Link>
       </li>

@@ -17,6 +17,7 @@ describe('Movie Component', () => {
             favorites={[]}
             loggedIn={false}
             rating={null}
+            home={true}
           />
         </BrowserRouter>
     )
@@ -49,6 +50,7 @@ describe('Movie Component', () => {
           favorites={[]}
           loggedIn={true}
           rating={rating1}
+          home={true}
         />
       </BrowserRouter>
     )
@@ -76,6 +78,7 @@ describe('Movie Component', () => {
           favorites={[1]}
           loggedIn={true}
           rating={null}
+          home={false}
         />
       </BrowserRouter>
     )
