@@ -10,7 +10,7 @@ const Header = ({loggedIn, updateLoginStatus, updateUserId}) => {
         <section className='nav-links'>
           <NavLink to='/' className='nav-link' aria-label='Go home'>Home</NavLink>
           {loggedIn &&
-            <NavLink to='/favorites' className='nav-link'>Favorites</NavLink>
+            <NavLink to='/favorites' className='nav-link' aria-label="View favorites">Favorites</NavLink>
           }
         </section>
         {loggedIn &&
