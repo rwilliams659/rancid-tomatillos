@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event'
 jest.mock('../apiCalls'); 
 
 describe('MovieDetails component', () => {
-  it.only('if the user is not logged in, should have the correct content when rendered', () => {
+  it('if the user is not logged in, should have the correct content when rendered', () => {
 
     getComments.mockResolvedValueOnce({
       comments: []
@@ -225,127 +225,127 @@ describe('MovieDetails component', () => {
     expect(heartIcon).toBeInTheDocument();
   });
 
-  //DOESN'T WORK YET (MOCKED FUNCTION NOT BEING CALLED EVEN THOUGH LOOKS LIKE IT SHOULD)
-  it.skip('should add a new rating when a rating is submitted', async () => {
+  // DOESN'T WORK YET (MOCKED FUNCTION NOT BEING CALLED EVEN THOUGH LOOKS LIKE IT SHOULD)
+  // it('should add a new rating when a rating is submitted', async () => {
 
-    getComments.mockResolvedValueOnce({
-      comments: []
-    })
+  //   getComments.mockResolvedValueOnce({
+  //     comments: []
+  //   })
 
-    const movie1 = {
-      id: 17,
-      title: 'Cats',
-      release_date: '2020-01-20',
-      average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
-    }
+  //   const movie1 = {
+  //     id: 17,
+  //     title: 'Cats',
+  //     release_date: '2020-01-20',
+  //     average_rating: 10,
+  //     backdrop_path: 'http//coolcats.com',
+  //     poster_path: 'http//coolcats-on-beach.com'
+  //   }
 
-    postNewRating.mockResolvedValue({
-      rating: {
-        movie_id: 17,
-        rating: 10,
-        user_id: 1
-      }
-    })
+  //   postNewRating.mockResolvedValue({
+  //     rating: {
+  //       movie_id: 17,
+  //       rating: 10,
+  //       user_id: 1
+  //     }
+  //   })
 
-    // fetchUserRatings.mockResolvedValue({
-    //   ratings: [{
-    //     movie_id: 17,
-    //     rating: 10,
-    //     user_id: 1,
-    //     created_at: "2020-08-17T23:48:55.695Z",
-    //     updated_at: "2020-08-17T23:48:55.695Z"
-    //   }]
-    // })
+  //   // fetchUserRatings.mockResolvedValue({
+  //   //   ratings: [{
+  //   //     movie_id: 17,
+  //   //     rating: 10,
+  //   //     user_id: 1,
+  //   //     created_at: "2020-08-17T23:48:55.695Z",
+  //   //     updated_at: "2020-08-17T23:48:55.695Z"
+  //   //   }]
+  //   // })
 
-    const mockUpdateUserRatings = jest.fn(); 
+  //   const mockUpdateUserRatings = jest.fn(); 
 
-    render(
-      <MemoryRouter>
-        <MovieDetails
-          poster_path='http//coolcats-on-beach.com'
-          title='Cats'
-          release_date='2020-01-20'
-          average_rating={10}
-          userRatings={[]}
-          currentMovie={movie1}
-          currentMovieRatingInfo={null}
-          loggedIn={true}
-          userId={1}
-          updateUserRatings={mockUpdateUserRatings}
-          favorites={[]}
-          toggleFavorite={jest.fn()}
-        />
-      </MemoryRouter>
-    )
+  //   render(
+  //     <MemoryRouter>
+  //       <MovieDetails
+  //         poster_path='http//coolcats-on-beach.com'
+  //         title='Cats'
+  //         release_date='2020-01-20'
+  //         average_rating={10}
+  //         userRatings={[]}
+  //         currentMovie={movie1}
+  //         currentMovieRatingInfo={null}
+  //         loggedIn={true}
+  //         userId={1}
+  //         updateUserRatings={mockUpdateUserRatings}
+  //         favorites={[]}
+  //         toggleFavorite={jest.fn()}
+  //       />
+  //     </MemoryRouter>
+  //   )
 
-    const form = screen.getByTestId('select-one')
-    const input10 = screen.getByTestId('val10')
-    const submitBtn = screen.getByText('Submit')
-    screen.debug()
+  //   const form = screen.getByTestId('select-one')
+  //   const input10 = screen.getByTestId('val10')
+  //   const submitBtn = screen.getByText('Submit')
+  //   screen.debug()
 
-    userEvent.selectOptions(form, ['10'])
+  //   userEvent.selectOptions(form, ['10'])
 
-    expect(input10.selected).toBe(true)
+  //   expect(input10.selected).toBe(true)
 
-    fireEvent.click(submitBtn)
+  //   fireEvent.click(submitBtn)
 
-    expect(mockUpdateUserRatings).toBeCalledTimes(1); 
-  });
+  //   expect(mockUpdateUserRatings).toBeCalledTimes(1); 
+  // });
 
-   //DOESN'T WORK YET (MOCKED FUNCTION NOT BEING CALLED EVEN THOUGH LOOKS LIKE IT SHOULD)
-  it.skip('should delete rating and display add rating form', async () => {
+   // DOESN'T WORK YET (MOCKED FUNCTION NOT BEING CALLED EVEN THOUGH LOOKS LIKE IT SHOULD)
+  // it('should delete rating and display add rating form', async () => {
 
-    getComments.mockResolvedValueOnce({
-      comments: []
-    })
+  //   getComments.mockResolvedValueOnce({
+  //     comments: []
+  //   })
 
-    const movie1 = {
-      id: 17,
-      title: 'Cats',
-      release_date: '2020-01-20',
-      average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
-    }
+  //   const movie1 = {
+  //     id: 17,
+  //     title: 'Cats',
+  //     release_date: '2020-01-20',
+  //     average_rating: 10,
+  //     backdrop_path: 'http//coolcats.com',
+  //     poster_path: 'http//coolcats-on-beach.com'
+  //   }
 
-    const rating1 = {
-      id: 15,
-      user_id: 1,
-      movie_id: 17,
-      rating: 10,
-      created_at: "2020-08-17T23:48:55.695Z",
-      updated_at: "2020-08-17T23:48:55.695Z"
-    }
+  //   const rating1 = {
+  //     id: 15,
+  //     user_id: 1,
+  //     movie_id: 17,
+  //     rating: 10,
+  //     created_at: "2020-08-17T23:48:55.695Z",
+  //     updated_at: "2020-08-17T23:48:55.695Z"
+  //   }
 
-    deleteRating.mockResolvedValue('Success')
+  //   deleteRating.mockResolvedValue('Success')
 
-    const mockUpdateUserRatings = jest.fn(); 
+  //   const mockUpdateUserRatings = jest.fn(); 
 
-    render(
-      <BrowserRouter>
-        <MovieDetails
-          poster_path='http//coolcats-on-beach.com'
-          title='Cats'
-          release_date='2020-01-20'
-          average_rating={10}
-          userRatings={[rating1]}
-          currentMovie={movie1}
-          currentMovieRatingInfo={rating1}
-          loggedIn={true}
-          userId={1}
-          updateUserRatings={mockUpdateUserRatings}
-          favorites={[]}
-          toggleFavorite={jest.fn()}
-        />
-      </BrowserRouter>
-    )
+  //   render(
+  //     <BrowserRouter>
+  //       <MovieDetails
+  //         poster_path='http//coolcats-on-beach.com'
+  //         title='Cats'
+  //         release_date='2020-01-20'
+  //         average_rating={10}
+  //         userRatings={[rating1]}
+  //         currentMovie={movie1}
+  //         currentMovieRatingInfo={rating1}
+  //         loggedIn={true}
+  //         userId={1}
+  //         updateUserRatings={mockUpdateUserRatings}
+  //         favorites={[]}
+  //         toggleFavorite={jest.fn()}
+  //       />
+  //     </BrowserRouter>
+  //   )
     
-    const deleteBtn = screen.getByText('Delete rating');
+  //   const deleteBtn = screen.getByText('Delete rating');
     
-    fireEvent.click(deleteBtn)
+  //   fireEvent.click(deleteBtn)
 
-    expect(mockUpdateUserRatings).toBeCalledTimes(1);
-  });
+  //   expect(mockUpdateUserRatings).toBeCalledTimes(1);
+  // });
 })
