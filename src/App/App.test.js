@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom';
-import { getMovies, checkLoginCredentials, fetchUserRatings, getFavoriteMovies } from '../apiCalls';
+import { getMovies, checkLoginCredentials, fetchUserRatings, getFavoriteMovies, postFavoriteMovie } from '../apiCalls';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 jest.mock('../apiCalls')
 
@@ -57,66 +57,92 @@ describe('App Component', () => {
     expect(errorMsg).toBeInTheDocument()
   })
 
-it('should be able to successfully log in a user', async () => {
+  it('should be able to successfully log in a user and allow them to favorite a movie', async () => {
 
-  checkLoginCredentials.mockResolvedValue({
-    user: {
-      email: "diana@turing.io",
-      id: 100,
-      name: "Di"
-    }
-  });
-
-  fetchUserRatings.mockResolvedValue({
-    ratings: [
-      {
-        id: 1,
-        user_id: 100,
-        movie_id: 10,
-        rating: 5,
-        created_at: "2020-08-17T23:48:55.695Z",
-        updated_at: "2020-08-17T23:48:55.695Z"
-      },
-      {
-        id: 2,
-        user_id: 100,
-        movie_id: 20,
-        rating: 10,
-        created_at: "2020-09-12T23:48:55.695Z",
-        updated_at: "2020-09-12T23:48:55.695Z"
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
       }
-    ]
+    });
+
+    fetchUserRatings.mockResolvedValue({
+      ratings: [
+        {
+          id: 1,
+          user_id: 100,
+          movie_id: 10,
+          rating: 5,
+          created_at: "2020-08-17T23:48:55.695Z",
+          updated_at: "2020-08-17T23:48:55.695Z"
+        },
+        {
+          id: 2,
+          user_id: 100,
+          movie_id: 20,
+          rating: 10,
+          created_at: "2020-09-12T23:48:55.695Z",
+          updated_at: "2020-09-12T23:48:55.695Z"
+        }
+      ]
+    });
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+    getFavoriteMovies.mockResolvedValueOnce([1]);
+
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
+
+    postFavoriteMovie.mockResolvedValue(
+      { 
+        message: "Movie with an id of 1 was favorited" 
+      }
+    )
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    )
+
+    const loginBtn = screen.getByText('Log in')
+    fireEvent.click(loginBtn)
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+
+    const submitBtn = screen.getByText('Submit');
+
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(submitBtn).toBeInTheDocument(); 
+
+    fireEvent.change(emailInput, {target: { value: 'diana@turing.io' }})
+    fireEvent.change(passwordInput, { target: { value: '111111' }})
+
+    fireEvent.click(submitBtn) 
+
+    const movieCardIcon = await waitFor(() => screen.getByAltText('not favorited'))
+    
+    expect(movieCardIcon).toBeInTheDocument();
+
+    fireEvent.click(movieCardIcon); 
+
+    const movieCardIconFavorited = await waitFor(() => screen.getByAltText('favorited'))
+
+    expect(movieCardIconFavorited).toBeInTheDocument();
   });
 
-  getFavoriteMovies.mockRejectedValue([1, 2])
-
-  render(
-    <MemoryRouter>
-      <App />
-    </MemoryRouter>
-  )
-
-  const loginBtn = screen.getByText('Log in')
-  fireEvent.click(loginBtn)
-
-  const emailInput = screen.getByPlaceholderText('Email address');
-  const passwordInput = screen.getByPlaceholderText('Password');
-
-  const submitBtn = screen.getByText('Submit');
-
-  expect(emailInput).toBeInTheDocument();
-  expect(passwordInput).toBeInTheDocument();
-  expect(submitBtn).toBeInTheDocument(); 
-
-  fireEvent.change(emailInput, {target: { value: 'diana@turing.io' }})
-  fireEvent.change(passwordInput, { target: { value: '111111' }})
-
-  fireEvent.click(submitBtn) 
-
-  // Can't get back to home view:
-  // when log in is successful user should be redirected home
-
-  const logoutBtn = await waitFor(() => screen.getByText('Log out'))
-  expect(logoutBtn).toBeInTheDocument()
-  });
-})
+  //additional tests for favoriting/unfavoriting on movieDetails page & UI changes for when add or delete rating & for viewing/adding comments on movieDetails page 
+});
