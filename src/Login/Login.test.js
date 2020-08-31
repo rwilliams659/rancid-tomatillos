@@ -16,6 +16,7 @@ describe('Login component', () => {
           updateLoginStatus={jest.fn()}
           loggedIn={false}
           getUserRatings={jest.fn()}
+          setFavoriteMovies={jest.fn()}
         />
       </BrowserRouter>
     )
@@ -29,39 +30,47 @@ describe('Login component', () => {
     expect(submitBtn).toBeInTheDocument(); 
   });
 
-  // it.skip('on successful log in user should be redirected to home page', async () => {
+  //NOT WORKING YET; GETTING ERROR INSTEAD OF CALLING FUNCTIONS
+  it.skip('on successfully validated login, should call the correct functions', async () => {
     
-  //   checkLoginCredentials.mockResolvedValue({
-  //     user: {
-  //       email: "diana@turing.io",
-  //       id: 100,
-  //       name: "Di"
-  //     }
-  //   })
+    const mockUpdatedUserId = jest.fn(); 
+    const mockUpdateLoginStatus = jest.fn(); 
+    const mockGetUserRatings = jest.fn(); 
+    const mockSetFavoriteMovies = jest.fn(); 
+
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
+      }
+    })
     
-  //   render(
-  //     <BrowserRouter>
-  //       <Login
-  //         updateUserId={jest.fn()}
-  //         updateLoginStatus={jest.fn()}
-  //         loggedIn={false}
-  //         getUserRatings={jest.fn()}
-  //       />
-  //     </BrowserRouter>
-  //   )
+    render(
+      <BrowserRouter>
+        <Login
+          updateUserId={mockUpdatedUserId}
+          updateLoginStatus={mockUpdateLoginStatus}
+          loggedIn={false}
+          getUserRatings={mockGetUserRatings}
+          setFavoriteMovies={mockSetFavoriteMovies}
+        />
+      </BrowserRouter>
+    )
 
-  //   const emailInput = screen.getByPlaceholderText('Email address');
-  //   const passwordInput = screen.getByPlaceholderText('Password');
-  //   const submitBtn = screen.getByText('Submit');
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+    const submitBtn = screen.getByText('Submit');
 
-  //   fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }})
-  //   fireEvent.change(passwordInput, { target: { value: '111111' }})
-  //   fireEvent.click(submitBtn) 
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }});
+    fireEvent.change(passwordInput, { target: { value: '111111' }});
+    fireEvent.click(submitBtn);
 
-  //   const logoutBtn = await waitFor(() => screen.getByText('Log out'))
-  //   expect(logoutBtn).toBeInTheDocument()
-  // });
-
+    expect(mockUpdatedUserId).toHaveBeenCalledTimes(1);
+    expect(mockUpdateLoginStatus).toHaveBeenCalledTimes(1);
+    expect(mockGetUserRatings).toHaveBeenCalledTimes(1);
+    expect(mockSetFavoriteMovies).toHaveBeenCalledTimes(1);
+  });
 
   it('should display an error when login credentials are invalid', async () => {
 
@@ -74,6 +83,7 @@ describe('Login component', () => {
         updateLoginStatus={jest.fn()}
         loggedIn={false}
         getUserRatings={jest.fn()}
+        setFavoriteMovies={jest.fn()}
       />
       </BrowserRouter>
     )

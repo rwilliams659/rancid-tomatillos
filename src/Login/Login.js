@@ -32,7 +32,7 @@ class Login extends Component {
           type='password'
           placeholder='Password'
           name='password'
-          value={this.state.password}
+          value={this.state.password} 
           onChange={this.updateUserLogin}/>
 
         <button className='login-form-btn'
@@ -75,7 +75,8 @@ class Login extends Component {
   }
 
   handleSuccessfulLogin = (id) => {
-    this.props.updateUserId(id)
+    this.props.updateUserId(id);
+    this.props.updateLoginStatus(true);
     this.props.getUserRatings();
     this.props.setFavoriteMovies(); 
     this.setState({ loginError: '' }) 

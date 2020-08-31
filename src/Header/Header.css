@@ -25,7 +25,6 @@ button {
   margin-top: 1.5em; 
   border-radius: 10%;
   border-width: thin;
-  /* align-self: flex-start; */
 }
 
 button:hover {
