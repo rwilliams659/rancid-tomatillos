@@ -51,9 +51,7 @@ class CommentContainer extends Component {
   }
 
   handleChange = (event) => {
-    let nameOfInput = event.target.name
-    let valueOfInput = event.target.value
-    this.setState({ [nameOfInput]: valueOfInput }) 
+    this.setState({[event.target.name]: event.target.value}) 
   }
 
   resetFormValues = () => {
