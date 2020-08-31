@@ -5,7 +5,7 @@ import Movies from '../Movies/Movies'
 import Login from '../Login/Login'
 import PageNotFound from '../PageNotFound/PageNotFound'
 import MovieDetails from '../MovieDetails/MovieDetails'
-import { fetchUserRatings, getMovies } from '../apiCalls'
+import { fetchUserRatings, getMovies, postFavoriteMovie, getFavoriteMovies } from '../apiCalls'
 import { Route } from 'react-router-dom';
 
 class App extends Component {
@@ -19,6 +19,7 @@ class App extends Component {
       currentMovie: null,
       currentMovieRatingInfo: null,
       userRatings: [],
+      favorites: [],
     }
   }
 
@@ -45,15 +46,31 @@ class App extends Component {
             movies={this.state.movies} 
             loggedIn={this.state.loggedIn}
             userRatings={this.state.userRatings}
-            updateCurrentMovie={this.updateCurrentMovie}
-          />} />
+            analyzeMovieClick={this.analyzeMovieClick}
+            favorites={this.state.favorites}
+            home={true}
+          /> 
+        }/>
+        <Route exact path='/favorites' render={() =>
+          <Movies
+            error={this.state.error}
+            movies={this.state.movies.filter(movie => this.state.favorites.includes(movie.id))}
+            loggedIn={this.state.loggedIn}
+            userRatings={this.state.userRatings}
+            analyzeMovieClick={this.analyzeMovieClick}
+            favorites={this.state.favorites}
+            home={false}
+          />
+        }/>
         <Route exact path='/login' render={() => 
           <Login 
             updateUserId={this.updateUserId}
             updateLoginStatus={this.updateLoginStatus} 
             loggedIn={this.state.loggedIn}
             getUserRatings={this.getUserRatings}
-        />} />
+            setFavoriteMovies={this.setFavoriteMovies}
+          />
+        }/>
         <Route 
           path='/movies/:id'
           exact
@@ -68,6 +85,8 @@ class App extends Component {
                 loggedIn={this.state.loggedIn}
                 userId={this.state.userId}
                 updateUserRatings={this.updateUserRatings}
+                favorites={this.state.favorites}
+                toggleFavorite={this.toggleFavorite}
               />)
           }}
         />
@@ -84,14 +103,49 @@ class App extends Component {
     this.setState({loggedIn: status})
   }
 
+  analyzeMovieClick = (event) => {
+    if (event.target.classList.contains('heart')) {
+      this.toggleFavorite(event);
+    } else {
+      this.updateCurrentMovie(event); 
+    }
+  }
+
+  toggleFavorite = event => {
+    const movieId = event.target.id.slice(5) 
+    postFavoriteMovie(movieId)
+      .then(response => {
+        console.log(response);
+        this.setFavoriteMovies();
+      })
+      .catch(error => {
+        console.log(error);
+        //set state with error if time/somewhere to display
+      })
+  }
+
+  setFavoriteMovies = () => {
+    getFavoriteMovies()
+      .then(movies => {
+        console.log(movies);
+        this.setState({favorites: movies})
+      }) 
+      .catch(error => {
+        console.log(error);
+        //set state with error if time/somewhere to display
+      })
+  }
+
   updateCurrentMovie = (event) => {
-    const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id); 
+    const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id)
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
-    this.setState({currentMovie: newMovie}, () => {
-      if (this.state.userRatings.length > 0) {
-        this.findCurrentMovieRating()
-      }
-    });
+    if (newMovie) {
+      this.setState({ currentMovie: newMovie }, () => {
+        if (this.state.userRatings.length > 0) {
+          this.findCurrentMovieRating()
+        }
+      });
+    }  
   }
 
   findCurrentMovieRating = () => {
@@ -118,7 +172,6 @@ class App extends Component {
     fetchUserRatings(this.state.userId) 
       .then(ratings => { 
         this.setState({ userRatings: ratings.ratings }) 
-        this.updateLoginStatus(true) // need to move this to login
       })
       .catch(error => console.log(error));
   }

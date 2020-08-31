@@ -13,3 +13,11 @@
 .movie-details-img {
   width: 85%; 
 }
+
+.details-heart {
+  cursor: pointer;
+}
+
+.details-heart:hover {
+  transform: scale(1.1)
+}

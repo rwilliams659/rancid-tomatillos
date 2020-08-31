@@ -1,10 +1,20 @@
 .Movie {
-  height: 14em; 
+  height: 15em; 
   width: 25em;
   border-radius: .5em; 
   background-size: cover; 
   margin-bottom: 4em; 
   border: .5px solid white; 
+}
+
+.heart {
+  float: left; 
+  padding-left: .5em;
+  height: 58px; 
+}
+
+.heart:hover {
+  transform: scale(1.1)
 }
 
 .movie-rating {

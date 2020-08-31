@@ -7,7 +7,12 @@ const Header = ({loggedIn, updateLoginStatus, updateUserId}) => {
   return (
     <header className='Header'>
       <nav>
-        <NavLink to='/' className='home-link' aria-label='Go home'>Home</NavLink>
+        <section className='nav-links'>
+          <NavLink to='/' className='nav-link' aria-label='Go home'>Home</NavLink>
+          {loggedIn &&
+            <NavLink to='/favorites' className='nav-link' aria-label="View favorites">Favorites</NavLink>
+          }
+        </section>
         {loggedIn &&
           <Link to='/'><button onClick={() => {
             updateLoginStatus(false)

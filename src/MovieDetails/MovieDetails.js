@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import CommentContainer from '../CommentContainer/CommentContainer'
 import './MovieDetails.css'
 import { deleteRating, postNewRating } from '../apiCalls'
+import heartFavoriteFalse from '../images/heart-outline.png'
+import heartFavoriteTrue from '../images/heart.png'
 
 class MovieDetails extends Component {
   constructor(props) {
@@ -44,6 +46,7 @@ class MovieDetails extends Component {
   }
 
   render() {
+    const inFavorites = this.props.favorites.find(movieId => movieId === this.props.currentMovie.id); 
     return (
       <section className='MovieDetails'>
         <section className='movie-poster-section'>
@@ -51,9 +54,14 @@ class MovieDetails extends Component {
         </section>
 
         <section className='movie-info'>
+          {this.props.loggedIn && inFavorites &&
+            <img className="details-heart" src={heartFavoriteTrue} alt='favorited' id={`heart${this.props.currentMovie.id}`} onClick={(event) => { this.props.toggleFavorite(event)}}/>
+          }
+          {this.props.loggedIn && !inFavorites &&
+            <img className="details-heart" src={heartFavoriteFalse} alt='not favorited' id={`heart${this.props.currentMovie.id}`} onClick={(event) => { this.props.toggleFavorite(event)}}/>
+          }
           <h2>{this.props.title}</h2>
-          <h3>Release date: {this.props.
-            release_date}</h3>
+          <h3>Release date: {this.props.release_date}</h3>
           <h3>Average rating: {Math.round(this.props.average_rating * 10) / 10}</h3>
 
             {this.props.loggedIn && this.props.currentMovieRatingInfo && (
@@ -65,7 +73,7 @@ class MovieDetails extends Component {
           
             {this.props.loggedIn && !this.props.currentMovieRatingInfo && (
               <form aria-label="select movie rating">
-                <select name='rateMovieDropdown' onChange={this.handleFormSelection}>
+                <select name='rateMovieDropdown' data-testid='select-one' onChange={this.handleFormSelection}>
                   <option value=''>--Choose a rating--</option>
                   <option value='1'>1</option>
                   <option value='2'>2</option>
@@ -76,7 +84,7 @@ class MovieDetails extends Component {
                   <option value='7'>7</option>
                   <option value='8'>8</option>
                   <option value='9'>9</option>
-                  <option value='10'>10</option>
+                  <option value='10' data-testid='val10'>10</option>
                 </select>
                 <input type='submit' value='Submit' onClick={this.addRating}/> 
               </form>
@@ -103,6 +111,8 @@ MovieDetails.propTypes = {
   loggedIn: PropTypes.bool,
   userId: PropTypes.number,
   updateUserRatings: PropTypes.func,
+  favorites: PropTypes.array,
+  toggleFavorite: PropTypes.func
 }
 
 export default MovieDetails 
