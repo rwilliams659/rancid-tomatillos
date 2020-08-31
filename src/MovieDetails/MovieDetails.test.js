@@ -3,13 +3,18 @@ import MovieDetails from './MovieDetails';
 import { screen, render, waitFor, fireEvent }
   from '@testing-library/react'
 import '@testing-library/jest-dom'
-import { BrowserRouter } from 'react-router-dom';
-import { postNewRating, deleteRating, fetchUserRatings } from '../apiCalls'; 
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { postNewRating, deleteRating, fetchUserRatings, getComments } from '../apiCalls'; 
 import userEvent from '@testing-library/user-event'
 jest.mock('../apiCalls'); 
 
 describe('MovieDetails component', () => {
-  it('if the user is not logged in, should have the correct content when rendered', () => {
+  it.only('if the user is not logged in, should have the correct content when rendered', () => {
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+    
     const movie1 = {
       id: 17,
       title: 'Cats',
@@ -51,14 +56,21 @@ describe('MovieDetails component', () => {
     const title = screen.getByText('Cats');
     const releaseDate = screen.getByText('Release date: 2020-01-20');
     const averageRating = screen.getByText('Average rating: 10');
+    const commentArea = screen.getByLabelText('Movie comment area')
 
     expect(poster).toBeInTheDocument();
     expect(title).toBeInTheDocument();
     expect(releaseDate).toBeInTheDocument();
     expect(averageRating).toBeInTheDocument();
+    expect(commentArea).toBeInTheDocument()
   });
 
   it('if the user is logged in & has rated the movie, should have the correct content when rendered', () => {
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+
     const movie1 = {
       id: 17,
       title: 'Cats',
@@ -101,8 +113,9 @@ describe('MovieDetails component', () => {
     const releaseDate = screen.getByText('Release date: 2020-01-20');
     const averageRating = screen.getByText('Average rating: 10');
     const userRating = screen.getByText('Your rating: 10');
-    const deleteBtn = screen.getByRole('button');
+    const deleteBtn = screen.getByText('Delete rating');
     const heartIcon = screen.getByAltText('not favorited')
+    const commentArea = screen.getByLabelText('Movie comment area')
 
     expect(poster).toBeInTheDocument();
     expect(title).toBeInTheDocument();
@@ -111,9 +124,15 @@ describe('MovieDetails component', () => {
     expect(userRating).toBeInTheDocument();
     expect(deleteBtn).toBeInTheDocument();
     expect(heartIcon).toBeInTheDocument(); 
+    expect(commentArea).toBeInTheDocument()
   });
 
   it('if the user is logged in but doesn\'t have a rating, should have the correct content when rendered', () => {
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+
     const movie1 = {
       id: 17,
       title: 'Cats',
@@ -158,6 +177,11 @@ describe('MovieDetails component', () => {
   });
 
   it('if the user is logged in and has favorited the movie, should have the correct content when rendered', () => {
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+
     const movie1 = {
       id: 17,
       title: 'Cats',
@@ -202,7 +226,11 @@ describe('MovieDetails component', () => {
   });
 
   //DOESN'T WORK YET (MOCKED FUNCTION NOT BEING CALLED EVEN THOUGH LOOKS LIKE IT SHOULD)
-  it.skip('should add and display new rating when a rating is submitted', async () => {
+  it.skip('should add a new rating when a rating is submitted', async () => {
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
 
     const movie1 = {
       id: 17,
@@ -234,7 +262,7 @@ describe('MovieDetails component', () => {
     const mockUpdateUserRatings = jest.fn(); 
 
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <MovieDetails
           poster_path='http//coolcats-on-beach.com'
           title='Cats'
@@ -249,12 +277,13 @@ describe('MovieDetails component', () => {
           favorites={[]}
           toggleFavorite={jest.fn()}
         />
-      </BrowserRouter>
+      </MemoryRouter>
     )
 
     const form = screen.getByTestId('select-one')
     const input10 = screen.getByTestId('val10')
     const submitBtn = screen.getByText('Submit')
+    screen.debug()
 
     userEvent.selectOptions(form, ['10'])
 
@@ -267,6 +296,10 @@ describe('MovieDetails component', () => {
 
    //DOESN'T WORK YET (MOCKED FUNCTION NOT BEING CALLED EVEN THOUGH LOOKS LIKE IT SHOULD)
   it.skip('should delete rating and display add rating form', async () => {
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
 
     const movie1 = {
       id: 17,
