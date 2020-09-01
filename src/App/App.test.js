@@ -378,7 +378,7 @@ describe('App Component', () => {
  
   });
 
-  it('should be able to favorite and un-favorite a movie', async () => {
+  it('should be able to favorite and un-favorite a movie on the homepage', async () => {
 
     getMovies.mockResolvedValue({
       movies: [
@@ -446,6 +446,100 @@ describe('App Component', () => {
     fireEvent.click(submitBtn)
 
     const movieCardIcon = await waitFor(() => screen.getByAltText('not favorited'))
+
+    fireEvent.click(movieCardIcon);
+
+    const movieCardIconFavorited = await waitFor(() => screen.getByAltText('favorited'))
+
+    expect(movieCardIconFavorited).toBeInTheDocument();
+
+    fireEvent.click(movieCardIconFavorited);
+
+    const movieCardFilledIcon = await waitFor(() => screen.getByAltText('not favorited'));
+
+    expect(movieCardFilledIcon).toBeInTheDocument();
+  });
+
+  it('should be able to favorite and un-favorite a movie on the movie Details page', async () => {
+
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
+
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
+      }
+    });
+
+    fetchUserRatings.mockResolvedValue({
+      ratings: []
+    });
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+
+    postFavoriteMovie.mockResolvedValueOnce(
+      {
+        message: "Movie with an id of 1 was favorited"
+      }
+    )
+
+    getFavoriteMovies.mockResolvedValueOnce([1]);
+
+    postFavoriteMovie.mockResolvedValueOnce(
+      {
+        message: "Movie with an id of 1 was un-favorited"
+      }
+    )
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    )
+
+    const loginBtn = screen.getByText('Log in')
+    fireEvent.click(loginBtn)
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+
+    const submitBtn = screen.getByText('Submit');
+
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(submitBtn).toBeInTheDocument();
+
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } });
+    fireEvent.change(passwordInput, { target: { value: '111111' } });
+    fireEvent.click(submitBtn);
+
+    const movieCard = await waitFor(() => screen.getByText('Cats'))
+
+    fireEvent.click(movieCard);
+
+    const releaseDate = screen.getByText('Release date: 2020-01-20');
+
+    expect(releaseDate).toBeInTheDocument(); 
+
+    const movieCardIcon = screen.getByAltText('not favorited');
 
     fireEvent.click(movieCardIcon);
 
