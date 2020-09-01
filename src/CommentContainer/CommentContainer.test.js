@@ -13,7 +13,9 @@ describe('CommentsContainer component', () => {
       comments: [
         {
           author: 'Diana',
-          comment: 'Great movie!'
+          comment: 'Great movie!',
+          movieId: 17,
+          id: 1
         }
       ]
     })
@@ -97,7 +99,7 @@ describe('CommentsContainer component', () => {
 
     postComment.mockResolvedValueOnce({
         author: 'Diana',
-        comment: 'Great movie!'
+        comment: 'Great movie!',
       })
     
     render(
@@ -114,6 +116,8 @@ describe('CommentsContainer component', () => {
         {
         author: 'Diana',
         comment: 'Great movie!',
+        movieId: 17,
+        id: 1
         }
       ]
     })

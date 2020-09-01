@@ -329,7 +329,7 @@ describe('App Component', () => {
 
     postComment.mockResolvedValueOnce({
       author: 'Diana',
-      comment: 'Great movie!'
+      comment: 'Great movie!',
     })
 
     getComments.mockResolvedValueOnce({
@@ -337,6 +337,8 @@ describe('App Component', () => {
         {
           author: 'Diana',
           comment: 'Great movie!',
+          movieId: 17,
+          id: 1
         }
       ]
     })

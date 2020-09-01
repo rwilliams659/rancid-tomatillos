@@ -9,7 +9,9 @@ describe('Comments component', () => {
     
     let comment1 = {
       author: 'Diana',
-      comment: 'Great movie!'
+      comment: 'Great movie!',
+      movieId: 17,
+      id: 1
     }
 
     render(
