@@ -553,4 +553,76 @@ describe('App Component', () => {
 
     expect(movieCardFilledIcon).toBeInTheDocument();
   });
+
+  it('should be able to favorite a movie and view it on the Favorites page', async () => {
+
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
+
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
+      }
+    });
+
+    fetchUserRatings.mockResolvedValue({
+      ratings: []
+    });
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    postFavoriteMovie.mockResolvedValueOnce(
+      {
+        message: "Movie with an id of 1 was favorited"
+      }
+    )
+
+    getFavoriteMovies.mockResolvedValueOnce([1]);
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    )
+
+    const loginBtn = screen.getByText('Log in')
+    fireEvent.click(loginBtn)
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+
+    const submitBtn = screen.getByText('Submit');
+
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(submitBtn).toBeInTheDocument();
+
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
+    fireEvent.change(passwordInput, { target: { value: '111111' } })
+    fireEvent.click(submitBtn)
+
+    const movieCardIcon = await waitFor(() => screen.getByAltText('not favorited'))
+
+    fireEvent.click(movieCardIcon);
+
+    const FavoritesNavItem = screen.getByText('Favorites');
+
+    fireEvent.click(FavoritesNavItem);
+
+    const favoriteMovie = await waitFor(() => screen.getByText('Cats'));
+
+    expect(favoriteMovie).toBeInTheDocument(); 
+  });
 })
