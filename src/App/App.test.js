@@ -17,16 +17,16 @@ describe('App Component', () => {
           title: 'Cats',
           release_date: '2020-01-20',
           average_rating: 10,
-          backdrop_path: 'http//coolcats.com',
-          poster_path: 'http//coolcats-on-beach.com'
+          backdrop_path: 'http://coolcats.com',
+          poster_path: 'http://coolcats-on-beach.com'
         },
         {
           id: 2,
           title: 'Dogs',
           release_date: '2020-02-20',
           average_rating: 10,
-          backdrop_path: 'http//coolDogs.com',
-          poster_path: 'http//coolDog-on-beach.com'
+          backdrop_path: 'http://coolDogs.com',
+          poster_path: 'http://coolDog-on-beach.com'
         }
       ]
     })
@@ -67,8 +67,8 @@ describe('App Component', () => {
           title: 'Cats',
           release_date: '2020-01-20',
           average_rating: 10,
-          backdrop_path: 'http//coolcats.com',
-          poster_path: 'http//coolcats-on-beach.com'
+          backdrop_path: 'http://coolcats.com',
+          poster_path: 'http://coolcats-on-beach.com'
         },
       ]
     })
@@ -141,8 +141,8 @@ describe('App Component', () => {
           title: 'Cats',
           release_date: '2020-01-20',
           average_rating: 10,
-          backdrop_path: 'http//coolcats.com',
-          poster_path: 'http//coolcats-on-beach.com'
+          backdrop_path: 'http://coolcats.com',
+          poster_path: 'http://coolcats-on-beach.com'
         },
       ]
     })
@@ -228,8 +228,8 @@ describe('App Component', () => {
           title: 'Cats',
           release_date: '2020-01-20',
           average_rating: 10,
-          backdrop_path: 'http//coolcats.com',
-          poster_path: 'http//coolcats-on-beach.com'
+          backdrop_path: 'http://coolcats.com',
+          poster_path: 'http://coolcats-on-beach.com'
         },
       ]
     })
@@ -303,8 +303,8 @@ describe('App Component', () => {
           title: 'Cats',
           release_date: '2020-01-20',
           average_rating: 10,
-          backdrop_path: 'http//coolcats.com',
-          poster_path: 'http//coolcats-on-beach.com'
+          backdrop_path: 'http://coolcats.com',
+          poster_path: 'http://coolcats-on-beach.com'
         },
       ]
     })
@@ -387,8 +387,8 @@ describe('App Component', () => {
           title: 'Cats',
           release_date: '2020-01-20',
           average_rating: 10,
-          backdrop_path: 'http//coolcats.com',
-          poster_path: 'http//coolcats-on-beach.com'
+          backdrop_path: 'http://coolcats.com',
+          poster_path: 'http://coolcats-on-beach.com'
         },
       ]
     })
@@ -469,8 +469,8 @@ describe('App Component', () => {
           title: 'Cats',
           release_date: '2020-01-20',
           average_rating: 10,
-          backdrop_path: 'http//coolcats.com',
-          poster_path: 'http//coolcats-on-beach.com'
+          backdrop_path: 'http://coolcats.com',
+          poster_path: 'http://coolcats-on-beach.com'
         },
       ]
     })
@@ -563,8 +563,8 @@ describe('App Component', () => {
           title: 'Cats',
           release_date: '2020-01-20',
           average_rating: 10,
-          backdrop_path: 'http//coolcats.com',
-          poster_path: 'http//coolcats-on-beach.com'
+          backdrop_path: 'http://coolcats.com',
+          poster_path: 'http://coolcats-on-beach.com'
         },
       ]
     })

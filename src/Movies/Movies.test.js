@@ -12,16 +12,16 @@ describe('Movies Component', () => {
       title: 'Cats',
       release_date:'2020-01-20',
       average_rating: 10,
-      backdrop_path:'http//coolcats.com',
-      poster_path:'http//coolcats-on-beach.com'
+      backdrop_path:'http://coolcats.com',
+      poster_path:'http://coolcats-on-beach.com'
     }
     const movie2 = {
       id: 2,
       title: 'Dogs',
       release_date: '2020-02-20',
       average_rating: 10,
-      backdrop_path: 'http//coolDogs.com',
-      poster_path: 'http//coolDog-on-beach.com'
+      backdrop_path: 'http://coolDogs.com',
+      poster_path: 'http://coolDog-on-beach.com'
     }
 
     const rating1 = {
@@ -65,16 +65,16 @@ describe('Movies Component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
     const movie2 = {
       id: 2,
       title: 'Dogs',
       release_date: '2020-02-20',
       average_rating: 10,
-      backdrop_path: 'http//coolDogs.com',
-      poster_path: 'http//coolDog-on-beach.com'
+      backdrop_path: 'http://coolDogs.com',
+      poster_path: 'http://coolDog-on-beach.com'
     }
 
     const rating1 = {
@@ -120,16 +120,16 @@ describe('Movies Component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
     const movie2 = {
       id: 2,
       title: 'Dogs',
       release_date: '2020-02-20',
       average_rating: 10,
-      backdrop_path: 'http//coolDogs.com',
-      poster_path: 'http//coolDog-on-beach.com'
+      backdrop_path: 'http://coolDogs.com',
+      poster_path: 'http://coolDog-on-beach.com'
     }
 
     const rating1 = {
@@ -175,16 +175,16 @@ describe('Movies Component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
     const movie2 = {
       id: 2,
       title: 'Dogs',
       release_date: '2020-02-20',
       average_rating: 9,
-      backdrop_path: 'http//coolDogs.com',
-      poster_path: 'http//coolDog-on-beach.com'
+      backdrop_path: 'http://coolDogs.com',
+      poster_path: 'http://coolDog-on-beach.com'
     }
 
     const rating1 = {
@@ -232,16 +232,16 @@ describe('Movies Component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
     const movie2 = {
       id: 2,
       title: 'Dogs',
       release_date: '2020-02-20',
       average_rating: 9,
-      backdrop_path: 'http//coolDogs.com',
-      poster_path: 'http//coolDog-on-beach.com'
+      backdrop_path: 'http://coolDogs.com',
+      poster_path: 'http://coolDog-on-beach.com'
     }
 
     const rating1 = {

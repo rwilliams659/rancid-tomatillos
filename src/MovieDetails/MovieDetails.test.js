@@ -20,8 +20,8 @@ describe('MovieDetails component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
 
     const rating1 = {
@@ -36,7 +36,7 @@ describe('MovieDetails component', () => {
     render(
       <BrowserRouter>
         <MovieDetails
-          poster_path='http//coolcats-on-beach.com'
+          poster_path='http://coolcats-on-beach.com'
           title='Cats'
           release_date='2020-01-20'
           average_rating={10}
@@ -76,8 +76,8 @@ describe('MovieDetails component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
 
     const rating1 = {
@@ -92,7 +92,7 @@ describe('MovieDetails component', () => {
     render(
       <BrowserRouter>
         <MovieDetails
-          poster_path='http//coolcats-on-beach.com'
+          poster_path='http://coolcats-on-beach.com'
           title='Cats'
           release_date='2020-01-20'
           average_rating={10}
@@ -138,14 +138,14 @@ describe('MovieDetails component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
 
     render(
       <BrowserRouter>
         <MovieDetails
-          poster_path='http//coolcats-on-beach.com'
+          poster_path='http://coolcats-on-beach.com'
           title='Cats'
           release_date='2020-01-20'
           average_rating={10}
@@ -187,14 +187,14 @@ describe('MovieDetails component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
 
     render(
       <BrowserRouter>
         <MovieDetails
-          poster_path='http//coolcats-on-beach.com'
+          poster_path='http://coolcats-on-beach.com'
           title='Cats'
           release_date='2020-01-20'
           average_rating={10}
@@ -237,8 +237,8 @@ describe('MovieDetails component', () => {
   //     title: 'Cats',
   //     release_date: '2020-01-20',
   //     average_rating: 10,
-  //     backdrop_path: 'http//coolcats.com',
-  //     poster_path: 'http//coolcats-on-beach.com'
+  //     backdrop_path: 'http://coolcats.com',
+  //     poster_path: 'http://coolcats-on-beach.com'
   //   }
 
   //   postNewRating.mockResolvedValue({
@@ -264,7 +264,7 @@ describe('MovieDetails component', () => {
   //   render(
   //     <MemoryRouter>
   //       <MovieDetails
-  //         poster_path='http//coolcats-on-beach.com'
+  //         poster_path='http://coolcats-on-beach.com'
   //         title='Cats'
   //         release_date='2020-01-20'
   //         average_rating={10}
@@ -306,8 +306,8 @@ describe('MovieDetails component', () => {
   //     title: 'Cats',
   //     release_date: '2020-01-20',
   //     average_rating: 10,
-  //     backdrop_path: 'http//coolcats.com',
-  //     poster_path: 'http//coolcats-on-beach.com'
+  //     backdrop_path: 'http://coolcats.com',
+  //     poster_path: 'http://coolcats-on-beach.com'
   //   }
 
   //   const rating1 = {
@@ -326,7 +326,7 @@ describe('MovieDetails component', () => {
   //   render(
   //     <BrowserRouter>
   //       <MovieDetails
-  //         poster_path='http//coolcats-on-beach.com'
+  //         poster_path='http://coolcats-on-beach.com'
   //         title='Cats'
   //         release_date='2020-01-20'
   //         average_rating={10}
