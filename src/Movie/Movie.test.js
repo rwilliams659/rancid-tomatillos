@@ -1,7 +1,6 @@
 import React from 'react';
 import Movie from './Movie.js';
-import { screen, render }
-  from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 
