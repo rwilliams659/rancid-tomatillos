@@ -29,8 +29,18 @@ The User Interface is updated seamlessly as the user navigates through a multi-p
 * password: 111111
 
 ##  In Action
-
-screenshots...
+#### Homepage:
+![](readme-assets/homepage.png)
+#### A Movie Details page:
+![](readme-assets/movie-details.png)
+#### User login:
+![](readme-assets/login.gif)
+#### Adding and deleting a movie rating:
+![](readme-assets/add-delete-rating.gif)
+#### Adding a comment:
+![](readme-assets/add-comment.gif)
+#### Favoriting a movie:
+![](readme-assets/favoriting.gif)
 
 ## Technologies
 * React & Router
