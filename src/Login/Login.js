@@ -76,10 +76,10 @@ class Login extends Component {
 
   handleSuccessfulLogin = (id) => {
     this.props.updateUserId(id);
-    this.props.updateLoginStatus(true);
     this.props.getUserRatings();
     this.props.setFavoriteMovies(); 
-    this.setState({ loginError: '' }) 
+    this.setState({ loginError: '' })
+    this.props.updateLoginStatus(true);
   }
 
   handleLogin = event => {
