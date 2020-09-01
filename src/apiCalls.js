@@ -39,7 +39,6 @@ export const postNewRating = async (userId, movieId, userRating) => {
   return response; 
 }
 
-//NEW
 export const getFavoriteMovies = async () => {
   const response = await fetch('http://localhost:3001/api/v1/favorites');
   const favoriteMovies = await checkResponse(response); 
@@ -61,7 +60,6 @@ export const postFavoriteMovie = async (id) => {
   const parsedResponse = await checkResponse(response);
   return parsedResponse; 
 }
-//
 
 export const deleteRating = async (userId, ratingId) => {
   const deleteResponse = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings/${ratingId}`, {
