@@ -3,7 +3,7 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom';
 import { getMovies, checkLoginCredentials, fetchUserRatings, getFavoriteMovies, postFavoriteMovie, getComments, postNewRating, deleteRating, postComment } from '../apiCalls';
-import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event'
 jest.mock('../apiCalls')
 

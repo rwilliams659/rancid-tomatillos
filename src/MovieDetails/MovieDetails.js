@@ -23,7 +23,7 @@ class MovieDetails extends Component {
     event.preventDefault();
     postNewRating(this.props.userId, this.props.currentMovie.id, this.state.formValue)
     .then(response => {
-      console.log(response)
+      console.log(this.props.updateUserRatings)
       this.props.updateUserRatings();
     })
     .catch(error => {

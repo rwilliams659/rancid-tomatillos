@@ -1,7 +1,6 @@
 import React from 'react';
 import Movies from './Movies.js';
-import { screen, fireEvent, render, }
-  from '@testing-library/react';
+import { screen, fireEvent, render, } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { BrowserRouter } from "react-router-dom";
 
