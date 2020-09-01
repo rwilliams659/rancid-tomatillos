@@ -40,57 +40,59 @@ class App extends Component {
         updateLoginStatus={this.updateLoginStatus} 
         updateUserId={this.updateUserId}
         />
-        <Route exact path='/' render={() => 
-          <Movies 
-            error={this.state.error}
-            movies={this.state.movies} 
-            loggedIn={this.state.loggedIn}
-            userRatings={this.state.userRatings}
-            analyzeMovieClick={this.analyzeMovieClick}
-            favorites={this.state.favorites}
-            home={true}
-          /> 
-        }/>
-        <Route exact path='/favorites' render={() =>
-          <Movies
-            error={this.state.error}
-            movies={this.state.movies.filter(movie => this.state.favorites.includes(movie.id))}
-            loggedIn={this.state.loggedIn}
-            userRatings={this.state.userRatings}
-            analyzeMovieClick={this.analyzeMovieClick}
-            favorites={this.state.favorites}
-            home={false}
+        <Switch>
+          <Route exact path='/' render={() => 
+            <Movies 
+              error={this.state.error}
+              movies={this.state.movies} 
+              loggedIn={this.state.loggedIn}
+              userRatings={this.state.userRatings}
+              analyzeMovieClick={this.analyzeMovieClick}
+              favorites={this.state.favorites}
+              home={true}
+            /> 
+          }/>
+          <Route exact path='/favorites' render={() =>
+            <Movies
+              error={this.state.error}
+              movies={this.state.movies.filter(movie => this.state.favorites.includes(movie.id))}
+              loggedIn={this.state.loggedIn}
+              userRatings={this.state.userRatings}
+              analyzeMovieClick={this.analyzeMovieClick}
+              favorites={this.state.favorites}
+              home={false}
+            />
+          }/>
+          <Route exact path='/login' render={() => 
+            <Login 
+              updateUserId={this.updateUserId}
+              updateLoginStatus={this.updateLoginStatus} 
+              loggedIn={this.state.loggedIn}
+              getUserRatings={this.getUserRatings}
+              setFavoriteMovies={this.setFavoriteMovies}
+            />
+          }/>
+          <Route 
+            path='/movies/:id'
+            exact
+            render={({ match }) => {
+              const movieToRender = this.state.movies.find(movie => movie.id === +match.params.id)
+              return (
+                <MovieDetails 
+                  {...movieToRender}
+                  userRatings={this.state.userRatings}
+                  currentMovie={this.state.currentMovie}
+                  currentMovieRatingInfo={this.state.currentMovieRatingInfo}
+                  loggedIn={this.state.loggedIn}
+                  userId={this.state.userId}
+                  updateUserRatings={this.updateUserRatings}
+                  favorites={this.state.favorites}
+                  toggleFavorite={this.toggleFavorite}
+                />)
+            }}
           />
-        }/>
-        <Route exact path='/login' render={() => 
-          <Login 
-            updateUserId={this.updateUserId}
-            updateLoginStatus={this.updateLoginStatus} 
-            loggedIn={this.state.loggedIn}
-            getUserRatings={this.getUserRatings}
-            setFavoriteMovies={this.setFavoriteMovies}
-          />
-        }/>
-        <Route 
-          path='/movies/:id'
-          exact
-          render={({ match }) => {
-            const movieToRender = this.state.movies.find(movie => movie.id === +match.params.id)
-            return (
-              <MovieDetails 
-                {...movieToRender}
-                userRatings={this.state.userRatings}
-                currentMovie={this.state.currentMovie}
-                currentMovieRatingInfo={this.state.currentMovieRatingInfo}
-                loggedIn={this.state.loggedIn}
-                userId={this.state.userId}
-                updateUserRatings={this.updateUserRatings}
-                favorites={this.state.favorites}
-                toggleFavorite={this.toggleFavorite}
-              />)
-          }}
-        />
-        {/* <Route path='*' component={PageNotFound} /> */}
+          <Route path='*' component={PageNotFound} />
+        </Switch>
       </div>
     )
   }
@@ -157,7 +159,6 @@ class App extends Component {
     }
   } 
 
-  // REFACTOR THE 2 BELOW WHEN TIME TO AVOID DUPLICATION
   updateUserRatings = () => {
     fetchUserRatings(this.state.userId) 
       .then(ratings => {
