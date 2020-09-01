@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import './Login.css'
-import PropTypes from 'prop-types'
-import { checkLoginCredentials } from '../apiCalls'
-import { Redirect } from 'react-router-dom'
+import React, { Component } from 'react';
+import './Login.css';
+import PropTypes from 'prop-types';
+import { checkLoginCredentials } from '../apiCalls';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
@@ -15,10 +15,9 @@ class Login extends Component {
   }
 
   render() {
-
-      if (this.props.loggedIn === true ) {
-        return <Redirect to='/' />
-      }
+    if (this.props.loggedIn === true) {
+      return <Redirect to='/' />
+    }
 
     return (
       <form className='Login'>
@@ -48,29 +47,29 @@ class Login extends Component {
   updateUserLogin = event => {
     const inputName = event.target.name;
     const inputValue = event.target.value; 
-    this.setState({[inputName]: inputValue}) 
+    this.setState({[inputName]: inputValue}); 
   }
 
   resetForm = () => {
     this.setState({
       email: '',
       password: ''
-    })
+    });
   }
 
   validateLogin = () => {
     const loginInfo = {
       email: this.state.email,
       password: this.state.password
-    }
+    };
     checkLoginCredentials(loginInfo)
     .then(response => {
-      console.log(response)
-      this.handleSuccessfulLogin(response.user.id) 
+      console.log(response);
+      this.handleSuccessfulLogin(response.user.id); 
     })
     .catch(error => {
       console.log(error);
-      this.setState({ loginError: 'Invalid username or password'})
+      this.setState({ loginError: 'Invalid username or password'});
     })
   }
 
@@ -78,14 +77,14 @@ class Login extends Component {
     this.props.updateUserId(id);
     this.props.getUserRatings();
     this.props.setFavoriteMovies(); 
-    this.setState({ loginError: '' })
+    this.setState({ loginError: '' });
     this.props.updateLoginStatus(true);
   }
 
   handleLogin = event => {
-    event.preventDefault()
+    event.preventDefault();
     this.validateLogin(event);
-    this.resetForm()
+    this.resetForm();
   }
 }
 

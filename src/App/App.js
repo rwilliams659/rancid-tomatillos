@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from '../Header/Header'
-import Movies from '../Movies/Movies'
-import Login from '../Login/Login'
-import PageNotFound from '../PageNotFound/PageNotFound'
-import MovieDetails from '../MovieDetails/MovieDetails'
-import { fetchUserRatings, getMovies, postFavoriteMovie, getFavoriteMovies } from '../apiCalls'
+import Header from '../Header/Header';
+import Movies from '../Movies/Movies';
+import Login from '../Login/Login';
+import PageNotFound from '../PageNotFound/PageNotFound';
+import MovieDetails from '../MovieDetails/MovieDetails';
+import { fetchUserRatings, getMovies, postFavoriteMovie, getFavoriteMovies } from '../apiCalls';
 import { Route, Switch } from 'react-router-dom';
 
 class App extends Component {
@@ -28,7 +28,7 @@ class App extends Component {
       .then(movies => this.setState({movies: movies.movies}))
       .catch(error => {
         console.warn('Error loading movies');
-        this.setState({error: 'Oops! Something went wrong!'})
+        this.setState({error: 'Oops! Something went wrong!'});
       })
   }
 
@@ -72,10 +72,7 @@ class App extends Component {
               setFavoriteMovies={this.setFavoriteMovies}
             />
           }/>
-          <Route 
-            path='/movies/:id'
-            exact
-            render={({ match }) => {
+          <Route exact path='/movies/:id' render={({ match }) => {
               const movieToRender = this.state.movies.find(movie => movie.id === +match.params.id)
               return (
                 <MovieDetails 
@@ -88,7 +85,8 @@ class App extends Component {
                   updateUserRatings={this.updateUserRatings}
                   favorites={this.state.favorites}
                   toggleFavorite={this.toggleFavorite}
-                />)
+                />
+              )
             }}
           />
           <Route path='*' component={PageNotFound} />
@@ -98,11 +96,11 @@ class App extends Component {
   }
 
   updateUserId = (id) => {
-    this.setState({userId: id})
+    this.setState({userId: id});
   }
 
   updateLoginStatus = (status) => {
-    this.setState({loggedIn: status})
+    this.setState({loggedIn: status});
   }
 
   analyzeMovieClick = (event) => {
@@ -114,7 +112,7 @@ class App extends Component {
   }
 
   toggleFavorite = event => {
-    const movieId = event.target.id.slice(5) 
+    const movieId = event.target.id.slice(5); 
     postFavoriteMovie(movieId)
       .then(response => {
         console.log(response);
@@ -122,7 +120,6 @@ class App extends Component {
       })
       .catch(error => {
         console.log(error);
-        //set state with error if time/somewhere to display
       })
   }
 
@@ -130,21 +127,20 @@ class App extends Component {
     getFavoriteMovies()
       .then(movies => {
         console.log(movies);
-        this.setState({favorites: movies})
+        this.setState({favorites: movies});
       }) 
       .catch(error => {
         console.log(error);
-        //set state with error if time/somewhere to display
       })
   }
 
   updateCurrentMovie = (event) => {
-    const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id)
+    const movieId = parseInt(event.target.id) || parseInt(event.target.parentNode.id);
     const newMovie = this.state.movies.find(movie => movie.id === movieId);
     if (newMovie) {
       this.setState({ currentMovie: newMovie }, () => {
         if (this.state.userRatings.length > 0) {
-          this.findCurrentMovieRating()
+          this.findCurrentMovieRating();
         }
       });
     }  
@@ -163,7 +159,7 @@ class App extends Component {
     fetchUserRatings(this.state.userId) 
       .then(ratings => {
         this.setState({ userRatings: ratings.ratings }, () => {
-          this.findCurrentMovieRating()
+          this.findCurrentMovieRating();
         })
       })
       .catch(error => console.log(error));
@@ -172,11 +168,10 @@ class App extends Component {
   getUserRatings = () => {
     fetchUserRatings(this.state.userId) 
       .then(ratings => { 
-        this.setState({ userRatings: ratings.ratings }) 
+        this.setState({ userRatings: ratings.ratings }); 
       })
       .catch(error => console.log(error));
   }
-
 }
 
-export default App;
+export default App

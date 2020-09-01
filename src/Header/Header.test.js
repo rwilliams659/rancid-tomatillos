@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from './Header.js';
-import { screen, fireEvent, render }
-  from '@testing-library/react';
+import { screen, fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { BrowserRouter } from "react-router-dom";
 
 describe('Header Component', () => {
   it('if not logged in, should have the correct content when rendered', () => {
+    
     render(
       <BrowserRouter>
         <Header
@@ -27,6 +27,7 @@ describe('Header Component', () => {
   });
 
   it('if logged in, should have the correct content when rendered', () => {
+
     render(
       <BrowserRouter>
         <Header
@@ -37,10 +38,10 @@ describe('Header Component', () => {
       </BrowserRouter>
     )
 
-    const logoutBtn = screen.getByText('Log out')
+    const logoutBtn = screen.getByText('Log out');
     const heading = screen.getByRole('heading');
     const homeLink = screen.getByLabelText('Go home');
-    const favoritesLink = screen.getByLabelText('View favorites')
+    const favoritesLink = screen.getByLabelText('View favorites');
 
     expect(logoutBtn).toBeInTheDocument();
     expect(heading).toBeInTheDocument();
@@ -49,8 +50,9 @@ describe('Header Component', () => {
   });
 
   it('should fire functions when the log out button is clicked', () => {
-    const mockUpdateLoginStatus = jest.fn()
-    const mockUpdateUserId = jest.fn()
+
+    const mockUpdateLoginStatus = jest.fn();
+    const mockUpdateUserId = jest.fn();
     
     render(
       <BrowserRouter>
@@ -70,5 +72,5 @@ describe('Header Component', () => {
 
     expect(mockUpdateUserId).toBeCalledTimes(1);
     expect(mockUpdateUserId).toBeCalledWith(null);
-  });
-});
+  })
+})

@@ -4,8 +4,8 @@ import App from './App';
 import '@testing-library/jest-dom';
 import { getMovies, checkLoginCredentials, fetchUserRatings, getFavoriteMovies, postFavoriteMovie, getComments, postNewRating, deleteRating, postComment } from '../apiCalls';
 import { MemoryRouter } from 'react-router-dom';
-import userEvent from '@testing-library/user-event'
-jest.mock('../apiCalls')
+import userEvent from '@testing-library/user-event';
+jest.mock('../apiCalls');
 
 describe('App Component', () => {
   it('should load a list of movie cards when the app loads', async () => {
@@ -37,16 +37,16 @@ describe('App Component', () => {
       </MemoryRouter>
     )
 
-    const title1 = await waitFor (() => screen.getByText('Cats'))
-    const title2 = await waitFor(() => screen.getByText('Dogs'))
+    const title1 = await waitFor (() => screen.getByText('Cats'));
+    const title2 = await waitFor(() => screen.getByText('Dogs'));
 
-    expect(title1).toBeInTheDocument()
-    expect(title2).toBeInTheDocument()
+    expect(title1).toBeInTheDocument();
+    expect(title2).toBeInTheDocument();
   })
 
   it('should display an error message if movie cards fail to load', async () => 
   {
-    getMovies.mockRejectedValue('Error loading movies')
+    getMovies.mockRejectedValue('Error loading movies');
     
     render(
       <MemoryRouter>
@@ -54,8 +54,8 @@ describe('App Component', () => {
       </MemoryRouter>
     )
 
-    const errorMsg = await waitFor(() => screen.getByText('Oops! Something went wrong!'))
-    expect(errorMsg).toBeInTheDocument()
+    const errorMsg = await waitFor(() => screen.getByText('Oops! Something went wrong!'));
+    expect(errorMsg).toBeInTheDocument();
   })
 
   it('should be able to successfully log in a user', async () => {
@@ -75,11 +75,11 @@ describe('App Component', () => {
 
     checkLoginCredentials.mockResolvedValue({
       user: {
-        email: "diana@turing.io",
+        email: 'diana@turing.io',
         id: 100,
-        name: "Di"
+        name: 'Di'
       }
-    });
+    })
 
     fetchUserRatings.mockResolvedValue({
       ratings: [
@@ -88,19 +88,19 @@ describe('App Component', () => {
           user_id: 100,
           movie_id: 10,
           rating: 5,
-          created_at: "2020-08-17T23:48:55.695Z",
-          updated_at: "2020-08-17T23:48:55.695Z"
+          created_at: '2020-08-17T23:48:55.695Z',
+          updated_at: '2020-08-17T23:48:55.695Z'
         },
         {
           id: 2,
           user_id: 100,
           movie_id: 20,
           rating: 10,
-          created_at: "2020-09-12T23:48:55.695Z",
-          updated_at: "2020-09-12T23:48:55.695Z"
+          created_at: '2020-09-12T23:48:55.695Z',
+          updated_at: '2020-09-12T23:48:55.695Z'
         }
       ]
-    });
+    })
 
     getFavoriteMovies.mockResolvedValueOnce([]);
 
@@ -110,8 +110,8 @@ describe('App Component', () => {
       </MemoryRouter>
     )
 
-    const loginBtn = screen.getByText('Log in')
-    fireEvent.click(loginBtn)
+    const loginBtn = screen.getByText('Log in');
+    fireEvent.click(loginBtn);
 
     const emailInput = screen.getByPlaceholderText('Email address');
     const passwordInput = screen.getByPlaceholderText('Password');
@@ -122,12 +122,12 @@ describe('App Component', () => {
     expect(passwordInput).toBeInTheDocument();
     expect(submitBtn).toBeInTheDocument(); 
 
-    fireEvent.change(emailInput, {target: { value: 'diana@turing.io' }})
-    fireEvent.change(passwordInput, { target: { value: '111111' }})
+    fireEvent.change(emailInput, {target: { value: 'diana@turing.io' }});
+    fireEvent.change(passwordInput, { target: { value: '111111' }});
 
-    fireEvent.click(submitBtn) 
+    fireEvent.click(submitBtn); 
 
-    const logOutBtn = await waitFor(() => screen.getByText('Log out'))
+    const logOutBtn = await waitFor(() => screen.getByText('Log out'));
 
     expect(logOutBtn).toBeInTheDocument(); 
   });
@@ -143,21 +143,21 @@ describe('App Component', () => {
           average_rating: 10,
           backdrop_path: 'http://coolcats.com',
           poster_path: 'http://coolcats-on-beach.com'
-        },
+        }
       ]
     })
 
     checkLoginCredentials.mockResolvedValue({
       user: {
-        email: "diana@turing.io",
+        email: 'diana@turing.io',
         id: 100,
-        name: "Di"
+        name: 'Di'
       }
     })
 
     fetchUserRatings.mockResolvedValueOnce({
       ratings: []
-    });
+    })
 
     getFavoriteMovies.mockResolvedValueOnce([]);
       
@@ -178,8 +178,8 @@ describe('App Component', () => {
         movie_id: 1,
         rating: 10,
         user_id: 1,
-        created_at: "2020-08-17T23:48:55.695Z",
-        updated_at: "2020-08-17T23:48:55.695Z"
+        created_at: '2020-08-17T23:48:55.695Z',
+        updated_at: '2020-08-17T23:48:55.695Z'
       }]
     })
 
@@ -189,34 +189,34 @@ describe('App Component', () => {
       </MemoryRouter>
     )
 
-    const loginBtn = screen.getByText('Log in')
-    fireEvent.click(loginBtn)
+    const loginBtn = screen.getByText('Log in');
+    fireEvent.click(loginBtn);
 
     const emailInput = screen.getByPlaceholderText('Email address');
     const passwordInput = screen.getByPlaceholderText('Password');
     const submitBtn = screen.getByText('Submit');
 
-    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
-    fireEvent.change(passwordInput, { target: { value: '111111' } })
-    fireEvent.click(submitBtn) 
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }});
+    fireEvent.change(passwordInput, { target: { value: '111111' }});
+    fireEvent.click(submitBtn);
 
-    const movieCardBtn = await waitFor( () => screen.getByText('Cats'))
+    const movieCardBtn = await waitFor( () => screen.getByText('Cats'));
 
-    fireEvent.click(movieCardBtn)
+    fireEvent.click(movieCardBtn);
 
-    const form = screen.getByTestId('select-one')
-    const input10 = screen.getByTestId('val10')
-    const ratingSubmitBtn = screen.getByText('Submit')
+    const form = screen.getByTestId('select-one');
+    const input10 = screen.getByTestId('val10');
+    const ratingSubmitBtn = screen.getByText('Submit');
   
-    userEvent.selectOptions(form, ['10'])
+    userEvent.selectOptions(form, ['10']);
 
-    expect(input10.selected).toBe(true)
+    expect(input10.selected).toBe(true);
 
-    fireEvent.click(ratingSubmitBtn)
+    fireEvent.click(ratingSubmitBtn);
 
-    const deleteRatingBtn = await waitFor( () => screen.getByText('Delete rating'))
+    const deleteRatingBtn = await waitFor( () => screen.getByText('Delete rating'));
 
-    expect(deleteRatingBtn).toBeInTheDocument()
+    expect(deleteRatingBtn).toBeInTheDocument();
   });
 
   it('should be able to delete a rating', async () => {
@@ -230,7 +230,7 @@ describe('App Component', () => {
           average_rating: 10,
           backdrop_path: 'http://coolcats.com',
           poster_path: 'http://coolcats-on-beach.com'
-        },
+        }
       ]
     })
 
@@ -247,12 +247,12 @@ describe('App Component', () => {
         movie_id: 1,
         rating: 10,
         user_id: 1,
-        created_at: "2020-08-17T23:48:55.695Z",
-        updated_at: "2020-08-17T23:48:55.695Z"
+        created_at: '2020-08-17T23:48:55.695Z',
+        updated_at: '2020-08-17T23:48:55.695Z'
       }]
     })
 
-    getFavoriteMovies.mockResolvedValueOnce([]);
+    getFavoriteMovies.mockResolvedValueOnce([])
 
     getComments.mockResolvedValueOnce({
       comments: []
@@ -262,7 +262,7 @@ describe('App Component', () => {
 
     fetchUserRatings.mockResolvedValueOnce({
       ratings: []
-    });
+    })
 
     render(
       <MemoryRouter>
@@ -270,28 +270,28 @@ describe('App Component', () => {
       </MemoryRouter>
     )
 
-    const loginBtn = screen.getByText('Log in')
-    fireEvent.click(loginBtn)
+    const loginBtn = screen.getByText('Log in');
+    fireEvent.click(loginBtn);
 
     const emailInput = screen.getByPlaceholderText('Email address');
     const passwordInput = screen.getByPlaceholderText('Password');
     const submitBtn = screen.getByText('Submit');
 
-    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
-    fireEvent.change(passwordInput, { target: { value: '111111' } })
-    fireEvent.click(submitBtn)
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }});
+    fireEvent.change(passwordInput, { target: { value: '111111' }});
+    fireEvent.click(submitBtn);
 
-    const movieCardBtn = await waitFor(() => screen.getByText('Cats'))
+    const movieCardBtn = await waitFor(() => screen.getByText('Cats'));
 
-    fireEvent.click(movieCardBtn)
+    fireEvent.click(movieCardBtn);
 
-    const deleteRatingBtn = screen.getByText('Delete rating')
+    const deleteRatingBtn = screen.getByText('Delete rating');
 
-    fireEvent.click(deleteRatingBtn)
+    fireEvent.click(deleteRatingBtn);
     
-    const form = await waitFor(() => screen.getByTestId('select-one'))
+    const form = await waitFor(() => screen.getByTestId('select-one'));
 
-    expect(form).toBeInTheDocument()
+    expect(form).toBeInTheDocument();
   });
 
   it('should be able to add a new comment when logged in', async () => {
@@ -311,17 +311,17 @@ describe('App Component', () => {
 
     checkLoginCredentials.mockResolvedValue({
       user: {
-        email: "diana@turing.io",
+        email: 'diana@turing.io',
         id: 100,
-        name: "Di"
+        name: 'Di'
       }
     })
 
     fetchUserRatings.mockResolvedValueOnce({
       ratings: []
-    });
+    })
 
-    getFavoriteMovies.mockResolvedValueOnce([]);
+    getFavoriteMovies.mockResolvedValueOnce([])
 
     getComments.mockResolvedValueOnce({
       comments: []
@@ -347,35 +347,34 @@ describe('App Component', () => {
       </MemoryRouter>
     )
 
-    const loginBtn = screen.getByText('Log in')
-    fireEvent.click(loginBtn)
+    const loginBtn = screen.getByText('Log in');
+    fireEvent.click(loginBtn);
 
     const emailInput = screen.getByPlaceholderText('Email address');
     const passwordInput = screen.getByPlaceholderText('Password');
     const submitBtn = screen.getByText('Submit');
 
-    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
-    fireEvent.change(passwordInput, { target: { value: '111111' } })
-    fireEvent.click(submitBtn)
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }});
+    fireEvent.change(passwordInput, { target: { value: '111111' }});
+    fireEvent.click(submitBtn);
 
-    const movieCardBtn = await waitFor(() => screen.getByText('Cats'))
+    const movieCardBtn = await waitFor(() => screen.getByText('Cats'));
 
-    fireEvent.click(movieCardBtn)
+    fireEvent.click(movieCardBtn);
 
-    const authorInput = screen.getByPlaceholderText('Your name/alias')
-    const commentInput = screen.getByPlaceholderText('Write your comment here.. (300 max characters)')
-    const addCommentButton = screen.getByText('Post')
+    const authorInput = screen.getByPlaceholderText('Your name/alias');
+    const commentInput = screen.getByPlaceholderText('Write your comment here.. (300 max characters)');
+    const addCommentButton = screen.getByText('Post');
 
-    fireEvent.change(authorInput, { target: { value: 'Diana' }})
-    fireEvent.change(commentInput, { target: { value: 'Great movie!' }})
+    fireEvent.change(authorInput, { target: { value: 'Diana' }});
+    fireEvent.change(commentInput, { target: { value: 'Great movie!' }});
 
-    fireEvent.click(addCommentButton)
+    fireEvent.click(addCommentButton);
 
-    const newCommentAuthor = await waitFor(() => screen.getByText('- Diana'))
-    const newComment = await waitFor(() => screen.getByText('Great movie!'))
-    expect(newCommentAuthor).toBeInTheDocument()
-    expect(newComment).toBeInTheDocument()
- 
+    const newCommentAuthor = await waitFor(() => screen.getByText('- Diana'));
+    const newComment = await waitFor(() => screen.getByText('Great movie!'));
+    expect(newCommentAuthor).toBeInTheDocument();
+    expect(newComment).toBeInTheDocument();
   });
 
   it('should be able to favorite and un-favorite a movie on the homepage', async () => {
@@ -395,33 +394,33 @@ describe('App Component', () => {
 
     checkLoginCredentials.mockResolvedValue({
       user: {
-        email: "diana@turing.io",
+        email: 'diana@turing.io',
         id: 100,
-        name: "Di"
+        name: 'Di'
       }
-    });
+    })
 
     fetchUserRatings.mockResolvedValue({
       ratings: []
-    });
+    })
 
-    getFavoriteMovies.mockResolvedValueOnce([]);
-
-    postFavoriteMovie.mockResolvedValueOnce(
-      {
-        message: "Movie with an id of 1 was favorited"
-      }
-    )
-
-    getFavoriteMovies.mockResolvedValueOnce([1]);
+    getFavoriteMovies.mockResolvedValueOnce([])
 
     postFavoriteMovie.mockResolvedValueOnce(
       {
-        message: "Movie with an id of 1 was un-favorited"
+        message: 'Movie with an id of 1 was favorited'
       }
     )
 
-    getFavoriteMovies.mockResolvedValueOnce([]);
+    getFavoriteMovies.mockResolvedValueOnce([1])
+
+    postFavoriteMovie.mockResolvedValueOnce(
+      {
+        message: 'Movie with an id of 1 was un-favorited'
+      }
+    )
+
+    getFavoriteMovies.mockResolvedValueOnce([])
 
     render(
       <MemoryRouter>
@@ -429,8 +428,8 @@ describe('App Component', () => {
       </MemoryRouter>
     )
 
-    const loginBtn = screen.getByText('Log in')
-    fireEvent.click(loginBtn)
+    const loginBtn = screen.getByText('Log in');
+    fireEvent.click(loginBtn);
 
     const emailInput = screen.getByPlaceholderText('Email address');
     const passwordInput = screen.getByPlaceholderText('Password');
@@ -441,15 +440,15 @@ describe('App Component', () => {
     expect(passwordInput).toBeInTheDocument();
     expect(submitBtn).toBeInTheDocument();
 
-    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
-    fireEvent.change(passwordInput, { target: { value: '111111' } })
-    fireEvent.click(submitBtn)
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }});
+    fireEvent.change(passwordInput, { target: { value: '111111' }});
+    fireEvent.click(submitBtn);
 
-    const movieCardIcon = await waitFor(() => screen.getByAltText('not favorited'))
+    const movieCardIcon = await waitFor(() => screen.getByAltText('not favorited'));
 
     fireEvent.click(movieCardIcon);
 
-    const movieCardIconFavorited = await waitFor(() => screen.getByAltText('favorited'))
+    const movieCardIconFavorited = await waitFor(() => screen.getByAltText('favorited'));
 
     expect(movieCardIconFavorited).toBeInTheDocument();
 
@@ -471,23 +470,23 @@ describe('App Component', () => {
           average_rating: 10,
           backdrop_path: 'http://coolcats.com',
           poster_path: 'http://coolcats-on-beach.com'
-        },
+        }
       ]
     })
 
     checkLoginCredentials.mockResolvedValue({
       user: {
-        email: "diana@turing.io",
+        email: 'diana@turing.io',
         id: 100,
-        name: "Di"
+        name: 'Di'
       }
-    });
+    })
 
     fetchUserRatings.mockResolvedValue({
       ratings: []
-    });
+    })
 
-    getFavoriteMovies.mockResolvedValueOnce([]);
+    getFavoriteMovies.mockResolvedValueOnce([])
 
     getComments.mockResolvedValueOnce({
       comments: []
@@ -495,19 +494,19 @@ describe('App Component', () => {
 
     postFavoriteMovie.mockResolvedValueOnce(
       {
-        message: "Movie with an id of 1 was favorited"
+        message: 'Movie with an id of 1 was favorited'
       }
     )
 
-    getFavoriteMovies.mockResolvedValueOnce([1]);
+    getFavoriteMovies.mockResolvedValueOnce([1])
 
     postFavoriteMovie.mockResolvedValueOnce(
       {
-        message: "Movie with an id of 1 was un-favorited"
+        message: 'Movie with an id of 1 was un-favorited'
       }
     )
 
-    getFavoriteMovies.mockResolvedValueOnce([]);
+    getFavoriteMovies.mockResolvedValueOnce([])
 
     render(
       <MemoryRouter>
@@ -515,8 +514,8 @@ describe('App Component', () => {
       </MemoryRouter>
     )
 
-    const loginBtn = screen.getByText('Log in')
-    fireEvent.click(loginBtn)
+    const loginBtn = screen.getByText('Log in');
+    fireEvent.click(loginBtn);
 
     const emailInput = screen.getByPlaceholderText('Email address');
     const passwordInput = screen.getByPlaceholderText('Password');
@@ -527,11 +526,11 @@ describe('App Component', () => {
     expect(passwordInput).toBeInTheDocument();
     expect(submitBtn).toBeInTheDocument();
 
-    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } });
-    fireEvent.change(passwordInput, { target: { value: '111111' } });
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }});
+    fireEvent.change(passwordInput, { target: { value: '111111' }});
     fireEvent.click(submitBtn);
 
-    const movieCard = await waitFor(() => screen.getByText('Cats'))
+    const movieCard = await waitFor(() => screen.getByText('Cats'));
 
     fireEvent.click(movieCard);
 
@@ -543,7 +542,7 @@ describe('App Component', () => {
 
     fireEvent.click(movieCardIcon);
 
-    const movieCardIconFavorited = await waitFor(() => screen.getByAltText('favorited'))
+    const movieCardIconFavorited = await waitFor(() => screen.getByAltText('favorited'));
 
     expect(movieCardIconFavorited).toBeInTheDocument();
 
@@ -565,31 +564,31 @@ describe('App Component', () => {
           average_rating: 10,
           backdrop_path: 'http://coolcats.com',
           poster_path: 'http://coolcats-on-beach.com'
-        },
+        }
       ]
     })
 
     checkLoginCredentials.mockResolvedValue({
       user: {
-        email: "diana@turing.io",
+        email: 'diana@turing.io',
         id: 100,
-        name: "Di"
+        name: 'Di'
       }
-    });
+    })
 
     fetchUserRatings.mockResolvedValue({
       ratings: []
-    });
+    })
 
-    getFavoriteMovies.mockResolvedValueOnce([]);
+    getFavoriteMovies.mockResolvedValueOnce([])
 
     postFavoriteMovie.mockResolvedValueOnce(
       {
-        message: "Movie with an id of 1 was favorited"
+        message: 'Movie with an id of 1 was favorited'
       }
     )
 
-    getFavoriteMovies.mockResolvedValueOnce([1]);
+    getFavoriteMovies.mockResolvedValueOnce([1])
 
     render(
       <MemoryRouter>
@@ -597,8 +596,8 @@ describe('App Component', () => {
       </MemoryRouter>
     )
 
-    const loginBtn = screen.getByText('Log in')
-    fireEvent.click(loginBtn)
+    const loginBtn = screen.getByText('Log in');
+    fireEvent.click(loginBtn);
 
     const emailInput = screen.getByPlaceholderText('Email address');
     const passwordInput = screen.getByPlaceholderText('Password');
@@ -609,11 +608,11 @@ describe('App Component', () => {
     expect(passwordInput).toBeInTheDocument();
     expect(submitBtn).toBeInTheDocument();
 
-    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
-    fireEvent.change(passwordInput, { target: { value: '111111' } })
-    fireEvent.click(submitBtn)
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' }});
+    fireEvent.change(passwordInput, { target: { value: '111111' }});
+    fireEvent.click(submitBtn);
 
-    const movieCardIcon = await waitFor(() => screen.getByAltText('not favorited'))
+    const movieCardIcon = await waitFor(() => screen.getByAltText('not favorited'));
 
     fireEvent.click(movieCardIcon);
 
@@ -624,5 +623,5 @@ describe('App Component', () => {
     const favoriteMovie = await waitFor(() => screen.getByText('Cats'));
 
     expect(favoriteMovie).toBeInTheDocument(); 
-  });
+  })
 })

@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import '../Header/Header.css'
-import { NavLink, Link } from 'react-router-dom'
+import React from 'react';
+import PropTypes from 'prop-types';
+import '../Header/Header.css';
+import { NavLink, Link } from 'react-router-dom';
 
-const Header = ({loggedIn, updateLoginStatus, updateUserId}) => {
+const Header = ({ loggedIn, updateLoginStatus, updateUserId }) => {
   return (
     <header className='Header'>
       <nav>
@@ -15,8 +15,8 @@ const Header = ({loggedIn, updateLoginStatus, updateUserId}) => {
         </section>
         {loggedIn &&
           <Link to='/'><button onClick={() => {
-            updateLoginStatus(false)
-            updateUserId(null)
+            updateLoginStatus(false);
+            updateUserId(null);
           }}>Log out</button></Link>
         }
         {!loggedIn &&

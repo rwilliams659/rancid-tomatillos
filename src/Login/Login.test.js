@@ -4,10 +4,11 @@ import { screen, fireEvent, render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { checkLoginCredentials } from '../apiCalls';
-jest.mock('../apiCalls')
+jest.mock('../apiCalls');
 
 describe('Login component', () => {
   it('should have the correct content when rendered', () => {
+
     render(
       <BrowserRouter>
         <Login 
@@ -38,9 +39,9 @@ describe('Login component', () => {
 
     checkLoginCredentials.mockResolvedValue({
       user: {
-        email: "diana@turing.io",
+        email: 'diana@turing.io',
         id: 100,
-        name: "Di"
+        name: 'Di'
       }
     })
     
@@ -90,16 +91,12 @@ describe('Login component', () => {
     const passwordInput = screen.getByPlaceholderText('Password');
     const submitBtn = screen.getByText('Submit');
 
-    fireEvent.change(emailInput, { target: { value: 'd@turing.io' } })
-    fireEvent.change(passwordInput, { target: { value: '188' } })
-    fireEvent.click(submitBtn) 
+    fireEvent.change(emailInput, { target: { value: 'd@turing.io' }});
+    fireEvent.change(passwordInput, { target: { value: '188' }});
+    fireEvent.click(submitBtn); 
 
-    const errorMsg = await waitFor(() => screen.getByText('Invalid username or password'))
+    const errorMsg = await waitFor(() => screen.getByText('Invalid username or password'));
 
     expect(errorMsg).toBeInTheDocument(); 
-  });
-});
-
-
-
-
+  })
+})

@@ -1,12 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Movie from '../Movie/Movie'
-import '../Movies/Movies.css'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Movie from '../Movie/Movie';
+import '../Movies/Movies.css';
+import { Link } from 'react-router-dom';
 
-const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick, favorites, home}) => {
+const Movies = ({ error, movies, loggedIn, userRatings, analyzeMovieClick, favorites, home }) => {
     const movieList = movies.map(movie => {
-    const matchingRating = userRatings.find(rating => rating.movie_id === movie.id)
+    const matchingRating = userRatings.find(rating => rating.movie_id === movie.id);
+
     return (
       <li key={movie.id}>
         <Link to={`/movies/${movie.id}`} style={{ textDecoration: 'none'}}>

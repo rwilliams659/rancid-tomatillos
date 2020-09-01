@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './CommentCard.css'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './CommentCard.css';
 
 const CommentCard = ({ comment, author }) => {
   return (

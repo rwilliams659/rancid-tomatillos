@@ -2,10 +2,11 @@ import React from 'react';
 import Movies from './Movies.js';
 import { screen, fireEvent, render, } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 
 describe('Movies Component', () => {
   it('should have the correct content when rendered', () => {
+
     const movie1 = {
       id: 1,
       title: 'Cats',
@@ -14,6 +15,7 @@ describe('Movies Component', () => {
       backdrop_path:'http://coolcats.com',
       poster_path:'http://coolcats-on-beach.com'
     }
+
     const movie2 = {
       id: 2,
       title: 'Dogs',
@@ -28,8 +30,8 @@ describe('Movies Component', () => {
       user_id: 1,
       movie_id: 413,
       rating: 10,
-      created_at: "2020-08-17T23:48:55.695Z",
-      updated_at: "2020-08-17T23:48:55.695Z"
+      created_at: '2020-08-17T23:48:55.695Z',
+      updated_at: '2020-08-17T23:48:55.695Z'
     }
 
     const rating2 = {
@@ -37,8 +39,8 @@ describe('Movies Component', () => {
       user_id: 2,
       movie_id: 750,
       rating: 1,
-      created_at: "2020-08-10T23:48:55.695Z",
-      updated_at: "2020-08-10T23:48:55.695Z"
+      created_at: '2020-08-10T23:48:55.695Z',
+      updated_at: '2020-08-10T23:48:55.695Z'
     }
 
     render(
@@ -53,12 +55,14 @@ describe('Movies Component', () => {
           home={true}
         />
       </BrowserRouter>
-    );
-    const moviesSection = screen.getByLabelText('all-movies')
-    expect(moviesSection).toBeInTheDocument()
-  })
+    )
+
+    const moviesSection = screen.getByLabelText('all-movies');
+    expect(moviesSection).toBeInTheDocument();
+  });
 
   it('should render an h2 with the text Browse All Movies when on the homepage', () => {
+
     const movie1 = {
       id: 1,
       title: 'Cats',
@@ -67,6 +71,7 @@ describe('Movies Component', () => {
       backdrop_path: 'http://coolcats.com',
       poster_path: 'http://coolcats-on-beach.com'
     }
+
     const movie2 = {
       id: 2,
       title: 'Dogs',
@@ -81,8 +86,8 @@ describe('Movies Component', () => {
       user_id: 1,
       movie_id: 413,
       rating: 10,
-      created_at: "2020-08-17T23:48:55.695Z",
-      updated_at: "2020-08-17T23:48:55.695Z"
+      created_at: '2020-08-17T23:48:55.695Z',
+      updated_at: '2020-08-17T23:48:55.695Z'
     }
 
     const rating2 = {
@@ -90,8 +95,8 @@ describe('Movies Component', () => {
       user_id: 2,
       movie_id: 750,
       rating: 1,
-      created_at: "2020-08-10T23:48:55.695Z",
-      updated_at: "2020-08-10T23:48:55.695Z"
+      created_at: '2020-08-10T23:48:55.695Z',
+      updated_at: '2020-08-10T23:48:55.695Z'
     }
 
     render(
@@ -106,14 +111,15 @@ describe('Movies Component', () => {
           home={true}
         />
       </BrowserRouter>
-    );
+    )
     
-    const allMoviesTitle = screen.getByRole('heading', {name: 'Browse All Movies'})
+    const allMoviesTitle = screen.getByRole('heading', {name: 'Browse All Movies'});
     
     expect(allMoviesTitle).toBeInTheDocument();
-  })
+  });
 
   it('should render an h2 with the text Your Favorite Movies when on the favorites page', () => {
+
     const movie1 = {
       id: 1,
       title: 'Cats',
@@ -122,6 +128,7 @@ describe('Movies Component', () => {
       backdrop_path: 'http://coolcats.com',
       poster_path: 'http://coolcats-on-beach.com'
     }
+
     const movie2 = {
       id: 2,
       title: 'Dogs',
@@ -136,8 +143,8 @@ describe('Movies Component', () => {
       user_id: 1,
       movie_id: 413,
       rating: 10,
-      created_at: "2020-08-17T23:48:55.695Z",
-      updated_at: "2020-08-17T23:48:55.695Z"
+      created_at: '2020-08-17T23:48:55.695Z',
+      updated_at: '2020-08-17T23:48:55.695Z'
     }
 
     const rating2 = {
@@ -145,8 +152,8 @@ describe('Movies Component', () => {
       user_id: 2,
       movie_id: 750,
       rating: 1,
-      created_at: "2020-08-10T23:48:55.695Z",
-      updated_at: "2020-08-10T23:48:55.695Z"
+      created_at: '2020-08-10T23:48:55.695Z',
+      updated_at: '2020-08-10T23:48:55.695Z'
     }
 
     render(
@@ -161,14 +168,15 @@ describe('Movies Component', () => {
           home={false}
         />
       </BrowserRouter>
-    );
+    )
 
-    const favoritesTitle = screen.getByRole('heading', { name: 'Your Favorite Movies' })
+    const favoritesTitle = screen.getByRole('heading', { name: 'Your Favorite Movies' });
 
     expect(favoritesTitle).toBeInTheDocument();
-  })
+  });
 
   it('should render the correct number of movie cards based on how many movies are passed in', () => {
+
     const movie1 = {
       id: 1,
       title: 'Cats',
@@ -177,6 +185,7 @@ describe('Movies Component', () => {
       backdrop_path: 'http://coolcats.com',
       poster_path: 'http://coolcats-on-beach.com'
     }
+
     const movie2 = {
       id: 2,
       title: 'Dogs',
@@ -191,8 +200,8 @@ describe('Movies Component', () => {
       user_id: 1,
       movie_id: 413,
       rating: 10,
-      created_at: "2020-08-17T23:48:55.695Z",
-      updated_at: "2020-08-17T23:48:55.695Z"
+      created_at: '2020-08-17T23:48:55.695Z',
+      updated_at: '2020-08-17T23:48:55.695Z'
     }
 
     const rating2 = {
@@ -200,8 +209,8 @@ describe('Movies Component', () => {
       user_id: 2,
       movie_id: 750,
       rating: 1,
-      created_at: "2020-08-10T23:48:55.695Z",
-      updated_at: "2020-08-10T23:48:55.695Z"
+      created_at: '2020-08-10T23:48:55.695Z',
+      updated_at: '2020-08-10T23:48:55.695Z'
     }
 
     render(
@@ -216,7 +225,7 @@ describe('Movies Component', () => {
           home={true}
         />
       </BrowserRouter>
-    );
+    )
 
     const movieTitle1 = screen.getByRole('heading', {name: 'Cats'});
     const movieTitle2 = screen.getByRole('heading', {name: 'Dogs'});
@@ -226,6 +235,7 @@ describe('Movies Component', () => {
   });
 
   it('should call analyzeMovieClick when movie card is clicked', () => {
+    
     const movie1 = {
       id: 1,
       title: 'Cats',
@@ -234,6 +244,7 @@ describe('Movies Component', () => {
       backdrop_path: 'http://coolcats.com',
       poster_path: 'http://coolcats-on-beach.com'
     }
+
     const movie2 = {
       id: 2,
       title: 'Dogs',
@@ -248,8 +259,8 @@ describe('Movies Component', () => {
       user_id: 1,
       movie_id: 413,
       rating: 10,
-      created_at: "2020-08-17T23:48:55.695Z",
-      updated_at: "2020-08-17T23:48:55.695Z"
+      created_at: '2020-08-17T23:48:55.695Z',
+      updated_at: '2020-08-17T23:48:55.695Z'
     }
 
     const rating2 = {
@@ -257,11 +268,12 @@ describe('Movies Component', () => {
       user_id: 2,
       movie_id: 750,
       rating: 1,
-      created_at: "2020-08-10T23:48:55.695Z",
-      updated_at: "2020-08-10T23:48:55.695Z"
+      created_at: '2020-08-10T23:48:55.695Z',
+      updated_at: '2020-08-10T23:48:55.695Z'
     }
 
     const mockAnalyzeMovieClick = jest.fn(); 
+
     render(
       <BrowserRouter>
         <Movies
@@ -274,12 +286,12 @@ describe('Movies Component', () => {
           home={false}
         />
       </BrowserRouter>
-    );
+    )
 
-   const moviesSection = screen.getByLabelText('all-movies');
+    const moviesSection = screen.getByLabelText('all-movies');
 
-   fireEvent.click(moviesSection);
+    fireEvent.click(moviesSection);
    
     expect(mockAnalyzeMovieClick).toBeCalledTimes(1);
-  });
+  })
 })
