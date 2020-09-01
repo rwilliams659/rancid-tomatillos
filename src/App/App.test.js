@@ -129,7 +129,7 @@ describe('App Component', () => {
 
     const logOutBtn = await waitFor(() => screen.getByText('Log out'))
 
-    expect(logOutBtn).toBeInTheDOM(); 
+    expect(logOutBtn).toBeInTheDocument(); 
   });
 
   it('should add a new rating when a rating is submitted', async () => {
