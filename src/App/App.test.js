@@ -2,8 +2,9 @@ import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom';
-import { getMovies, checkLoginCredentials, fetchUserRatings, getFavoriteMovies, postFavoriteMovie } from '../apiCalls';
+import { getMovies, checkLoginCredentials, fetchUserRatings, getFavoriteMovies, postFavoriteMovie, getComments, postNewRating, deleteRating, postComment } from '../apiCalls';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event'
 jest.mock('../apiCalls')
 
 describe('App Component', () => {
@@ -144,5 +145,252 @@ describe('App Component', () => {
     expect(movieCardIconFavorited).toBeInTheDocument();
   });
 
+  it('should add a new rating when a rating is submitted', async () => {
+    
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
+
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
+      }
+    })
+
+    fetchUserRatings.mockResolvedValueOnce({
+      ratings: []
+    });
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+      
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+
+    postNewRating.mockResolvedValue({
+      rating: {
+        movie_id: 1,
+        rating: 10,
+        user_id: 1
+      }
+    })
+
+    fetchUserRatings.mockResolvedValueOnce({
+      ratings: [{
+        movie_id: 1,
+        rating: 10,
+        user_id: 1,
+        created_at: "2020-08-17T23:48:55.695Z",
+        updated_at: "2020-08-17T23:48:55.695Z"
+      }]
+    })
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    )
+
+    const loginBtn = screen.getByText('Log in')
+    fireEvent.click(loginBtn)
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+    const submitBtn = screen.getByText('Submit');
+
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
+    fireEvent.change(passwordInput, { target: { value: '111111' } })
+    fireEvent.click(submitBtn) 
+
+    const movieCardBtn = await waitFor( () => screen.getByText('Cats'))
+
+    fireEvent.click(movieCardBtn)
+
+    const form = screen.getByTestId('select-one')
+    const input10 = screen.getByTestId('val10')
+    const ratingSubmitBtn = screen.getByText('Submit')
+  
+    userEvent.selectOptions(form, ['10'])
+
+    expect(input10.selected).toBe(true)
+
+    fireEvent.click(ratingSubmitBtn)
+
+    const deleteRatingBtn = await waitFor( () => screen.getByText('Delete rating'))
+
+    expect(deleteRatingBtn).toBeInTheDocument()
+  });
+
+  it('should be able to delete a rating', async () => {
+
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
+
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
+      }
+    })
+
+    fetchUserRatings.mockResolvedValueOnce({
+      ratings: [{
+        movie_id: 1,
+        rating: 10,
+        user_id: 1,
+        created_at: "2020-08-17T23:48:55.695Z",
+        updated_at: "2020-08-17T23:48:55.695Z"
+      }]
+    })
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+
+    deleteRating.mockResolvedValue('Success')
+
+    fetchUserRatings.mockResolvedValueOnce({
+      ratings: []
+    });
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    )
+
+    const loginBtn = screen.getByText('Log in')
+    fireEvent.click(loginBtn)
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+    const submitBtn = screen.getByText('Submit');
+
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
+    fireEvent.change(passwordInput, { target: { value: '111111' } })
+    fireEvent.click(submitBtn)
+
+    const movieCardBtn = await waitFor(() => screen.getByText('Cats'))
+
+    fireEvent.click(movieCardBtn)
+
+    const deleteRatingBtn = screen.getByText('Delete rating')
+
+    fireEvent.click(deleteRatingBtn)
+    
+    const form = await waitFor(() => screen.getByTestId('select-one'))
+
+    expect(form).toBeInTheDocument()
+  });
+
+  it('should be able to add a new comment when logged in', async () => {
+
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
+
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
+      }
+    })
+
+    fetchUserRatings.mockResolvedValueOnce({
+      ratings: []
+    });
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+
+    postComment.mockResolvedValueOnce({
+      author: 'Diana',
+      comment: 'Great movie!'
+    })
+
+    getComments.mockResolvedValueOnce({
+      comments: [
+        {
+          author: 'Diana',
+          comment: 'Great movie!',
+        }
+      ]
+    })
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    )
+
+    const loginBtn = screen.getByText('Log in')
+    fireEvent.click(loginBtn)
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+    const submitBtn = screen.getByText('Submit');
+
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
+    fireEvent.change(passwordInput, { target: { value: '111111' } })
+    fireEvent.click(submitBtn)
+
+    const movieCardBtn = await waitFor(() => screen.getByText('Cats'))
+
+    fireEvent.click(movieCardBtn)
+
+    const authorInput = screen.getByPlaceholderText('Your name/alias')
+    const commentInput = screen.getByPlaceholderText('Write your comment here.. (300 max characters)')
+    const addCommentButton = screen.getByText('Post')
+
+    fireEvent.change(authorInput, { target: { value: 'Diana' }})
+    fireEvent.change(commentInput, { target: { value: 'Great movie!' }})
+
+    fireEvent.click(addCommentButton)
+
+    const newCommentAuthor = await waitFor(() => screen.getByText('- Diana'))
+    const newComment = await waitFor(() => screen.getByText('Great movie!'))
+    expect(newCommentAuthor).toBeInTheDocument()
+    expect(newComment).toBeInTheDocument()
+ 
+  });
+
   //additional tests for favoriting/unfavoriting on movieDetails page & UI changes for when add or delete rating & for viewing/adding comments on movieDetails page 
+
 });
