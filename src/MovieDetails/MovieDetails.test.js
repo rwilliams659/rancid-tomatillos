@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 import MovieDetails from './MovieDetails';
-import { screen, render, waitFor, fireEvent } from '@testing-library/react'
-import '@testing-library/jest-dom'
+import { screen, render, waitFor, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { postNewRating, getComments, deleteRating } from '../apiCalls'; 
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 jest.mock('../apiCalls'); 
 
 describe('MovieDetails component', () => {
@@ -19,8 +19,8 @@ describe('MovieDetails component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
 
     const rating1 = {
@@ -28,14 +28,14 @@ describe('MovieDetails component', () => {
       user_id: 1,
       movie_id: 17,
       rating: 10,
-      created_at: "2020-08-17T23:48:55.695Z",
-      updated_at: "2020-08-17T23:48:55.695Z"
+      created_at: '2020-08-17T23:48:55.695Z',
+      updated_at: '2020-08-17T23:48:55.695Z'
     }
 
     render(
       <BrowserRouter>
         <MovieDetails
-          poster_path='http//coolcats-on-beach.com'
+          poster_path='http://coolcats-on-beach.com'
           title='Cats'
           release_date='2020-01-20'
           average_rating={10}
@@ -55,13 +55,13 @@ describe('MovieDetails component', () => {
     const title = screen.getByText('Cats');
     const releaseDate = screen.getByText('Release date: 2020-01-20');
     const averageRating = screen.getByText('Average rating: 10');
-    const commentArea = screen.getByLabelText('Movie comment area')
+    const commentArea = screen.getByLabelText('Movie comment area');
 
     expect(poster).toBeInTheDocument();
     expect(title).toBeInTheDocument();
     expect(releaseDate).toBeInTheDocument();
     expect(averageRating).toBeInTheDocument();
-    expect(commentArea).toBeInTheDocument()
+    expect(commentArea).toBeInTheDocument();
   });
 
   it('if the user is logged in & has rated the movie, should have the correct content when rendered', () => {
@@ -75,8 +75,8 @@ describe('MovieDetails component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
 
     const rating1 = {
@@ -84,14 +84,14 @@ describe('MovieDetails component', () => {
       user_id: 1,
       movie_id: 17,
       rating: 10,
-      created_at: "2020-08-17T23:48:55.695Z",
-      updated_at: "2020-08-17T23:48:55.695Z"
+      created_at: '2020-08-17T23:48:55.695Z',
+      updated_at: '2020-08-17T23:48:55.695Z'
     }
 
     render(
       <BrowserRouter>
         <MovieDetails
-          poster_path='http//coolcats-on-beach.com'
+          poster_path='http://coolcats-on-beach.com'
           title='Cats'
           release_date='2020-01-20'
           average_rating={10}
@@ -113,8 +113,8 @@ describe('MovieDetails component', () => {
     const averageRating = screen.getByText('Average rating: 10');
     const userRating = screen.getByText('Your rating: 10');
     const deleteBtn = screen.getByText('Delete rating');
-    const heartIcon = screen.getByAltText('not favorited')
-    const commentArea = screen.getByLabelText('Movie comment area')
+    const heartIcon = screen.getByAltText('not favorited');
+    const commentArea = screen.getByLabelText('Movie comment area');
 
     expect(poster).toBeInTheDocument();
     expect(title).toBeInTheDocument();
@@ -123,7 +123,7 @@ describe('MovieDetails component', () => {
     expect(userRating).toBeInTheDocument();
     expect(deleteBtn).toBeInTheDocument();
     expect(heartIcon).toBeInTheDocument(); 
-    expect(commentArea).toBeInTheDocument()
+    expect(commentArea).toBeInTheDocument();
   });
 
   it('if the user is logged in but doesn\'t have a rating, should have the correct content when rendered', () => {
@@ -137,14 +137,14 @@ describe('MovieDetails component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
 
     render(
       <BrowserRouter>
         <MovieDetails
-          poster_path='http//coolcats-on-beach.com'
+          poster_path='http://coolcats-on-beach.com'
           title='Cats'
           release_date='2020-01-20'
           average_rating={10}
@@ -165,7 +165,7 @@ describe('MovieDetails component', () => {
     const releaseDate = screen.getByText('Release date: 2020-01-20');
     const averageRating = screen.getByText('Average rating: 10');
     const form = screen.getByLabelText('select movie rating');
-    const heartIcon = screen.getByAltText('not favorited')
+    const heartIcon = screen.getByAltText('not favorited');
 
     expect(poster).toBeInTheDocument();
     expect(title).toBeInTheDocument();
@@ -186,14 +186,14 @@ describe('MovieDetails component', () => {
       title: 'Cats',
       release_date: '2020-01-20',
       average_rating: 10,
-      backdrop_path: 'http//coolcats.com',
-      poster_path: 'http//coolcats-on-beach.com'
+      backdrop_path: 'http://coolcats.com',
+      poster_path: 'http://coolcats-on-beach.com'
     }
 
     render(
       <BrowserRouter>
         <MovieDetails
-          poster_path='http//coolcats-on-beach.com'
+          poster_path='http://coolcats-on-beach.com'
           title='Cats'
           release_date='2020-01-20'
           average_rating={10}
@@ -214,7 +214,7 @@ describe('MovieDetails component', () => {
     const releaseDate = screen.getByText('Release date: 2020-01-20');
     const averageRating = screen.getByText('Average rating: 10');
     const form = screen.getByLabelText('select movie rating');
-    const heartIcon = screen.getByAltText('favorited')
+    const heartIcon = screen.getByAltText('favorited');
 
     expect(poster).toBeInTheDocument();
     expect(title).toBeInTheDocument();
@@ -268,16 +268,15 @@ describe('MovieDetails component', () => {
       </MemoryRouter>
     )
 
-    const form = screen.getByTestId('select-one')
-    const input10 = screen.getByTestId('val10')
-    const submitBtn = screen.getByText('Submit')
-    screen.debug()
+    const form = screen.getByTestId('select-one');
+    const input10 = screen.getByTestId('val10');
+    const submitBtn = screen.getByText('Submit');
+  
+    userEvent.selectOptions(form, ['10']);
 
-    userEvent.selectOptions(form, ['10'])
+    expect(input10.selected).toBe(true);
 
-    expect(input10.selected).toBe(true)
-
-    fireEvent.click(submitBtn)
+    fireEvent.click(submitBtn);
 
     await waitFor(() => expect(mockUpdateUserRatings).toBeCalledTimes(1)); 
   });
@@ -302,11 +301,11 @@ describe('MovieDetails component', () => {
       user_id: 1,
       movie_id: 17,
       rating: 10,
-      created_at: "2020-08-17T23:48:55.695Z",
-      updated_at: "2020-08-17T23:48:55.695Z"
+      created_at: '2020-08-17T23:48:55.695Z',
+      updated_at: '2020-08-17T23:48:55.695Z'
     }
 
-    deleteRating.mockResolvedValue('Success')
+    deleteRating.mockResolvedValue('Success');
 
     const mockUpdateUserRatings = jest.fn(); 
 
@@ -331,8 +330,8 @@ describe('MovieDetails component', () => {
     
     const deleteBtn = screen.getByText('Delete rating');
     
-    fireEvent.click(deleteBtn)
+    fireEvent.click(deleteBtn);
 
     await waitFor(() => expect(mockUpdateUserRatings).toBeCalledTimes(1));
-  });
+  })
 })

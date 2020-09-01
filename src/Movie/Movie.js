@@ -1,11 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './Movie.css'
-import heartFavoriteFalse from '../images/heart-outline.png'
-import heartFavoriteTrue from '../images/heart.png'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './Movie.css';
+import heartFavoriteFalse from '../images/heart-outline.png';
+import heartFavoriteTrue from '../images/heart.png';
 
-const Movie = ({id, title, averageRating, backdropPath, rating, favorites, loggedIn, home}) => {
-  const inFavorites = favorites.find(movieId => movieId === id)
+const Movie = ({ id, title, averageRating, backdropPath, rating, favorites, loggedIn, home }) => {
+  const inFavorites = favorites.find(movieId => movieId === id);
+
   return (
     <>
       {home &&
@@ -14,7 +15,7 @@ const Movie = ({id, title, averageRating, backdropPath, rating, favorites, logge
             <img className='heart' src={heartFavoriteTrue} id={`heart${id}`} alt='favorited' onClick={(event) => {event.preventDefault()}}/>
           }
           {!inFavorites && loggedIn &&
-              <img className='heart' src={heartFavoriteFalse} id={`heart${id}`} alt='not favorited' onClick={(event) => {event.preventDefault()}}/>
+            <img className='heart' src={heartFavoriteFalse} id={`heart${id}`} alt='not favorited' onClick={(event) => {event.preventDefault()}}/>
           }
           <p className='movie-rating'>{Math.round(averageRating * 10) / 10} / 10</p>
           <h3 className='movie-title'>{title}</h3>

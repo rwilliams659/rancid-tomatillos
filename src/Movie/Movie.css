@@ -14,7 +14,7 @@
 }
 
 .heart:hover {
-  transform: scale(1.1)
+  transform: scale(1.1);
 }
 
 .movie-rating {
@@ -45,5 +45,4 @@
   margin-right: 2em;
   background-color: black;
   opacity: 0.8;
-
 }

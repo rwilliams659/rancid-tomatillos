@@ -46,20 +46,20 @@ textarea {
 }
 
 .nameInputArea {
-   margin-bottom: 0.5em;
-   background-color: lightgrey;
-   border-color: white;
-   border-width: thin;
-   height: 1.5em;
-   width: 15em;
-   font-size: 16px;
+  margin-bottom: 0.5em;
+  background-color: lightgrey;
+  border-color: white;
+  border-width: thin;
+  height: 1.5em;
+  width: 15em;
+  font-size: 16px;
 }
 
 .postBtn {
-    width: 4em;
-    background-color: lightgrey;
-    border-color: white;
-    border-width: thin;
-    padding: 4px;
-    border-radius: 5px;
+  width: 4em;
+  background-color: lightgrey;
+  border-color: white;
+  border-width: thin;
+  padding: 4px;
+  border-radius: 5px;
 }

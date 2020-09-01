@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 const PageNotFound = () => {
   return (
-    <h2>  Page not found</h2>
+    <h2>Page not found</h2>
   )
 }
 

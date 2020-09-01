@@ -1,5 +1,5 @@
 export const getMovies = async () => {
-  const response = await fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies')
+  const response = await fetch('https://rancid-tomatillos.herokuapp.com/api/v2/movies');
   const movies = await checkResponse(response); 
   return movies;
 }
@@ -11,13 +11,13 @@ export const checkLoginCredentials = async (loginInfo) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(loginInfo)
-  })
+  });
   const validation = await checkResponse(response);
   return validation;
 }
 
 export const fetchUserRatings = async (userId) => {
-  const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings`)
+  const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/users/${userId}/ratings`);
   const userRatings = await checkResponse(response);
   return userRatings; 
 }
@@ -35,7 +35,7 @@ export const postNewRating = async (userId, movieId, userRating) => {
       }
     )
   });
-  const response = await checkResponse(postResponse)
+  const response = await checkResponse(postResponse);
   return response; 
 }
 
@@ -67,20 +67,19 @@ export const deleteRating = async (userId, ratingId) => {
     headers: {
       'Content-Type': 'application/json',
     }
-  })
+  });
   if (!deleteResponse.ok) {
-    throw new Error(deleteResponse.statusText)
+    throw new Error(deleteResponse.statusText);
   } else {
     return 'Success';
   }
 }
 
 export const getComments = async (movieId) => {
-  const response = await fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`)
+  const response = await fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`);
   const comments = await checkResponse(response);
   return comments;
 }
-
 
 export const postComment = async (movieId, author, comment) => {
 const response = await fetch(`http://localhost:3001/api/v1/movies/${movieId}/comments`, {
@@ -95,7 +94,7 @@ const response = await fetch(`http://localhost:3001/api/v1/movies/${movieId}/com
       }
     )
   });
-  const commentResponse = await checkResponse(response)
+  const commentResponse = await checkResponse(response);
   return commentResponse; 
 }
 
@@ -104,6 +103,6 @@ const checkResponse = async (response) => {
     const errorResponse = await response.json();
     throw new Error(errorResponse.error);
   } else {
-    return response.json()
+    return response.json();
   }
-};
+}

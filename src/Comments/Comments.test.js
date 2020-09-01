@@ -1,7 +1,7 @@
-import React from 'react'
-import Comments from './Comments'
-import { screen, render } from '@testing-library/react'
-import '@testing-library/jest-dom'
+import React from 'react';
+import Comments from './Comments';
+import { screen, render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('Comments component', () => {
@@ -9,7 +9,9 @@ describe('Comments component', () => {
     
     let comment1 = {
       author: 'Diana',
-      comment: 'Great movie!'
+      comment: 'Great movie!',
+      movieId: 17,
+      id: 1
     }
 
     render(
@@ -20,11 +22,10 @@ describe('Comments component', () => {
       </BrowserRouter>
     )
 
-    const author = screen.getByText('- Diana')
-    const comment = screen.getByText('Great movie!')
+    const author = screen.getByText('- Diana');
+    const comment = screen.getByText('Great movie!');
 
-    expect(author).toBeInTheDocument()
-    expect(comment).toBeInTheDocument()
-
+    expect(author).toBeInTheDocument();
+    expect(comment).toBeInTheDocument();
   })
 })
