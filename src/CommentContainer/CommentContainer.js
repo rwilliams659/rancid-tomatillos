@@ -63,7 +63,7 @@ class CommentContainer extends Component {
 
   render() {
     return (
-      <section className='CommentContainer'>
+      <section className='CommentContainer' aria-label='Movie comment area'>
         <h3 className='commentsHeader'> Comments </h3>
 
         {this.props.loggedIn &&
