@@ -30,15 +30,20 @@ The User Interface is updated seamlessly as the user navigates through a multi-p
 
 ##  In Action
 #### Homepage:
-![](readme-assets/homepage.png)
+<img src ='readme-assets/homepage.png' width=640> 
+
 #### A Movie Details page:
-![](readme-assets/movie-details.png)
+<img src ='readme-assets/movie-details.png' width=640> 
+
 #### User login:
 ![](readme-assets/login.gif)
+
 #### Adding and deleting a movie rating:
 ![](readme-assets/add-delete-rating.gif)
+
 #### Adding a comment:
 ![](readme-assets/add-comment.gif)
+
 #### Favoriting a movie:
 ![](readme-assets/favoriting.gif)
 
