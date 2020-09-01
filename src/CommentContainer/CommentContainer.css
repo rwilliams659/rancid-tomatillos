@@ -1,9 +1,7 @@
 .CommentContainer {
-  margin-top: 8em;
+  margin-top: 3em;
   min-width: 35em;
   max-width: 35em;
-  padding: 2em;
- 
 }
 
 .errorMsg {
