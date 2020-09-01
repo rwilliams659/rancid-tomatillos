@@ -58,7 +58,20 @@ describe('App Component', () => {
     expect(errorMsg).toBeInTheDocument()
   })
 
-  it('should be able to successfully log in a user and allow them to favorite a movie', async () => {
+  it('should be able to successfully log in a user', async () => {
+
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
 
     checkLoginCredentials.mockResolvedValue({
       user: {
@@ -90,26 +103,6 @@ describe('App Component', () => {
     });
 
     getFavoriteMovies.mockResolvedValueOnce([]);
-    getFavoriteMovies.mockResolvedValueOnce([1]);
-
-    getMovies.mockResolvedValue({
-      movies: [
-        {
-          id: 1,
-          title: 'Cats',
-          release_date: '2020-01-20',
-          average_rating: 10,
-          backdrop_path: 'http//coolcats.com',
-          poster_path: 'http//coolcats-on-beach.com'
-        },
-      ]
-    })
-
-    postFavoriteMovie.mockResolvedValue(
-      { 
-        message: "Movie with an id of 1 was favorited" 
-      }
-    )
 
     render(
       <MemoryRouter>
@@ -134,15 +127,9 @@ describe('App Component', () => {
 
     fireEvent.click(submitBtn) 
 
-    const movieCardIcon = await waitFor(() => screen.getByAltText('not favorited'))
-    
-    expect(movieCardIcon).toBeInTheDocument();
+    const logOutBtn = await waitFor(() => screen.getByText('Log out'))
 
-    fireEvent.click(movieCardIcon); 
-
-    const movieCardIconFavorited = await waitFor(() => screen.getByAltText('favorited'))
-
-    expect(movieCardIconFavorited).toBeInTheDocument();
+    expect(logOutBtn).toBeInTheDocument(); 
   });
 
   it('should add a new rating when a rating is submitted', async () => {
@@ -391,6 +378,251 @@ describe('App Component', () => {
  
   });
 
-  //additional tests for favoriting/unfavoriting on movieDetails page & UI changes for when add or delete rating & for viewing/adding comments on movieDetails page 
+  it('should be able to favorite and un-favorite a movie on the homepage', async () => {
 
-});
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
+
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
+      }
+    });
+
+    fetchUserRatings.mockResolvedValue({
+      ratings: []
+    });
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    postFavoriteMovie.mockResolvedValueOnce(
+      {
+        message: "Movie with an id of 1 was favorited"
+      }
+    )
+
+    getFavoriteMovies.mockResolvedValueOnce([1]);
+
+    postFavoriteMovie.mockResolvedValueOnce(
+      {
+        message: "Movie with an id of 1 was un-favorited"
+      }
+    )
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    )
+
+    const loginBtn = screen.getByText('Log in')
+    fireEvent.click(loginBtn)
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+
+    const submitBtn = screen.getByText('Submit');
+
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(submitBtn).toBeInTheDocument();
+
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
+    fireEvent.change(passwordInput, { target: { value: '111111' } })
+    fireEvent.click(submitBtn)
+
+    const movieCardIcon = await waitFor(() => screen.getByAltText('not favorited'))
+
+    fireEvent.click(movieCardIcon);
+
+    const movieCardIconFavorited = await waitFor(() => screen.getByAltText('favorited'))
+
+    expect(movieCardIconFavorited).toBeInTheDocument();
+
+    fireEvent.click(movieCardIconFavorited);
+
+    const movieCardFilledIcon = await waitFor(() => screen.getByAltText('not favorited'));
+
+    expect(movieCardFilledIcon).toBeInTheDocument();
+  });
+
+  it('should be able to favorite and un-favorite a movie on the movie Details page', async () => {
+
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
+
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
+      }
+    });
+
+    fetchUserRatings.mockResolvedValue({
+      ratings: []
+    });
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    getComments.mockResolvedValueOnce({
+      comments: []
+    })
+
+    postFavoriteMovie.mockResolvedValueOnce(
+      {
+        message: "Movie with an id of 1 was favorited"
+      }
+    )
+
+    getFavoriteMovies.mockResolvedValueOnce([1]);
+
+    postFavoriteMovie.mockResolvedValueOnce(
+      {
+        message: "Movie with an id of 1 was un-favorited"
+      }
+    )
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    )
+
+    const loginBtn = screen.getByText('Log in')
+    fireEvent.click(loginBtn)
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+
+    const submitBtn = screen.getByText('Submit');
+
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(submitBtn).toBeInTheDocument();
+
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } });
+    fireEvent.change(passwordInput, { target: { value: '111111' } });
+    fireEvent.click(submitBtn);
+
+    const movieCard = await waitFor(() => screen.getByText('Cats'))
+
+    fireEvent.click(movieCard);
+
+    const releaseDate = screen.getByText('Release date: 2020-01-20');
+
+    expect(releaseDate).toBeInTheDocument(); 
+
+    const movieCardIcon = screen.getByAltText('not favorited');
+
+    fireEvent.click(movieCardIcon);
+
+    const movieCardIconFavorited = await waitFor(() => screen.getByAltText('favorited'))
+
+    expect(movieCardIconFavorited).toBeInTheDocument();
+
+    fireEvent.click(movieCardIconFavorited);
+
+    const movieCardFilledIcon = await waitFor(() => screen.getByAltText('not favorited'));
+
+    expect(movieCardFilledIcon).toBeInTheDocument();
+  });
+
+  it('should be able to favorite a movie and view it on the Favorites page', async () => {
+
+    getMovies.mockResolvedValue({
+      movies: [
+        {
+          id: 1,
+          title: 'Cats',
+          release_date: '2020-01-20',
+          average_rating: 10,
+          backdrop_path: 'http//coolcats.com',
+          poster_path: 'http//coolcats-on-beach.com'
+        },
+      ]
+    })
+
+    checkLoginCredentials.mockResolvedValue({
+      user: {
+        email: "diana@turing.io",
+        id: 100,
+        name: "Di"
+      }
+    });
+
+    fetchUserRatings.mockResolvedValue({
+      ratings: []
+    });
+
+    getFavoriteMovies.mockResolvedValueOnce([]);
+
+    postFavoriteMovie.mockResolvedValueOnce(
+      {
+        message: "Movie with an id of 1 was favorited"
+      }
+    )
+
+    getFavoriteMovies.mockResolvedValueOnce([1]);
+
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    )
+
+    const loginBtn = screen.getByText('Log in')
+    fireEvent.click(loginBtn)
+
+    const emailInput = screen.getByPlaceholderText('Email address');
+    const passwordInput = screen.getByPlaceholderText('Password');
+
+    const submitBtn = screen.getByText('Submit');
+
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(submitBtn).toBeInTheDocument();
+
+    fireEvent.change(emailInput, { target: { value: 'diana@turing.io' } })
+    fireEvent.change(passwordInput, { target: { value: '111111' } })
+    fireEvent.click(submitBtn)
+
+    const movieCardIcon = await waitFor(() => screen.getByAltText('not favorited'))
+
+    fireEvent.click(movieCardIcon);
+
+    const FavoritesNavItem = screen.getByText('Favorites');
+
+    fireEvent.click(FavoritesNavItem);
+
+    const favoriteMovie = await waitFor(() => screen.getByText('Cats'));
+
+    expect(favoriteMovie).toBeInTheDocument(); 
+  });
+})
